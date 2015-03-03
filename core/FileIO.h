@@ -22,6 +22,7 @@ namespace FileIO
 	bool createDirectory(const std::string&);
 	std::string browseFolder();
 	std::string browseFile(const char*, const char*);
+	std::string saveFile();
 }
 
 #endif

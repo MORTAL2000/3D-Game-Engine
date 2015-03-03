@@ -156,4 +156,26 @@ std::string browseFile(const char* filter, const char* extension)
 	return "";
 }
 
+std::string saveFile()
+{
+#ifdef WIN32
+	OPENFILENAME ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	char filename[MAX_PATH] = "\0";
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = 0;
+    ofn.lpstrFilter = "All Files (*.*)\0*.*\0";
+    ofn.lpstrFile = filename;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+    ofn.lpstrDefExt = "txt";
+
+    if(GetSaveFileName(&ofn))
+	{
+		return filename;
+	}
+#endif
+	return "";
+}
+
 }

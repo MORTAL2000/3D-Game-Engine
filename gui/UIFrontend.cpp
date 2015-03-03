@@ -359,7 +359,7 @@ void UIFrontend::render()
 		if(ImGui::Button("Open Project"))
 		{
 			auto filename = FileIO::browseFile("Project file (*.vproj)\0*.vproj\0\0", "vproj");
-			if(filename != "")
+			if(!filename.empty())
 			{
 				proj.load(filename);
 			}
@@ -372,6 +372,12 @@ void UIFrontend::render()
 		ImGui::SameLine();
 		if(ImGui::Button("Save level"))
 		{
+			/*auto filename = FileIO::saveFile();
+			if(!filename.empty())
+			{
+
+			}*/
+
 			std::string level_file = "level0.lvl";
 			SceneManager::getInstance().exportScene(proj.getPath()+"/levels", level_file, &m_scene);
 		}
@@ -407,10 +413,6 @@ void UIFrontend::render()
 		ImGui::Text("Create");
 		if(ImGui::CollapsingHeader("Create Geometry", 0, true, true))
 		{
-			if(ImGui::Button("Add Empty"))
-			{
-
-			}
 			if(ImGui::Button("Add Cube"))
 			{
 				m_objects.push_back(std::make_shared<RenderableNode>());
