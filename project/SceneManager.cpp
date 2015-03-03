@@ -92,13 +92,12 @@ void SceneManager::load(const std::string& filename)
     script.close();
 }
 
-bool SceneManager::exportScene(const std::string& path, const std::string& filename, SceneNode* scene)
+bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
 {
-    std::string final_path = path + '/' + filename;
-    std::replace(final_path.begin(), final_path.end(), '\\', '/');
-    Console::log("%s", final_path.c_str());
+    std::string filename = path;
+    std::replace(filename.begin(), filename.end(), '\\', '/');
 
-    FILE* file = fopen(final_path.c_str(), "wb");
+    FILE* file = fopen(filename.c_str(), "wb");
     if(!file) return false;
     fprintf(file, "level = {\n");
     fprintf(file, "\tentities = {\n");

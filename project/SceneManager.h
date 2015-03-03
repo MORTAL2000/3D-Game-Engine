@@ -26,7 +26,7 @@ public:
     ~SceneManager();
 
     void load(const std::string&);
-    bool exportScene(const std::string&, const std::string&, SceneNode*);
+    bool exportScene(const std::string&, SceneNode*);
 private:
     SceneManager();
 };

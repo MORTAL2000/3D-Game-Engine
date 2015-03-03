@@ -372,14 +372,11 @@ void UIFrontend::render()
 		ImGui::SameLine();
 		if(ImGui::Button("Save level"))
 		{
-			/*auto filename = FileIO::saveFile();
+			auto filename = FileIO::saveFile();
 			if(!filename.empty())
 			{
-
-			}*/
-
-			std::string level_file = "level0.lvl";
-			SceneManager::getInstance().exportScene(proj.getPath()+"/levels", level_file, &m_scene);
+				SceneManager::getInstance().exportScene(filename, &m_scene);
+			}
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Run"))

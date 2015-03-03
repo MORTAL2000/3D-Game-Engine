@@ -109,10 +109,9 @@ SOFTWARE.
 
 /********************************************************************************/
 /* TODO: (not sorted)                                                           */
-/* - Gizmo renderer (SceneNode subclass)                                        */
 /* - compression of package files                                               */
+/* - image based lighting / physically based rendering                          */
 /* - use of package files                                                       */
-/* - using lua to create custom nodes ? (plug-in / addons)                      */
 /* - plug-in mechanism for lua scripted plug-ins								*/
 /* - add Standard Pipeline and Fixed Pipeline rendering (standard or custom)    */
 /* - Shading system / spot lights shadows                                       */
