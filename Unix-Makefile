@@ -1,0 +1,20 @@
+CXX = g++
+SRC = main.cpp
+TARGET = Voxel
+API = LINUX
+
+INCLUDES = -I"./" -I"./dependencies/lua/" -I"./dependencies/lodepng/"
+LIBS = -lGLEW `pkg-config --static --libs glfw3` -L"./dependencies/lua/" -llua
+CXXFLAGS = -O3 -Wall -Wunreachable-code `pkg-config --cflags glfw3`
+DEFINES = -DGLEW_STATIC -DGLFW_INCLUDE_GLU -D__$(API)_API__
+DEL_FILE = -rm -f
+
+all:
+	$(CXX) $(DEFINES) $(INCLUDES) -c $(SRC)
+	$(CXX) $(SRC:.cpp=.o) $(CXXFLAGS) $(INCLUDES) -o $(TARGET) $(LIBS)
+	$(DEL_FILE) $(SRC:.cpp=.o)
+
+cnr: all run
+
+run:
+	./$(TARGET)
