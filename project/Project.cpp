@@ -1,0 +1,132 @@
+#include "Project.h"
+#include "../util/lua/LuaScript.h"
+
+Project::Project() : m_title(""), m_script(""), m_valid(false)
+{}
+
+Project::~Project()
+{
+
+}
+
+void Project::create(const std::string& title)
+{
+	m_title = title;
+}
+
+bool Project::load(const std::string& filename)
+{
+	if(Tokenizer::getFileExtension(filename) != "vproj")
+	{
+		return false;
+	}
+
+	LuaScript script(filename);
+	m_title = script.get<std::string>("project.name");
+	m_script = script.get<std::string>("project.script");
+	script.close();
+	m_project_file = filename;
+
+	return (m_valid = true);
+}
+
+bool Project::save(const std::string& path)
+{
+	save(path, false);
+}
+
+bool Project::save(const std::string& path, bool empty)
+{
+	std::string folder = path + "/";
+	std::string vproj;
+	for(auto i = 0; i < m_title.size(); i++)
+	{
+		vproj += tolower(m_title[i]);
+	}
+	folder += vproj;
+
+	// examples/test
+	FileIO::createDirectory(folder);
+	FileIO::createDirectory(folder+"/maps");
+	FileIO::createDirectory(folder+"/meshes");
+	FileIO::createDirectory(folder+"/scripts");
+	FileIO::createDirectory(folder+"/shaders");
+	FileIO::createDirectory(folder+"/sounds");
+	if(!empty) m_script = "scripts/main.lua";
+
+	// create project (*.vproj) file
+	std::string proj_file = folder + '/' + vproj + ".vproj";
+	FILE* file = fopen(proj_file.c_str(), "wb");
+	if(!file) return false;
+	fprintf(file, "project = {\n");
+	fprintf(file, "\tname = \"%s\",\n", m_title.c_str());
+	fprintf(file, "\tscript = \"%s\"\n", m_script.c_str());
+	fprintf(file, "}\n");
+	fclose(file);
+
+	if(!empty)
+	{
+		// create script (*.lua) file
+		std::string script_file = folder + "/scripts/main.lua";
+		file = fopen(script_file.c_str(), "wb");
+		if(!file) return false;
+		std::string content =
+		"scene = Scene()\n\n"
+		"-- Use this for initialization\n"
+		"function onInit()\n\n"
+		"end\n\n"
+		"-- Update is called once per frame\n"
+		"function onUpdate()\n\n"
+		"end\n";
+		fprintf(file, "%s", content.c_str());
+		fclose(file);
+
+		//create material (*.mat) file
+		std::string mat_file = folder + "/scripts/main.mat";
+		file = fopen(mat_file.c_str(), "wb");
+		if(!file) return false;
+		content =
+		"-- Material file\n"
+		"textures = {}\n"
+		"materials = {}\n";
+		fprintf(file, content.c_str());
+		fclose(file);
+	}
+
+	Console::log("Created project %s", m_title.c_str());
+	return true;
+}
+
+void Project::exportAsRuntime()
+{
+	if(FileReader::usesPackage())
+	{
+		Console::log("Already exported");
+		return;
+	}
+
+	Package package;
+	package.add_file(Tokenizer::removePath(m_project_file));
+
+	for(auto f : FileIO::getFilesInDirectory("maps"))
+	package.add_file("maps/"+f);
+
+	for(auto f : FileIO::getFilesInDirectory("meshes"))
+	package.add_file("meshes/"+f);
+
+	for(auto f : FileIO::getFilesInDirectory("scripts"))
+	package.add_file("scripts/"+f);
+
+	for(auto f : FileIO::getFilesInDirectory("shaders"))
+	package.add_file("shaders/"+f);
+
+	for(auto f : FileIO::getFilesInDirectory("sounds"))
+	package.add_file("sounds/"+f);
+
+	package.compress(StringUtils::simplify(m_title)+".pkg");
+}
+
+bool Project::isValid()
+{
+	return m_valid;
+}
