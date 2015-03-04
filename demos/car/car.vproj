@@ -1,4 +1,0 @@
-project = {
-	name = "Car demo",
-	script = "scripts/main.lua"
-}

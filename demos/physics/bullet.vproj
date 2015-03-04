@@ -1,4 +1,0 @@
-project = {
-	name = "Physics Demo",
-	script = "scripts/bullet.lua"
-}

@@ -1,8 +1,0 @@
-textures = {}
-
-materials = {
-	diffuse = {
-		shader = "shaders/diffuse",
-		color = {0.8, 0.8, 0.8, 1.0}
-	}
-}

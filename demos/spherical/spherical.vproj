@@ -1,4 +1,0 @@
-project = {
-	name = "Shader Demo",
-	script = "scripts/sh.lua"
-}
