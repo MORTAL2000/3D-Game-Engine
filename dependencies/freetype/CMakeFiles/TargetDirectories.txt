@@ -1,0 +1,2 @@
+C:/Users/Alexander Koch/Documents/Programming/C++/libs/ft253/freetype-2.5.3/CMakeFiles/dist.dir
+C:/Users/Alexander Koch/Documents/Programming/C++/libs/ft253/freetype-2.5.3/CMakeFiles/freetype.dir

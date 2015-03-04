@@ -1,0 +1,13 @@
+textures = {
+    lightmap = "maps/lightmap.png"
+}
+
+materials = {
+ 	diffuse = {
+		shader = "shaders/diffuse",
+		color = {0.8, 0.8, 0.8, 1.0}
+	},
+	sky = {
+		shader = "shaders/sky"
+	}
+}

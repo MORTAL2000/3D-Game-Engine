@@ -13,11 +13,11 @@ namespace Console
 	{
 		if(active)
 		{
-	#ifdef __ANDROID_API__
+#ifdef __ANDROID_API__
 			LOGI("%s\n", message.c_str());
-	#else
+#else
 			std::cout << message << std::endl;
-	#endif
+#endif
 		}
 	}
 
@@ -46,10 +46,23 @@ namespace Console
 
 	void newline()
 	{
-	#ifdef __ANDROID_API__
+#ifdef __ANDROID_API__
 		LOGI("\n");
-	#else
+#else
 		std::cout << '\n';
-	#endif
+#endif
+	}
+
+	void logVector(const std::vector<std::string>& list)
+	{
+		if(list.size() > 0)
+		{
+			std::cout << "[" << list[0];
+			for(auto i = 1; i < list.size(); i++)
+			{
+				std::cout << ", " << list[i];
+			}
+			std::cout << "]" << std::endl;
+		}
 	}
 }

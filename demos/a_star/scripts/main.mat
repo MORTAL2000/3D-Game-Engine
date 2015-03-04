@@ -1,0 +1,16 @@
+textures = {}
+
+materials = {
+    ground = {
+        shader = "shaders/diffuse",
+        color = {0.3, 0.8, 0.2, 1.0}
+    },
+    obstacle = {
+        shader = "shaders/diffuse",
+        color = {0.8, 0.2, 0.2, 1.0}
+    },
+    debug = {
+        shader = "shaders/diffuse",
+        color = {1.0, 1.0, 1.0, 1.0}
+    }
+}

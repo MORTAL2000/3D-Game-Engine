@@ -1,0 +1,17 @@
+textures = {
+	bricks_diffuse = "maps/bricks3_diffuse.png",
+	bricks_normal = "maps/bricks3_normal.png",
+	floor_diffuse = "maps/floor_diffuse.png",
+	floor_normal = "maps/floor_normal.png"
+}
+
+materials = {
+	wall = {
+		shader = "shaders/dungeon",
+		color = {0.8, 0.8, 0.8, 1.0}
+	},
+	floor = {
+		shader = "shaders/dungeon",
+		color = {0.8, 0.8, 0.8, 1.0}
+	}
+}

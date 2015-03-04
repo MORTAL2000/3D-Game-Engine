@@ -20,6 +20,7 @@ public:
  	bool load(const std::string&);
 	UserMaterial* get(const std::string&);
 	Material* getDefault();
+	std::vector<std::string> getMaterialNames();
 
 	void free();
 private:

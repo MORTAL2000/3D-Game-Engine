@@ -116,6 +116,11 @@ static float _friction = 0.1f;
 static float _restitution = 0.1f;
 
 std::string folder = "";
+std::string mat_file = "";
+std::string mat_file_short = "";
+std::vector<std::string> mat_file_materials;
+static char mat_id_name[256] = "default";
+
 Project proj;
 RenderableNode* current = 0;
 
@@ -445,7 +450,7 @@ void UIFrontend::render()
 			if(ImGui::Button("Add Mesh"))
 			{
 				auto filename = FileIO::browseFile("Wavefront OBJ file (*.obj)\0*.obj\0\0", "obj");
-				if(filename != "")
+				if(!filename.empty())
 				{
 					m_objects.push_back(std::make_shared<RenderableNode>());
 					auto node = m_objects[m_objects.size()-1].get();
@@ -465,11 +470,41 @@ void UIFrontend::render()
 			}
 		}
 
+		if(ImGui::CollapsingHeader("Materials", 0, true, true))
+		{
+			std::string disp_name = "Current: " + (mat_file.empty() ? "None" : mat_file_short);
+			ImGui::TextWrapped("Material libraray (*.mat)");
+			ImGui::TextWrapped(disp_name.c_str());
+			if(ImGui::Button("Select"))
+			{
+				auto filename = FileIO::browseFile("Material file (*.mat)\0*.mat\0\0", "mat");
+				if(!filename.empty())
+				{
+					mat_file = filename;
+					mat_file_short = Tokenizer::removePath(filename);
+					if(!MaterialLibrary::getInstance().load(filename))
+					{
+						//TODO error handling
+					}
+					mat_file_materials = MaterialLibrary::getInstance().getMaterialNames();
+				}
+			}
+
+			if(!mat_file.empty())
+			{
+				ImGui::Text("Available IDs");
+				ImGui::Separator();
+				for(auto material : mat_file_materials)
+				{
+					ImGui::BulletText(material.c_str());
+				}
+			}
+		}
+
 		ImGui::Separator();
 		if(ImGui::CollapsingHeader("Hierachy", 0, true, true))
 		{
 			SceneNode::NodePointerList nodes = m_scene.getChildren();
-
 			for(auto i = 0; i < nodes.size(); i++)
 			{
 				RenderableNode* node = dynamic_cast<RenderableNode*>(nodes[i]);
@@ -490,7 +525,7 @@ void UIFrontend::render()
 	ImGui::End();
 
 	// Properties window
-	ImGui::Begin("Properties", &open, ImVec2(350, m_dimension.y), alpha, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Properties", &open, ImVec2(360, m_dimension.y), alpha, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	{
 		ImGui::Text("Properties");
 		ImGui::Separator();
@@ -522,11 +557,33 @@ void UIFrontend::render()
 			{
 				ImGui::Combo("Cull Face", &cull_face, "Back\0Front\0None\0\0");
 				ImGui::Checkbox("Use depth mask", &use_depth_mask);
+				ImGui::InputText("ID", mat_id_name, 256);
+				if(ImGui::Button("Apply"))
+				{
+					// TODO add error message
+				 	auto renderer = current->getRenderer();
+					if(std::string(mat_id_name) == "default")
+					{
+						renderer->setMaterial(MaterialLibrary::getInstance().getDefault());
+					}
+					else
+					{
+						auto mat = MaterialLibrary::getInstance().get(mat_id_name);
+						if(mat)
+						{
+							renderer->setMaterial(mat);
+						}
+						else
+						{
+							Console::log("Material ID (%s) is not available", mat_id_name);
+						}
+					}
+				}
 			}
 			if(ImGui::CollapsingHeader("Physics", 0, true, true))
 			{
-				ImGui::Combo("Physics Type", &physics_type, "No Collision\0Static\0Dynamic\0\0");
-				ImGui::Combo("Collision Shape", &collision_shape, "Box\0Sphere\0Mesh\0\0");
+				ImGui::Combo("Type", &physics_type, "No Collision\0Static\0Dynamic\0\0");
+				ImGui::Combo("Shape", &collision_shape, "Box\0Sphere\0Mesh\0\0");
 				ImGui::InputFloat("Mass", &_mass, 0, 0.5f);
 				ImGui::InputFloat("Friction", &_friction, 0, 0.5f);
 				ImGui::InputFloat("Restitution", &_restitution, 0, 0.5f);
@@ -637,7 +694,7 @@ void UIFrontend::render()
 	setWindowPos("Main", ImVec2(-2, -6));
 	setWindowPos("Project tool", ImVec2(m_dimension.x * 0.5 - 200, m_dimension.y * 0.5 - 60));
 	setWindowPos("Scene Window", ImVec2(0, 90));
-	setWindowPos("Properties", ImVec2(m_dimension.x - 350, 90));
+	setWindowPos("Properties", ImVec2(m_dimension.x - 360, 90));
 
 	ImGui::Render();
 

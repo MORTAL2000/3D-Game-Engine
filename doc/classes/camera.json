@@ -1,0 +1,54 @@
+{
+	"name" : "Camera",
+	"desc" : "Camera class",
+	"methods" : [
+		{
+			"name" : "lookAt",
+			"type" : "nil",
+			"desc" : "Sets the view point of the camera",
+			"params" : [
+				{
+					"name" : "target",
+					"type" : "Vector3",
+					"desc" : "Target point"
+				}
+			]
+		},
+		{
+			"name" : "setPosition",
+			"type" : "nil",
+			"desc" : "Sets the current camera position",
+			"params" : [
+				{
+					"name" : "position",
+					"type" : "Vector3",
+					"desc" : "Position vector"
+				}
+			]
+		},
+		{
+			"name" : "setFlightMode",
+			"type" : "nil",
+			"desc" : "Enables or disables flight mode",
+			"params" : [
+				{
+					"name" : "flight",
+					"type" : "boolean",
+					"desc" : "State"
+				}
+			]
+		},
+		{
+			"name" : "setUpVector",
+			"type" : "nil",
+			"desc" : "Sets the Up-Vector of the Camera",
+			"params" : [
+				{
+					"name" : "Up",
+					"type" : "Vector3",
+					"desc" : "Up-pointing vector"
+				}
+			]
+		}
+	]
+}

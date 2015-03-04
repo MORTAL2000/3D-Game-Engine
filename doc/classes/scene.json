@@ -1,0 +1,132 @@
+{
+	"name" : "Scene",
+	"desc" : "A class representing the scene-graph",
+	"methods" : [
+		{
+			"name" : "addEntity",
+			"type" : "nil",
+			"desc" : "Adds a mesh to the scene",
+			"params" : [
+				{
+					"name" : "mesh",
+					"type" : "Mesh",
+					"desc" : "The mesh to add to the scene"
+				}
+			]
+		},
+		{
+			"name" : "addEntity",
+			"type" : "nil",
+			"desc" : "Adds a rigid-body to the scene",
+			"params" : [
+				{
+					"name" : "body",
+					"type" : "RigidBody",
+					"desc" : "The body to add to the scene"
+				}
+			]
+		},
+		{
+			"name" : "removeEntity",
+			"type" : "nil",
+			"desc" : "Removes the entity from the scene",
+			"params" : [
+				{
+					"name" : "mesh",
+					"type" : "Mesh",
+					"desc" : "The mesh to add to the scene"
+				}
+			]
+		},
+		{
+			"name" : "removeEntity",
+			"type" : "nil",
+			"desc" : "Removes the entity from the scene",
+			"params" : [
+				{
+					"name" : "body",
+					"type" : "RigidBody",
+					"desc" : "The body to add to the scene"
+				}
+			]
+		},
+		{
+			"name" : "require",
+			"type" : "nil",
+			"desc" : "Loads a material file (*.mat)",
+			"params" : [
+				{
+					"name" : "file",
+					"type" : "String",
+					"desc" : "Path to the material file"
+				}
+			]
+		},
+		{
+			"name" : "load",
+			"type" : "nil",
+			"desc" : "Loads a level file",
+			"params" : [
+				{
+					"name" : "file",
+					"type" : "String",
+					"desc" : "Level file"
+				}
+			]
+		},
+		{
+			"name" : "clear",
+			"type" : "nil",
+			"desc" : "Clears the scene / removes all children",
+			"params" : []
+		},
+		{
+			"name" : "setGravity",
+			"type" : "nil",
+			"desc" : "Sets the global gravity of the scene",
+			"params" : [
+				{
+					"name" : "force",
+					"type" : "Vector3",
+					"desc" : "Gravity"
+				}
+			]
+		},
+		{
+			"name" : "getDefaultCamera",
+			"type" : "Camera",
+			"desc" : "Returns the default scene camera",
+			"params" : []
+		},
+		{
+			"name" : "enableShadows",
+			"type" : "nil",
+			"desc" : "Enables directional shadow rendering",
+			"params" : []
+		},
+		{
+			"name" : "renderShadows",
+			"type" : "nil",
+			"desc" : "Renders shadows from a certain light direction",
+			"params" : [
+				{
+					"name" : "direction",
+					"type" : "Vector3",
+					"desc" : "Light direction"
+				}
+			]
+		},
+		{
+			"name" : "passShadowInfo",
+			"type" : "nil",
+			"desc" : "Passes the rendered shadow map to a specified material / shader.\nThe shader has to have the following values:\nhasShadowMap (int), depthBiasMVP (mat4), shadowMap (texture2D)",
+			"params" : [
+				{
+					"name" : "material",
+					"type" : "Material",
+					"desc" : "Material to pass the shadow info to"
+				}
+			]
+		}
+	]
+}

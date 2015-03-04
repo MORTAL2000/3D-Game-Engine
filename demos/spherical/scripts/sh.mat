@@ -1,0 +1,16 @@
+textures = {
+	matcap0 = "maps/mc19.png"
+}
+
+materials = {
+	diffuse = {
+		shader = "shaders/diffuse",
+		color = {0.8, 0.8, 0.8, 1.0}
+	},
+	spherical_harmonics = {
+		shader = "shaders/sh"
+	},
+	matcap = {
+		shader = "shaders/matcap"
+	}
+}

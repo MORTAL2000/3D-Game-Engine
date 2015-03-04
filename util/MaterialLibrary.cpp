@@ -113,6 +113,16 @@ Material* MaterialLibrary::getDefault()
 	return &m_default;
 }
 
+std::vector<std::string> MaterialLibrary::getMaterialNames()
+{
+	std::vector<std::string> names;
+	for(auto material : materials)
+	{
+		names.push_back(material->getName());
+	}
+	return names;
+}
+
 void MaterialLibrary::free()
 {
 	TextureLibrary::getInstance().free();

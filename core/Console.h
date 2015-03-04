@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string>
+#include <vector>
 
 namespace Console
 {
@@ -18,6 +19,7 @@ namespace Console
 	void log(const char*, ...);
 	void logif(bool, const char*, ...);
 	void newline();
+	void logVector(const std::vector<std::string>&);
 }
 
 #endif
