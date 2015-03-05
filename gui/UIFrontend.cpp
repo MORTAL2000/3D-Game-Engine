@@ -102,7 +102,7 @@ bool create_project = false;
 bool empty_proj = false;
 bool change_core = false;
 static float _px, _py, _pz;
-static float _rx = 0.0f, _ry = 0.0f, _rz = 0.0f, _rw = 0.0f;
+static float _rx = 0.0f, _ry = 0.0f, _rz = 0.0f;
 static float _sx = 1.0f, _sy = 1.0f, _sz = 1.0f;
 static float _psx = 1.0f, _psy = 1.0f, _psz = 1.0f;
 static float step = 0.5f;
@@ -241,7 +241,7 @@ void UIFrontend::load(const std::vector<std::string>& args)
 	renderer->setMaterial(MaterialLibrary::getInstance().getDefault());
 
 	current = node;
-	resetTransform(vec3(0.0), quat(0.0, 0.0, 0.0, 0.0), vec3(1.0));
+	resetTransform(vec3(0.0), vec3(0.0), vec3(1.0));
 
 	node->setName("Cube0");
 	m_scene.addChild(node);
@@ -292,7 +292,7 @@ void UIFrontend::render()
 
 		MeshRenderer* renderer = current->getRenderer();
 		renderer->setPosition(vec3(_px, _py, _pz));
-		renderer->setRotation(quat(_rx, _ry, _rz, _rw));
+		renderer->setRotation(vec3(_rx, _ry, _rz));
 		renderer->setScale(vec3(_sx, _sy, _sz));
 
 		if(cull_face == 0) renderer->setCullFace(GL_BACK);
@@ -367,6 +367,7 @@ void UIFrontend::render()
 			if(!filename.empty())
 			{
 				proj.load(filename);
+				FileIO::setCurrentDirectory(Tokenizer::getDirectory(filename));
 			}
 		}
 		ImGui::SameLine();
@@ -383,11 +384,11 @@ void UIFrontend::render()
 				SceneManager::getInstance().exportScene(filename, &m_scene);
 			}
 		}
-		ImGui::SameLine();
-		if(ImGui::Button("Run"))
+		/*ImGui::SameLine();
+		if(ImGui::Button("Run")) TODO finish
 		{
 			change_core = true;
-		}
+		}*/
 		ImGui::SameLine();
 		if(ImGui::Button("Close"))
 		{
@@ -424,7 +425,7 @@ void UIFrontend::render()
 				renderer->setMaterial(MaterialLibrary::getInstance().getDefault());
 
 				current = node;
-				resetTransform(vec3(0.0), quat(0.0, 0.0, 0.0, 0.0), vec3(1.0));
+				resetTransform(vec3(0.0), vec3(0.0), vec3(1.0));
 
 				node->setName("Cube0");
 				node->setType(RenderableNode::Type::CUBE);
@@ -440,7 +441,7 @@ void UIFrontend::render()
 				renderer->setMaterial(MaterialLibrary::getInstance().getDefault());
 
 				current = node;
-				resetTransform(vec3(0.0), quat(0.0, 0.0, 0.0, 0.0), vec3(1.0));
+				resetTransform(vec3(0.0), vec3(0.0), vec3(1.0));
 
 				node->setName("Plane0");
 				node->setType(RenderableNode::Type::PLANE);
@@ -459,7 +460,7 @@ void UIFrontend::render()
 					renderer->setMaterial(MaterialLibrary::getInstance().getDefault());
 
 					current = node;
-					resetTransform(vec3(0.0), quat(0.0, 0.0, 0.0, 0.0), vec3(1.0));
+					resetTransform(vec3(0.0), vec3(0.0), vec3(1.0));
 
 					node->setName("Mesh0");
 					node->setType(RenderableNode::Type::MESH);
@@ -481,6 +482,7 @@ void UIFrontend::render()
 				if(!filename.empty())
 				{
 					mat_file = filename;
+					Console::log("Current: %s", FileIO::getCurrentDirectory().c_str());
 					mat_file_short = Tokenizer::removePath(filename);
 					if(!MaterialLibrary::getInstance().load(filename))
 					{
@@ -514,7 +516,7 @@ void UIFrontend::render()
 					{
 						current = node;
 						auto r = node->getRenderer();
-						resetTransform(r->getPosition(), quat(0.0, 0.0, 0.0, 0.0), r->getScale());
+						resetTransform(r->getPosition(), vec3(0.0), r->getScale());
 						updateProperties(node);
 						break;
 					}
@@ -546,7 +548,6 @@ void UIFrontend::render()
 				ImGui::InputFloat("rx", &_rx, step);
 				ImGui::InputFloat("ry", &_ry, step);
 				ImGui::InputFloat("rz", &_rz, step);
-				ImGui::InputFloat("rw", &_rw, step);
 
 				ImGui::Text("Scale");
 				ImGui::InputFloat("sx", &_sx, step);
@@ -612,7 +613,7 @@ void UIFrontend::render()
 				*renderer = *(current->getRenderer());
 
 				current = node;
-				resetTransform(node->getRenderer()->getPosition(), quat(0.0, 0.0, 0.0, 0.0), node->getRenderer()->getScale());
+				resetTransform(node->getRenderer()->getPosition(), vec3(0.0), node->getRenderer()->getScale());
 				node->setName(name + "(Duplicate)");
 				m_scene.addChild(node);
 				updateProperties(node);
@@ -637,7 +638,7 @@ void UIFrontend::render()
 					{
 						current = node;
 						auto r = node->getRenderer();
-						resetTransform(r->getPosition(), quat(0.0, 0.0, 0.0, 0.0), r->getScale());
+						resetTransform(r->getPosition(), vec3(0.0), r->getScale());
 						updateProperties(current);
 					}
 					else
@@ -712,10 +713,10 @@ void UIFrontend::render()
 	}
 }
 
-void UIFrontend::resetTransform(const vec3& position, const quat& rotation, const vec3& scale)
+void UIFrontend::resetTransform(const vec3& position, const vec3& rotation, const vec3& scale)
 {
 	_px = position.x, _py = position.y, _pz = position.z;
-	_rx = rotation.x, _ry = rotation.y, _rz = rotation.z, _rw = rotation.w;
+	_rx = rotation.x, _ry = rotation.y, _rz = rotation.z;
 	_sx = scale.x, _sy = scale.y, _sz = scale.z;
 }
 

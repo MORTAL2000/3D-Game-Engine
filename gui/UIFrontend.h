@@ -56,7 +56,7 @@ private:
     CustomCamera m_camera;
     SceneNode m_scene;
 
-    void resetTransform(const vec3&, const quat&, const vec3&);
+    void resetTransform(const vec3&, const vec3&, const vec3&);
     void updateProperties(SceneNode*);
 };
 

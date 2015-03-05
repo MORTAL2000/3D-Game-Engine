@@ -29,10 +29,14 @@ void SceneManager::load(const std::string& filename)
         auto shape_type = script.get<std::string>("level.entities."+key+".gfx.type");
         auto mat = script.get<std::string>("level.entities."+key+".gfx.mat");
         auto gfx_scale = script.getNumberVector("level.entities."+key+".gfx.scale");
+        auto gfx_rotation = script.getNumberVector("level.entities."+key+".gfx.rotation");
 
+        quat rotation(gfx_rotation[0], gfx_rotation[1], gfx_rotation[2], gfx_rotation[3]);
+        vec3 euler = glm::eulerAngles(rotation);
+        Console::logVec3(euler);
+
+        // begin commands
         std::string cmd = "scene = Scene()\n";
-
-        // graphics
         cmd.append(format_str("m%d = Mesh()\n", i));
         if(shape_type == "Mesh")
         {
@@ -49,6 +53,7 @@ void SceneManager::load(const std::string& filename)
             cmd.append(format_str("m%d:loadPlane(1.0)\n", i));
         }
         cmd.append(format_str("m%d:setScale({%f, %f, %f})\n", i, gfx_scale[0], gfx_scale[1], gfx_scale[2]));
+        cmd.append(format_str("m%d:setRotation({%f, %f, %f})\n", i, euler.x, euler.y, euler.z));
         cmd.append(format_str("m%d:setMaterial(Material(\"%s\"))\n", i, mat.c_str()));
 
         auto position = script.getNumberVector("level.entities."+key+".gfx.position");
@@ -114,6 +119,7 @@ bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
         // gfx
         std::string shape_type = RenderTypes::Typenames[node->getType()];
         vec3 gfx_scale = renderer->getScale();
+        quat gfx_rotation = renderer->getRotation();
 
         std::string source = "None";
         if(node->getType() == RenderableNode::Type::MESH)
@@ -122,7 +128,7 @@ bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
             std::replace(source.begin(), source.end(), '\\', '/');
         }
 
-        std::string mat = "TODO";
+        std::string mat = "default";
         UserMaterial* material = dynamic_cast<UserMaterial*>(renderer->getMaterial());
         if(material)
         {
@@ -146,6 +152,7 @@ bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
         fprintf(file, "\t\t\t\ttype = \"%s\",\n", shape_type.c_str());
         fprintf(file, "\t\t\t\tsource = \"%s\",\n", source.c_str());
         fprintf(file, "\t\t\t\tscale = {%f, %f, %f},\n", gfx_scale.x, gfx_scale.y, gfx_scale.z);
+        fprintf(file, "\t\t\t\trotation = {%f, %f, %f, %f},\n", gfx_rotation[0], gfx_rotation[1], gfx_rotation[2], gfx_rotation[3]);
         fprintf(file, "\t\t\t\tposition = {%f, %f, %f},\n", position.x, position.y, position.z);
         fprintf(file, "\t\t\t\tmat = \"%s\"\n", mat.c_str());
 

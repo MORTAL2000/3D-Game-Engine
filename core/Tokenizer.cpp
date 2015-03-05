@@ -62,10 +62,12 @@ namespace Tokenizer
 	std::string removeWhitespace(const std::string& source)
 	{
 		std::string out;
-		for(size_t i = 0; i < source.size(); i++)
+		for(auto i = 0; i < source.size(); i++)
 		{
-			if(source[i] == ' ' || source[i] == '\t') continue;
-			out += source[i];
+			if(!std::isspace(source[i]))
+			{
+				out += source[i];
+			}
 		}
 		return out;
 	}
@@ -74,7 +76,7 @@ namespace Tokenizer
 	{
 		std::vector<std::string> lines;
 		std::string current;
-		for(size_t i = 0; i < source.size(); i++)
+		for(auto i = 0; i < source.size(); i++)
 		{
 			if(source[i] == '\r') continue;
 			if(source[i] == '\n')
@@ -92,7 +94,7 @@ namespace Tokenizer
 	std::string removeCharacter(const std::string& source, char ch)
 	{
 		std::string result;
-		for(size_t t = 0; t < source.size(); t++)
+		for(auto t = 0; t < source.size(); t++)
 		{
 			if(source[t] != ch)
 			result += source[t];
@@ -115,7 +117,7 @@ namespace Tokenizer
 	std::vector<std::size_t> findAllDigits(const std::string& source)
 	{
 		std::vector<std::size_t> positions;
-		for(size_t i = 0; i < source.size(); i++)
+		for(auto i = 0; i < source.size(); i++)
 		{
 			if(isdigit(source[i]))
 			{

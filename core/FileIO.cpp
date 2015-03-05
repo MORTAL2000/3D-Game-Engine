@@ -35,6 +35,16 @@
 namespace FileIO
 {
 
+std::string current_dir = "";
+
+void updateFilesystem()
+{
+	if(!current_dir.empty())
+	{
+		setCurrentDirectory(current_dir);
+	}
+}
+
 bool isFile(const std::string& filename)
 {
 	FILE* fp = fopen(filename.c_str(), "rb");
@@ -76,6 +86,7 @@ void setCurrentDirectory(const std::string& directory)
 	#ifdef __LINUX_API__
 		chdir(directory.c_str());
 	#endif
+	current_dir = directory;
 }
 
 std::string getCurrentDirectory()
@@ -127,6 +138,7 @@ std::string browseFolder()
 			imalloc->Free(pidl);
 			imalloc->Release();
 		}
+		updateFilesystem();
 		return path;
 	}
 #endif
@@ -150,6 +162,7 @@ std::string browseFile(const char* filter, const char* extension)
 
 	if(GetOpenFileName(&ofn))
 	{
+		updateFilesystem();
 		return filename;
 	}
 #endif
@@ -172,6 +185,7 @@ std::string saveFile()
 
     if(GetSaveFileName(&ofn))
 	{
+		updateFilesystem();
 		return filename;
 	}
 #endif

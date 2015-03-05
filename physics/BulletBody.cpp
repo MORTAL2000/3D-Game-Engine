@@ -108,7 +108,7 @@ quat BulletBody::getRotation()
 		btTransform transform;
 		m_body->getMotionState()->getWorldTransform(transform);
 		btQuaternion r = transform.getRotation();
-		rotation = quat(r.getX(), r.getY(), r.getZ(), r.getW());
+		rotation = quat(r.getW(), r.getX(), r.getY(), r.getZ());
 	}
 	return rotation;
 }

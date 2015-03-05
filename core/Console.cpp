@@ -65,4 +65,9 @@ namespace Console
 			std::cout << "]" << std::endl;
 		}
 	}
+
+	void logVec3(const vec3& vector)
+	{
+		log("[%f, %f, %f]", vector.x, vector.y, vector.z);
+	}
 }

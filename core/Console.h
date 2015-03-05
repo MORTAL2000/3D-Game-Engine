@@ -20,6 +20,7 @@ namespace Console
 	void logif(bool, const char*, ...);
 	void newline();
 	void logVector(const std::vector<std::string>&);
+	void logVec3(const vec3&);
 }
 
 #endif
