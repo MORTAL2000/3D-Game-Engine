@@ -20,6 +20,7 @@ public:
     void run();
     bool runFunction(const std::string&);
     bool hasFunction(const std::string&);
+    bool hasVariable(const std::string&);
 
     template<typename T>
     T get(const std::string& name)

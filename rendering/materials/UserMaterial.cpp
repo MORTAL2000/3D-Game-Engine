@@ -82,7 +82,7 @@ void UserMaterial::process(const std::string& key, const GenericType& value)
 		case GenericType::Type::String:
 		{
 			std::string textureKey = value.getString();
-			Texture2D* texture = TextureLibrary::getInstance().get(textureKey);
+			ITexture* texture = TextureLibrary::getInstance().get(textureKey);
 
 			if(texture)
 			{

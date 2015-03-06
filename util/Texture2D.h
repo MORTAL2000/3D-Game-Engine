@@ -16,7 +16,7 @@
 #include "ITexture.h"
 #include "TextureLoader.h"
 
-class Texture2D
+class Texture2D : public ITexture
 {
 public:
 	Texture2D();
@@ -38,16 +38,12 @@ public:
 	int getHeight();
 	bool isValid();
 
-	void setId(long);
-	long getId();
-
 	void clear();
 private:
 	bool valid;
 	unsigned int texture;
 	unsigned int width;
 	unsigned int height;
-	long m_id;
 	GLenum m_filter;
 	GLenum m_bytesPerPixel;
 

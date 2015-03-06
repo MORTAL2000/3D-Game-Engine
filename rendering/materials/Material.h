@@ -8,7 +8,7 @@
 #include "../../core/Commons.h"
 #include "../../util/FilmCamera.h"
 #include "../../util/Shader.h"
-#include "../../util/Texture2D.h"
+#include "../../util/ITexture.h"
 
 class Material
 {
@@ -25,7 +25,7 @@ public:
     void unbindTextures();
 protected:
     std::shared_ptr<Shader> m_shader;
-    std::map<std::string, Texture2D*> m_texture_cache;
+    std::map<std::string, ITexture*> m_texture_cache;
 };
 
 #endif

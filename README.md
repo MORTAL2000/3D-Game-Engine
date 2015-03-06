@@ -16,7 +16,7 @@ Features and Tools:
  * Wavefront OBJ
  * PNG und TGA Format
  * Freetype für Textdarstellung
- * ImGui Editor (in Entwicklung)
+ * ImGui Editor (in Entwicklung) WYSIWYG
  * ...
 
 Scripting / Lua-Skripts
@@ -73,6 +73,10 @@ Für den Editor der Game Engine (experimentell)
 
     make MODULE=Editor BUILD_TYPE=EDITOR
 
+Oder verwenden Sie das Python-Skript
+
+    python build.py <engine|editor>
+
 
 ### Dependencies ###
 
@@ -93,7 +97,7 @@ Um diese für das System zu kompilieren:
 	make
 
 Dies installiert lua und glew für das System. GLM und lodepng müssen nicht kompiliert werden.
-Alle anderen müssen zusätzlich noch erstellt werden (falls Betriebssystem nicht Windows).
+Alle anderen müssen zusätzlich noch erstellt werden (falls das Betriebssystem kein Windows-Derivat ist).
 Es folgen die Befehle zum generieren.
 
 **Bullet**
@@ -108,8 +112,10 @@ Es folgen die Befehle zum generieren.
 	cmake . -G "MSYS Makefiles"
 	make
 
-License
+Lizenz
 -----------------------------------------------------------------------------
+
+Der Lizenztype ist noch nicht absolut sicher. Folgend ist nur eine Kopie, falls die MIT Lizenz benutzt wird.
 
 (The MIT License)
 

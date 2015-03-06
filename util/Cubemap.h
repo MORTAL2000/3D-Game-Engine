@@ -5,12 +5,12 @@
 #include "ITexture.h"
 #include "TextureLoader.h"
 
-class Cubemap
+class Cubemap : public ITexture
 {
 public:
 	Cubemap();
 
-	void load(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
+ 	bool load(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
 	void bind(GLenum);
 	void unbind();
 	void clear();

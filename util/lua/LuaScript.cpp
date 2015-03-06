@@ -78,11 +78,18 @@ bool LuaScript::runFunction(const std::string& function)
 	return true;
 }
 
-bool LuaScript::hasFunction(const std::string& functionName)
+bool LuaScript::hasFunction(const std::string& name)
 {
-	if(functionName.size() == 0 || functionName == "") return false;
-	lua_getglobal(m_lua, functionName.c_str());
+	if(name.empty()) return false;
+	lua_getglobal(m_lua, name.c_str());
 	return lua_isfunction(m_lua, -1);
+}
+
+bool LuaScript::hasVariable(const std::string& name)
+{
+	if(name.empty()) return false;
+	lua_getglobal(m_lua, name.c_str());
+	return lua_istable(m_lua, -1);
 }
 
 std::vector<std::string> LuaScript::getTableKeys(const std::string& name)

@@ -482,11 +482,10 @@ void UIFrontend::render()
 				if(!filename.empty())
 				{
 					mat_file = filename;
-					Console::log("Current: %s", FileIO::getCurrentDirectory().c_str());
 					mat_file_short = Tokenizer::removePath(filename);
 					if(!MaterialLibrary::getInstance().load(filename))
 					{
-						//TODO error handling
+						Console::log("Could not load '%s'", filename.c_str());
 					}
 					mat_file_materials = MaterialLibrary::getInstance().getMaterialNames();
 				}

@@ -1,12 +1,20 @@
 #ifndef ITEXTURE_H
 #define ITEXTURE_H
 
+#include "../core/Commons.h"
+
 class ITexture
 {
 public:
-	virtual void bind() = 0;
-	virtual void unbind() = 0;
-	virtual void clear() = 0;
+	ITexture() : m_id(0) {}
+	virtual void bind(GLenum) {}
+	virtual void unbind() {}
+	virtual void clear() {}
+
+	void setId(long id) { m_id = id; }
+	long getId() { return m_id; }
+protected:
+	long m_id;
 };
 
 #endif

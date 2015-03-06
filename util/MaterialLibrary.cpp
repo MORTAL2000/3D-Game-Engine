@@ -23,26 +23,44 @@ void MaterialLibrary::initialize()
 bool MaterialLibrary::load(const std::string& filename)
 {
 	LuaScript script(filename);
-	auto tex = script.getTableKeys("textures");
-	for(auto i = 0; i < tex.size(); i++)
+	if(script.hasVariable("textures"))
 	{
-		std::string key = tex[i];
-		std::string value = script.get<std::string>("textures."+tex[i]);
-
-		if(!TextureLibrary::getInstance().load(key, value))
+		auto tex = script.getTableKeys("textures");
+		for(auto i = 0; i < tex.size(); i++)
 		{
-			Console::log("WARNING: Could not load %s with value %s", key.c_str(), value.c_str());
+			std::string key = tex[i];
+			std::string value = script.get<std::string>("textures."+tex[i]);
+
+			if(!TextureLibrary::getInstance().load(key, value))
+			{
+				Console::log("WARNING: Could not load %s with value %s (Texture2D)", key.c_str(), value.c_str());
+			}
 		}
 	}
 
 	// test cubemaps TODO
-	/*auto cubes = script.getTableKeys("cubemaps")
-	for(auto i = 0; i < cubes.size(); i++)
+	if(script.hasVariable("cubemaps"))
 	{
-		std::string key = cubes[i];
-		std::string posx = script.get<std::string>("cubemaps."+cubes[i]+".posX");
-	}*/
+		auto cubes = script.getTableKeys("cubemaps");
+		for(auto i = 0; i < cubes.size(); i++)
+		{
+			std::string key = cubes[i];
+			std::string posx = script.get<std::string>("cubemaps."+cubes[i]+".posX");
+			std::string negx = script.get<std::string>("cubemaps."+cubes[i]+".negX");
+			std::string posy = script.get<std::string>("cubemaps."+cubes[i]+".posY");
+			std::string negy = script.get<std::string>("cubemaps."+cubes[i]+".negY");
+			std::string posz = script.get<std::string>("cubemaps."+cubes[i]+".posZ");
+			std::string negz = script.get<std::string>("cubemaps."+cubes[i]+".negZ");
 
+			if(!TextureLibrary::getInstance().load(key, posx, negx, posy, negy, posz, negz))
+			{
+				Console::log("WARNING: Could not load %s (Cubemap)", key.c_str());
+			}
+		}
+	}
+
+	// there has to be a materials variable
+	if(!script.hasVariable("materials")) return false;
 	auto mat = script.getTableKeys("materials");
 	for(auto i = 0; i < mat.size(); i++)
 	{

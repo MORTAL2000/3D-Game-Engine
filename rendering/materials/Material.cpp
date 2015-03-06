@@ -31,7 +31,7 @@ void Material::bindTextures()
 {
 	for(auto it = m_texture_cache.begin(); it != m_texture_cache.end(); it++)
 	{
-		Texture2D* texture = it->second;
+		ITexture* texture = it->second;
 		if(texture)
 		{
 			long id = texture->getId();
@@ -45,4 +45,6 @@ void Material::unbindTextures()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	glDisable(GL_TEXTURE_CUBE_MAP);
 }

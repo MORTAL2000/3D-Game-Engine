@@ -1,11 +1,11 @@
 #include "Texture2D.h"
 
 Texture2D::Texture2D() :
-	valid(false), texture(0), width(0), height(0), m_id(0), m_filter(GL_NEAREST), m_bytesPerPixel(GL_RGBA)
+	valid(false), texture(0), width(0), height(0), m_filter(GL_NEAREST), m_bytesPerPixel(GL_RGBA)
 {}
 
 Texture2D::Texture2D(const std::string& path) :
-	valid(false), texture(0), width(0), height(0), m_id(0), m_filter(GL_NEAREST), m_bytesPerPixel(GL_RGBA)
+	valid(false), texture(0), width(0), height(0), m_filter(GL_NEAREST), m_bytesPerPixel(GL_RGBA)
 {
 	load(path);
 }
@@ -95,16 +95,6 @@ int Texture2D::getHeight()
 bool Texture2D::isValid()
 {
 	return valid;
-}
-
-void Texture2D::setId(long id)
-{
-	m_id = id;
-}
-
-long Texture2D::getId()
-{
-	return m_id;
 }
 
 void Texture2D::clear()

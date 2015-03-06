@@ -36,6 +36,7 @@ void Engine::load(const std::vector<std::string>& args)
 	camera.setPosition(vec3(0, 0, 10));
 	camera.setTarget(vec3(0, 0, 0));
 	camera.setViewport(m_dimension);
+    m_physics.initialize();
 
 	postProcess = Property("postProcessing");
 	wireframe = Property("wireframe");
@@ -51,10 +52,7 @@ void Engine::load(const std::vector<std::string>& args)
         composer.load(camera);
     }
 
-	m_physics.initialize();
-
 	Console::log("Loading script and project files...");
-
 	std::string project_file;
     Project project;
 

@@ -5,7 +5,7 @@ Cubemap::Cubemap()
 
 }
 
-void Cubemap::load(const std::string& xpos, const std::string& xneg, const std::string& ypos, const std::string& yneg, const std::string& zpos, const std::string& zneg)
+bool Cubemap::load(const std::string& xpos, const std::string& xneg, const std::string& ypos, const std::string& yneg, const std::string& zpos, const std::string& zneg)
 {
 	glActiveTexture(GL_TEXTURE0);
     glEnable(GL_TEXTURE_CUBE_MAP);
@@ -26,6 +26,8 @@ void Cubemap::load(const std::string& xpos, const std::string& xneg, const std::
 	unsigned char* zPos = TextureLoader::load(zpos, width, height, bpp);
 	unsigned char* zNeg = TextureLoader::load(zneg, width, height, bpp);
 
+	if(!xPos || !xNeg || !yPos || !yNeg || !zPos || !zNeg) return false;
+
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, width, height, 0, bpp, GL_UNSIGNED_BYTE, xPos);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, width, height, 0, bpp, GL_UNSIGNED_BYTE, xNeg);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, width, height, 0, bpp, GL_UNSIGNED_BYTE, yPos);
@@ -39,6 +41,7 @@ void Cubemap::load(const std::string& xpos, const std::string& xneg, const std::
 	delete[] yNeg;
 	delete[] zPos;
 	delete[] zNeg;
+	return true;
 }
 
 void Cubemap::bind(GLenum unit)

@@ -104,6 +104,9 @@ SOFTWARE.
 /*      - debug drawing function in lua + lua functions                         */
 /*      - gl class reimplements depcrecated opengl function (new interpretation)*/
 /*      - first person view control using lua and bullet (no fly)               */
+/* v5.2 - editor improvement, now export of level files, python build script,   */
+/*      - ITexture texture interface, Cubemap support in development,           */
+/*      - small changes                                                         */
 /*                                                                              */
 /********************************************************************************/
 
