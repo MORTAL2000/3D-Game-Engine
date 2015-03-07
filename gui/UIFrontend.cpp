@@ -360,7 +360,7 @@ void UIFrontend::render()
 	// Top bar
 	ImGui::Begin("Main", &open, ImVec2(m_dimension.x, 90), alpha, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 	{
-		ImGui::Text("3D Game Engine");
+		ImGui::Text("3D Game Engine - Frontend Editor");
 		if(ImGui::Button("Open Project"))
 		{
 			auto filename = FileIO::browseFile("Project file (*.vproj)\0*.vproj\0\0", "vproj");
@@ -384,11 +384,16 @@ void UIFrontend::render()
 				SceneManager::getInstance().exportScene(filename, &m_scene);
 			}
 		}
-		/*ImGui::SameLine();
-		if(ImGui::Button("Run")) TODO finish
-		{
-			change_core = true;
-		}*/
+		// ImGui::SameLine();
+		// if(ImGui::Button("Run")) //TODO finish
+		// {
+		// 	std::string path = proj.getProjectFile();
+		// 	if(!path.empty())
+		// 	{
+		// 		std::string cmd = StringUtils::format_str("\"C:/Users/Alexander Koch/Documents/Programming/C++/Program/projects/Voxel/Engine.exe\" %s", path.c_str());
+		// 		system(cmd.c_str());
+		// 	}
+		// }
 		ImGui::SameLine();
 		if(ImGui::Button("Close"))
 		{

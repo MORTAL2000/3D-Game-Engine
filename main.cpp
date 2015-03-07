@@ -129,7 +129,8 @@ SOFTWARE.
 /* - occlusion / frustum culling, faster obj loading, optimizations             */
 /********************************************************************************/
 
-#define TITLE "Engine demo v5.1"
+#define ENGINE_TITLE "Engine demo v5.2"
+#define EDITOR_TITLE "Frontend Editor v5.2"
 
 #include <iostream>
 #include <cstdio>
@@ -152,13 +153,13 @@ int main(int argc, char** argv)
 
 #ifdef BUILD_ENGINE
     Engine engine;
-    if(!Context::getInstance().load(TITLE, "engine.properties", false)) exit(1);
+    if(!Context::getInstance().load(ENGINE_TITLE, "engine.properties", false)) exit(1);
     Context::getInstance().run(&engine, args);
 #endif
 
 #ifdef BUILD_EDITOR
     UIFrontend editor;
-    if(!Context::getInstance().load(TITLE, "editor.properties", false)) exit(1);
+    if(!Context::getInstance().load(EDITOR_TITLE, "editor.properties", false)) exit(1);
     Context::getInstance().run(&editor, args);
 #endif
 

@@ -62,6 +62,8 @@ bool MaterialLibrary::load(const std::string& filename)
 	// there has to be a materials variable
 	if(!script.hasVariable("materials")) return false;
 	auto mat = script.getTableKeys("materials");
+	std::map<std::string, GenericType> assign_textures;
+
 	for(auto i = 0; i < mat.size(); i++)
 	{
 		// for each material
@@ -80,6 +82,10 @@ bool MaterialLibrary::load(const std::string& filename)
 					if(key == "shader")
 					{
 						cache[key] = GenericType(str);
+					}
+					else
+					{
+						assign_textures[key] = GenericType(str);
 					}
 					break;
 				}
@@ -108,6 +114,13 @@ bool MaterialLibrary::load(const std::string& filename)
 		std::shared_ptr<UserMaterial> material(new UserMaterial(mat[i]));
 		material->setCache(cache);
 		material->load();
+
+		// pre-process textures for use
+		for(auto tex : assign_textures)
+		{
+			material->updateValue(tex.first, tex.second);
+		}
+
 		materials.push_back(material);
 	}
 	script.close();
