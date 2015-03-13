@@ -7,10 +7,15 @@ BulletBody::BulletBody() :
 
 BulletBody::~BulletBody()
 {
-	delete m_body->getMotionState();
+	if(m_body->getMotionState())
+	{
+		delete m_body->getMotionState();
+	}
+
 	delete m_body;
-	delete m_shape;
 	m_body = 0;
+
+	delete m_shape;
 	m_shape = 0;
 }
 

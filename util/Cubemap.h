@@ -19,7 +19,4 @@ private:
 	unsigned int m_texture;
 };
 
-/*http://www.codinglabs.net/article_physically_based_rendering.aspx*/
-/*http://aerotwist.com/tutorials/create-your-own-environment-maps/*/
-
 #endif

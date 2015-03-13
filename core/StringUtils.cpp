@@ -13,12 +13,12 @@ namespace StringUtils
 		return std::string(buffer);
 	}
 
+	// lower case + replace whitespace by underscore
 	std::string simplify(const std::string& source)
 	{
 		std::string temp = source;
-		std::replace(temp.begin(), temp.end(), ' ', '_');
-		std::transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
-		return temp;
+		std::replace_if(temp.begin(), temp.end(), isspace, '_');
+		return toLower(temp);
 	}
 
 	std::string toLower(const std::string& str)

@@ -59,7 +59,7 @@ void Engine::load(const std::vector<std::string>& args)
 	if(args.size() == 1)
 	{
         project.load(args[0]);
-        auto directory = Tokenizer::getDirectory(project_file);
+        auto directory = Tokenizer::getDirectory(args[0]);
         FileIO::setCurrentDirectory(directory);
 	}
     else if(args.size() == 2)
@@ -196,7 +196,7 @@ void Engine::renderTexture()
 void Engine::renderDebug()
 {
     glDisable(GL_CULL_FACE);
-	std::string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nEngine demo @Alexander Koch 2014";
+	std::string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nEngine demo @Alexander Koch 2015";
 	vec3 pos = camera.getPosition();
 	CFont* font = CFontManager::getFont("default");
 	font->renderf(vec2(10, 20), m_dimension, text.c_str(), fps, frame, pos.x, pos.y, pos.z, renderTime, processingTime);

@@ -1,11 +1,11 @@
 #include "FileIO.h"
 
 #include <algorithm>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #ifdef __WINDOWS_API__
-	#include <dirent.h>
-	#include <sys/types.h>
-	#include <sys/stat.h>
 	#include <windows.h>
 	#include <Shlobj.h>
 #endif

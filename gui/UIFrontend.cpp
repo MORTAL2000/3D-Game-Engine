@@ -101,6 +101,7 @@ UIFrontend::UIFrontend()
 bool create_project = false;
 bool empty_proj = false;
 bool change_core = false;
+bool show_tech_demos = false;
 static float _px, _py, _pz;
 static float _rx = 0.0f, _ry = 0.0f, _rz = 0.0f;
 static float _sx = 1.0f, _sy = 1.0f, _sz = 1.0f;
@@ -395,6 +396,12 @@ void UIFrontend::render()
 		// 	}
 		// }
 		ImGui::SameLine();
+		if(ImGui::Button("Tech-Demos"))
+		{
+			show_tech_demos = true;
+		}
+
+		ImGui::SameLine();
 		if(ImGui::Button("Close"))
 		{
 			close();
@@ -667,37 +674,81 @@ void UIFrontend::render()
 	if(create_project)
 	{
 		ImGui::Begin("Project tool", &create_project, ImVec2(400, 120), alpha, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-		ImGui::Text("Create a new Project");
-		ImGui::Separator();
-		if(ImGui::Button("Select folder"))
 		{
-			folder = FileIO::browseFolder();
+			ImGui::Text("Create a new Project");
+			ImGui::Separator();
+			if(ImGui::Button("Select folder"))
+			{
+				folder = FileIO::browseFolder();
+			}
+			ImGui::Spacing();
+
+			ImGui::TextWrapped(folder == "" ? "No folder selected" : folder.c_str());
+			static char buffer[256] = "Project1";
+			ImGui::InputText("Project name", buffer, 256);
+			ImGui::Spacing();
+			ImGui::Separator();
+
+			if(ImGui::Button("Create"))
+			{
+				Project proj0;
+				proj0.create(std::string(buffer));
+				proj0.save(folder, empty_proj);
+				create_project = false;
+				folder = "";
+			}
+
+			ImGui::SameLine();
+			ImGui::Checkbox("Empty", &empty_proj);
 		}
-		ImGui::Spacing();
+		ImGui::End();
+	}
 
-		ImGui::TextWrapped(folder == "" ? "No folder selected" : folder.c_str());
-		static char buffer[256] = "Project1";
-		ImGui::InputText("Project name", buffer, 256);
-		ImGui::Spacing();
-		ImGui::Separator();
-
-		if(ImGui::Button("Create"))
+	if(show_tech_demos)
+	{
+		ImGui::Begin("Tech-Demos", &show_tech_demos, ImVec2(400, 220), alpha, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 		{
-			Project proj0;
-			proj0.create(std::string(buffer));
-			proj0.save(folder, empty_proj);
-			create_project = false;
-			folder = "";
+			ImGui::Text("Launch a tech-demo");
+			ImGui::Separator();
+			if(ImGui::Button("Physis-Demo"))
+			{
+				system("engine.exe \"demos/physics/bullet.vproj\"");
+			}
+			if(ImGui::Button("Image based Lighting"))
+			{
+				system("engine.exe \"demos/ibl/ibl.vproj\"");
+			}
+			if(ImGui::Button("Dungeon"))
+			{
+				system("engine.exe \"demos/dungeon/dungeon.vproj\"");
+			}
+			if(ImGui::Button("3D-Environment"))
+			{
+				system("engine.exe \"demos/game/game.vproj\"");
+			}
+			if(ImGui::Button("Atmospheric Scattering"))
+			{
+				system("engine.exe \"demos/main/main.vproj\"");
+			}
+			if(ImGui::Button("Sponza"))
+			{
+				system("engine.exe \"demos/sponza/sponza.vproj\"");
+			}
+			if(ImGui::Button("A*-Algorithm"))
+			{
+				system("engine.exe \"demos/a_star/a_star.vproj\"");
+			}
+			if(ImGui::Button("Matcap demo"))
+			{
+				system("engine.exe \"demos/spherical/spherical.vproj\"");
+			}
 		}
-
-		ImGui::SameLine();
-		ImGui::Checkbox("Empty", &empty_proj);
-
 		ImGui::End();
 	}
 
 	setWindowPos("Main", ImVec2(-2, -6));
 	setWindowPos("Project tool", ImVec2(m_dimension.x * 0.5 - 200, m_dimension.y * 0.5 - 60));
+	setWindowPos("Tech-Demos", ImVec2(m_dimension.x * 0.5 - 200, m_dimension.y * 0.5 - 60));
 	setWindowPos("Scene Window", ImVec2(0, 90));
 	setWindowPos("Properties", ImVec2(m_dimension.x - 360, 90));
 

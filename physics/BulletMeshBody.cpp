@@ -7,9 +7,7 @@ BulletMeshBody::BulletMeshBody()
 
 BulletMeshBody::~BulletMeshBody()
 {
-	delete m_shape;
 	delete m_mesh;
-	m_shape = 0;
 	m_mesh = 0;
 }
 

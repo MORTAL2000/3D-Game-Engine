@@ -50,11 +50,18 @@ bool BulletPhysicsEngine::checkSphere(const vec3& start, const vec3& end, float 
 
 void BulletPhysicsEngine::finalize()
 {
+	for(auto i = 0; i < m_entries.size(); i++)
+	{
+		auto body = m_entries[i]->getRigidBody();
+		if(body) m_dynamicsWorld->removeRigidBody(body);
+	}
+
 	delete m_dynamicsWorld;
 	delete m_solver;
-	delete m_broadphase;
-	delete m_dispatcher;
 	delete m_collisionConfiguration;
+	delete m_dispatcher;
+	delete m_broadphase;
+
 	m_dynamicsWorld = 0;
 	m_solver = 0;
 	m_broadphase = 0;
@@ -71,11 +78,8 @@ void BulletPhysicsEngine::setGravity(const vec3& gravity)
 
 void BulletPhysicsEngine::step()
 {
-	if(m_dynamicsWorld)
-	{
-		m_dynamicsWorld->stepSimulation(1.0f / 60.0f);
-	}
-	else return;
+	if(!m_dynamicsWorld) return;
+	m_dynamicsWorld->stepSimulation(1.0f / 60.0f);
 
 	for(auto i = 0; i < m_entries.size(); i++)
 	{
@@ -83,7 +87,7 @@ void BulletPhysicsEngine::step()
 		MeshRenderer* renderer = m_entries[i]->getRenderer();
 		btRigidBody* body = m_entries[i]->getRigidBody();
 
-		if(renderer)
+		if(renderer && body)
 		{
 			btTransform transform;
 			body->getMotionState()->getWorldTransform(transform);

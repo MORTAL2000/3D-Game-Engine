@@ -43,7 +43,8 @@ int ObjLoader::loadSingleObject(const std::string& filename, int index, Obj& obj
 
 int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 {
-	if(Tokenizer::getFileExtension(filename) != "obj") {
+	if(Tokenizer::getFileExtension(filename) != "obj")
+	{
 		Console::log("Requested file is invalid or not and OBJ file : %s", filename.c_str());
 		return 0;
 	}
@@ -67,12 +68,15 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 	std::vector<Mtl> materials;
 	size_t current_mtl_index = 0;
 
-	for(size_t i = 0; i < lines.size(); i++) {
+	for(auto i = 0; i < lines.size(); i++)
+	{
 		std::vector<std::string> tokens = Tokenizer::tokenize(lines[i], ' ');
 		if(tokens.size() == 0 || tokens[0] == "#") continue;
 
-		if(tokens[0] == "o") {
-			if(++o > 1) {
+		if(tokens[0] == "o")
+		{
+			if(++o > 1)
+			{
 				FaceGroup group(faces);
 
 				if(materials.size() > 0)
@@ -82,8 +86,10 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 				faces.clear();
 			}
 		}
-		else if(tokens[0] == "g") {
-			if(++g > 1) {
+		else if(tokens[0] == "g")
+		{
+			if(++g > 1)
+			{
 				FaceGroup group(faces);
 
 				if(materials.size() > 0)
@@ -93,19 +99,22 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 				faces.clear();
 			}
 		}
-		else if(tokens[0] == "v") {
+		else if(tokens[0] == "v")
+		{
 			vec3 v;
 			for(uint8_t c = 0; c < 3; c++)
 			sscanf(tokens[c+1].c_str(), "%f", &v[c]);
 			positions.push_back(v);
 		}
-		else if(tokens[0] == "vt") {
+		else if(tokens[0] == "vt")
+		{
 			vec2 uv;
 			for(uint8_t c = 0; c < 2; c++)
 			sscanf(tokens[c+1].c_str(), "%f", &uv[c]);
 			texCoords.push_back(uv);
 		}
-		else if(tokens[0] == "vn") {
+		else if(tokens[0] == "vn")
+		{
 			vec3 vn;
 			for(uint8_t c = 0; c < 3; c++)
 			sscanf(tokens[c+1].c_str(), "%f", &vn[c]);
@@ -118,14 +127,16 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 			for(size_t j = 1; j < tokens.size(); j++)
 			{
 				std::vector<std::string> sub_tokens = Tokenizer::tokenize(tokens[j], '/');
-				if(!sub_tokens.size() || !sub_tokens[0].size() || sub_tokens[0] == std::string()) continue;
+				if(!sub_tokens.size() || !sub_tokens[0].size() || sub_tokens[0].empty()) continue;
 
 				int value0 = 0;
 				sscanf(sub_tokens[0].c_str(), "%i", &value0);
 				index.indices.push_back(value0-1);
 
-				if(sub_tokens.size() > 1) {
-					if(sub_tokens[1].size() && sub_tokens[1] != std::string()) {
+				if(sub_tokens.size() > 1)
+				{
+					if(sub_tokens[1].size() && !sub_tokens[1].empty())
+					{
 						hasTexCoords = true;
 						int value1 = 0;
 						sscanf(sub_tokens[1].c_str(), "%i", &value1);
@@ -133,8 +144,10 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 					}
 				}
 
-				if(sub_tokens.size() > 2) {
-					if(sub_tokens[2].size() && sub_tokens[2] != std::string()) {
+				if(sub_tokens.size() > 2)
+				{
+					if(sub_tokens[2].size() && !sub_tokens[2].empty())
+					{
 						hasNormals = true;
 						int value2 = 0;
 						sscanf(sub_tokens[2].c_str(), "%i", &value2);
@@ -316,9 +329,11 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 	return 1;
 }
 
-int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials) {
+int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
+{
 	std::vector<std::string> lines;
-	if(!FileReader::readLines(filename, &lines)) {
+	if(!FileReader::readLines(filename, &lines))
+	{
 		Console::log("Error loading MTL from %s", filename.c_str());
 		return 0;
 	}
@@ -329,12 +344,14 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 		std::vector<std::string> tokens = Tokenizer::tokenize(lines[i], ' ');
 		if(tokens.size() == 0 || tokens[0] == "#") continue;
 
-		if(tokens[0] == "newmtl") {
+		if(tokens[0] == "newmtl")
+		{
 			Mtl newMtl(tokens[1]);
 			materials.push_back(newMtl);
 			current_mtl = &materials[materials.size()-1];
 		}
-		else if(tokens[0] == "Ka") {
+		else if(tokens[0] == "Ka")
+		{
 			if(tokens.size() < 4) {
 				Console::log("Ambient color contains less than three values (line : %d)", i);
 				materials.clear();
@@ -347,8 +364,10 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 			sscanf(tokens[i+1].c_str(), "%f", &ka[i]);
 			current_mtl->ka = ka;
 		}
-		else if(tokens[0] == "Kd") {
-			if(tokens.size() < 4) {
+		else if(tokens[0] == "Kd")
+		{
+			if(tokens.size() < 4)
+			{
 				Console::log("Diffuse color contains less than three values (line : %d)", i);
 				materials.clear();
 				return 0;
@@ -360,8 +379,10 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 			sscanf(tokens[i+1].c_str(), "%f", &kd[i]);
 			current_mtl->kd = kd;
 		}
-		else if(tokens[0] == "Ks") {
-			if(tokens.size() < 4) {
+		else if(tokens[0] == "Ks")
+		{
+			if(tokens.size() < 4)
+			{
 				Console::log("Specular color contains less than three values (line : %d)", i);
 				materials.clear();
 				return 0;
@@ -373,7 +394,8 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 			sscanf(tokens[i+1].c_str(), "%f", &ks[i]);
 			current_mtl->ks = ks;
 		}
-		else if(tokens[0] == "map_Kd") {
+		else if(tokens[0] == "map_Kd")
+		{
 			if(current_mtl == 0) return 0;
 			std::string dir = Tokenizer::getDirectory(filename, true);
 			std::string path = dir + tokens[1];

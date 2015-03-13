@@ -13,7 +13,6 @@ LuaScript::LuaScript(lua_State* lua, const std::string& filename) :
 LuaScript::LuaScript(const std::string& filename) : m_filename(filename)
 {
 	m_lua = luaL_newstate();
-	luaL_openlibs(m_lua);
 	reload();
 }
 
@@ -145,6 +144,7 @@ void LuaScript::close()
 {
 	if(m_lua)
 	{
+		lua_clean(m_lua);
 		lua_close(m_lua);
 	}
 }

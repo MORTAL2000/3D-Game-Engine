@@ -37,13 +37,8 @@ bool Project::save(const std::string& path)
 
 bool Project::save(const std::string& path, bool empty)
 {
-	std::string folder = path + "/";
-	std::string vproj;
-	for(auto i = 0; i < m_title.size(); i++)
-	{
-		vproj += tolower(m_title[i]);
-	}
-	folder += vproj;
+	std::string vproj = StringUtils::simplify(m_title);
+	std::string folder = path + "/" + vproj;
 
 	// examples/test
 	FileIO::createDirectory(folder);
@@ -77,6 +72,9 @@ bool Project::save(const std::string& path, bool empty)
 		"end\n\n"
 		"-- Update is called once per frame\n"
 		"function onUpdate()\n\n"
+		"end\n\n"
+		"-- Draw debug gizoms here\n"
+		"function onDraw()\n\n"
 		"end\n";
 		fprintf(file, "%s", content.c_str());
 		fclose(file);
@@ -88,6 +86,7 @@ bool Project::save(const std::string& path, bool empty)
 		content =
 		"-- Material file\n"
 		"textures = {}\n"
+		"cubemaps = {}\n"
 		"materials = {}\n";
 		fprintf(file, content.c_str());
 		fclose(file);

@@ -7,11 +7,7 @@ BulletSphereBody::BulletSphereBody() : m_shape(0), m_radius(1.0)
 
 BulletSphereBody::~BulletSphereBody()
 {
-	if(m_shape)
-	{
-		delete m_shape;
-		m_shape = 0;
-	}
+
 }
 
 void BulletSphereBody::setRadius(double radius)

@@ -7,11 +7,7 @@ BulletCylinderBody::BulletCylinderBody() : m_shape(0), m_half_extent(1.0)
 
 BulletCylinderBody::~BulletCylinderBody()
 {
-    if(m_shape)
-    {
-        delete m_shape;
-        m_shape = 0;
-    }
+
 }
 
 void BulletCylinderBody::setHalfExtent(const vec3& extent)

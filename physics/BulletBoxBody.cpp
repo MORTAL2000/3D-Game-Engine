@@ -7,8 +7,7 @@ BulletBoxBody::BulletBoxBody() : m_shape(0), m_scale(1.0)
 
 BulletBoxBody::~BulletBoxBody()
 {
-	delete m_shape;
-	m_shape = 0;
+
 }
 
 void BulletBoxBody::setScale(const vec3& scale)

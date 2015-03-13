@@ -33,7 +33,6 @@ void SceneManager::load(const std::string& filename)
 
         quat rotation(gfx_rotation[0], gfx_rotation[1], gfx_rotation[2], gfx_rotation[3]);
         vec3 euler = glm::eulerAngles(rotation);
-        Console::logVec3(euler);
 
         // begin commands
         std::string cmd = "scene = Scene()\n";
