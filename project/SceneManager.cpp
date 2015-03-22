@@ -30,6 +30,22 @@ void SceneManager::load(const std::string& filename)
         auto mat = script.get<std::string>("level.entities."+key+".gfx.mat");
         auto gfx_scale = script.getNumberVector("level.entities."+key+".gfx.scale");
         auto gfx_rotation = script.getNumberVector("level.entities."+key+".gfx.rotation");
+        auto gfx_cull_face = script.get<std::string>("level.entities."+key+".gfx.cull_face");
+
+        int raw_cull_face = atoi(gfx_cull_face.c_str());
+        std::string cull_face = "back";
+        if(raw_cull_face == GL_FRONT)
+        {
+            cull_face = "front";
+        }
+        else if(raw_cull_face == GL_BACK)
+        {
+            cull_face = "back";
+        }
+        else if(raw_cull_face == GL_NONE)
+        {
+            cull_face = "none";
+        }
 
         quat rotation(gfx_rotation[0], gfx_rotation[1], gfx_rotation[2], gfx_rotation[3]);
         vec3 euler = glm::eulerAngles(rotation);
@@ -53,7 +69,12 @@ void SceneManager::load(const std::string& filename)
         }
         cmd.append(format_str("m%d:setScale({%f, %f, %f})\n", i, gfx_scale[0], gfx_scale[1], gfx_scale[2]));
         cmd.append(format_str("m%d:setRotation({%f, %f, %f})\n", i, euler.x, euler.y, euler.z));
-        cmd.append(format_str("m%d:setMaterial(Material(\"%s\"))\n", i, mat.c_str()));
+
+        if(mat != "default")
+        {
+            cmd.append(format_str("m%d:setMaterial(Material(\"%s\"))\n", i, mat.c_str()));
+        }
+        cmd.append(format_str("m%d:setCullFace(\"%s\")\n", i, cull_face.c_str()));
 
         auto position = script.getNumberVector("level.entities."+key+".gfx.position");
         if(entries.size() > 1 && std::find(entries.begin(), entries.end(), "phys") != entries.end())
@@ -119,6 +140,7 @@ bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
         std::string shape_type = RenderTypes::Typenames[node->getType()];
         vec3 gfx_scale = renderer->getScale();
         quat gfx_rotation = renderer->getRotation();
+        int cull_face = renderer->getCullFace();
 
         std::string source = "None";
         if(node->getType() == RenderableNode::Type::MESH)
@@ -151,9 +173,10 @@ bool SceneManager::exportScene(const std::string& path, SceneNode* scene)
         fprintf(file, "\t\t\t\ttype = \"%s\",\n", shape_type.c_str());
         fprintf(file, "\t\t\t\tsource = \"%s\",\n", source.c_str());
         fprintf(file, "\t\t\t\tscale = {%f, %f, %f},\n", gfx_scale.x, gfx_scale.y, gfx_scale.z);
-        fprintf(file, "\t\t\t\trotation = {%f, %f, %f, %f},\n", gfx_rotation[0], gfx_rotation[1], gfx_rotation[2], gfx_rotation[3]);
+        fprintf(file, "\t\t\t\trotation = {%f, %f, %f, %f},\n", gfx_rotation.w, gfx_rotation.x, gfx_rotation.y, gfx_rotation.z);
         fprintf(file, "\t\t\t\tposition = {%f, %f, %f},\n", position.x, position.y, position.z);
-        fprintf(file, "\t\t\t\tmat = \"%s\"\n", mat.c_str());
+        fprintf(file, "\t\t\t\tmat = \"%s\",\n", mat.c_str());
+        fprintf(file, "\t\t\t\tcull_face = %d\n", cull_face);
 
         if(phys_type > 0)
         {

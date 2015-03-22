@@ -1,8 +1,9 @@
 #include "Engine.h"
 #include "util/lua/bindings/LuaMath.h"
 #include "IDE/CFontManager.h"
-
 #include "project/SceneManager.h"
+
+#include "network/Server.h"
 
 Engine::Engine() :
     wireframe(false), postProcess(false), lockCursor(false),
@@ -82,14 +83,18 @@ void Engine::load(const std::vector<std::string>& args)
             std::vector<std::string> contents;
             Package package;
             package.getContents(args[1], &contents);
+
+            FILE* fp = fopen("content.txt", "wb");
             for(auto c : contents)
             {
+                fprintf(fp, "%s\n", c.c_str());
                 if(Tokenizer::getFileExtension(c) == "vproj")
                 {
                     project_file = c;
                 }
             }
 
+            fclose(fp);
             project.load(project_file);
         }
     }

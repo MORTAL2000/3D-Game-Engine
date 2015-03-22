@@ -20,6 +20,8 @@
 #include "../../rendering/GL.h"
 #include "../Noise.h"
 
+#include "../../network/Server.h"
+
 typedef int (*lua_CFunction) (lua_State *lua);
 
 class LuaAPI

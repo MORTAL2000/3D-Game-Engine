@@ -23,12 +23,12 @@ BULLET := -L"./dependencies/bullet3/bin" -lBulletDynamics_gmake -lBulletCollisio
 AUDIO := -lwinmm
 FREETYPE := -L"./dependencies/freetype" -lfreetype
 
-STDLIBS := -lcomdlg32 -lole32 -lgdi32 -lgomp -lstdc++
-LIBS := $(GLFW) $(GLEW) $(OPENGL) $(LUA) $(BULLET) $(AUDIO) $(FREETYPE) $(STDLIBS)
+STDLIBS := -lcomdlg32 -lole32 -lgdi32 -lgomp -lwsock32
+LIBS := $(GLFW) $(GLEW) $(OPENGL) $(LUA) $(BULLET) $(AUDIO) $(FREETYPE) -lstdc++ $(STDLIBS)
 
 
 CXXFLAGS := -O3 -Wall -Wextra -Wunreachable-code -Winline -Wcast-align -static -static-libgcc -static-libstdc++
-LDFLAGS := -std=c++0x -DGLEW_STATIC -D__$(API)_API__ -DBUILD_$(BUILD_TYPE)
+LDFLAGS := -std=c++0x -DGLEW_STATIC -DBUILD_$(BUILD_TYPE)
 DEL_FILE = rm -f
 
 all: $(MODULE)

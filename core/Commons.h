@@ -13,6 +13,14 @@ inline double clamp(double x, double min, double max)
 	return x < min ? min : x > max ? max : x;
 }
 
+#if defined(_WIN32)
+	#define __WINDOWS_API__
+#elif defined(__APPLE__)
+	#define __APPLE_API
+#else
+	#define __LINUX_API__
+#endif
+
 #ifdef __WINDOWS_API__
 	#include <glew.h>
 	#include <GLFW/glfw3.h>

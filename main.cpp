@@ -107,13 +107,14 @@ SOFTWARE.
 /* v5.2 - editor improvement, now export of level files, python build script,   */
 /*      - ITexture texture interface, Cubemap support in development,           */
 /*      - small changes                                                         */
+/* v5.3 - Cubemaps fully supported, SceneManager update, Frontend update,       */
+/*      - network tests / development, Commons.h changes, Image based lighting  */
 /*                                                                              */
 /********************************************************************************/
 
 /********************************************************************************/
 /* TODO: (not sorted)                                                           */
 /* - compression of package files                                               */
-/* - image based lighting / physically based rendering                          */
 /* - use of package files                                                       */
 /* - plug-in mechanism for lua scripted plug-ins								*/
 /* - add Standard Pipeline and Fixed Pipeline rendering (standard or custom)    */
@@ -129,8 +130,8 @@ SOFTWARE.
 /* - occlusion / frustum culling, faster obj loading, optimizations             */
 /********************************************************************************/
 
-#define ENGINE_TITLE "Engine demo v5.2"
-#define EDITOR_TITLE "Frontend Editor v5.2"
+#define ENGINE_TITLE "Engine demo v5.3"
+#define EDITOR_TITLE "Frontend Editor v5.3"
 
 #include <iostream>
 #include <cstdio>
