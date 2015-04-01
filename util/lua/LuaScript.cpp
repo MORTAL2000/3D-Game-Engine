@@ -20,7 +20,7 @@ bool LuaScript::reload()
 {
 	if(!isValid()) return false;
 	std::string source;
-	if(!FileReader::read(m_filename, &source))
+	if(!FileReader::read(m_filename, source))
 	{
 		Console::log("Lua :: error loading file(%s)", m_filename.c_str());
 		return false;

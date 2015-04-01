@@ -16,7 +16,7 @@ PropertyParser& PropertyParser::getInstance()
 bool PropertyParser::load(const std::string& filename)
 {
 	std::vector<std::string> lines;
-	if(!FileReader::readLines(filename, &lines))
+	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error reading file %s", filename.c_str());
 		return false;

@@ -12,7 +12,8 @@
 namespace FileIO
 {
 
-	bool isFile(const std::string&);
+	bool is_dir(const char*);
+	bool is_file(const char*);
 	std::vector<std::string> getFilesInDirectory(const std::string&);
 	std::vector<std::string> getFilesInWorkingDirectory();
 

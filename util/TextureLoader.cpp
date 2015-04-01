@@ -21,7 +21,7 @@ namespace TextureLoader
 			{
 				long size;
 				unsigned char* buffer;
-				if(!FileReader::read(filename, buffer, &size))
+				if(!FileReader::read(filename, buffer, size))
 				{
 					Console::log("Error reading texture from package");
 					return data;

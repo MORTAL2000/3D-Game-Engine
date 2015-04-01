@@ -235,7 +235,7 @@ static int lua_include(lua_State* lua)
 {
 	std::string file = std::string(lua_tostring(lua, -1));
 	std::string source;
-	if(!FileReader::read(file, &source))
+	if(!FileReader::read(file, source))
 	{
 		return 0;
 	}

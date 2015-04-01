@@ -54,7 +54,7 @@ void Shader::include(string& reference, string sourceFilename)
 					string newPath = directory + tokens[1];
 
 					string content;
-					if(!FileReader::read(newPath, &content))
+					if(!FileReader::read(newPath, content))
 					{
 						Console::log("Error reading included file");
 						continue;
@@ -115,12 +115,12 @@ bool Shader::load(string vshFilename, string fshFilename)
 	this->fshFilename = fshFilename;
 	string vshSource, fshSource;
 	/* read from file */
-	if(!FileReader::read(vshFilename, &vshSource))
+	if(!FileReader::read(vshFilename, vshSource))
 	{
 		Console::log("File is invalid [%s]", vshFilename.c_str());
 		return false;
 	}
-	if(!FileReader::read(fshFilename, &fshSource))
+	if(!FileReader::read(fshFilename, fshSource))
 	{
 		Console::log("File is invalid [%s]", fshFilename.c_str());
 		return false;
@@ -182,75 +182,92 @@ bool Shader::loadRaw(string vertex, string fragment)
 	return (compiled = true);
 }
 
-void Shader::bind() {
+void Shader::bind()
+{
 	if(compiled) glUseProgram(shader);
 }
 
-void Shader::unbind() {
+void Shader::unbind()
+{
 	glUseProgram(0);
 }
 
-bool Shader::isCompiled() {
+bool Shader::isCompiled()
+{
 	return compiled;
 }
 
 /* uniform pass */
 /* float */
-void Shader::valuef(const char* var, float value) {
+void Shader::valuef(const char* var, float value)
+{
 	glUniform1f(glGetUniformLocation(shader, var), value);
 }
 
-void Shader::vec2f(const char* var, float v1, float v2) {
+void Shader::vec2f(const char* var, float v1, float v2)
+{
 	glUniform2f(glGetUniformLocation(shader, var), v1, v2);
 }
 
-void Shader::vec3f(const char* var, float v1, float v2, float v3) {
+void Shader::vec3f(const char* var, float v1, float v2, float v3)
+{
 	glUniform3f(glGetUniformLocation(shader, var), v1, v2, v3);
 }
 
-void Shader::vec4f(const char* var, float v1, float v2, float v3, float v4) {
+void Shader::vec4f(const char* var, float v1, float v2, float v3, float v4)
+{
 	glUniform4f(glGetUniformLocation(shader, var), v1, v2, v3, v4);
 }
 
 /* int */
-void Shader::valuei(const char* var, int value) {
+void Shader::valuei(const char* var, int value)
+{
 	glUniform1i(glGetUniformLocation(shader, var), value);
 }
 
-void Shader::vec2i(const char* var, int v1, int v2) {
+void Shader::vec2i(const char* var, int v1, int v2)
+{
 	glUniform2i(glGetUniformLocation(shader, var), v1, v2);
 }
 
-void Shader::vec3i(const char* var, int v1, int v2, int v3) {
+void Shader::vec3i(const char* var, int v1, int v2, int v3)
+{
 	glUniform3i(glGetUniformLocation(shader, var), v1, v2, v3);
 }
 
-void Shader::vec4i(const char* var, int v1, int v2, int v3, int v4) {
+void Shader::vec4i(const char* var, int v1, int v2, int v3, int v4)
+{
 	glUniform4i(glGetUniformLocation(shader, var), v1, v2, v3, v4);
 }
 
 /* glm */
-void Shader::vec2f(const char* var, vec2 vec) {
+void Shader::vec2f(const char* var, vec2 vec)
+{
 	vec2f(var, vec.x, vec.y);
 }
 
-void Shader::vec3f(const char* var, vec3 vec) {
+void Shader::vec3f(const char* var, vec3 vec)
+{
 	vec3f(var, vec.x, vec.y, vec.z);
 }
 
-void Shader::vec4f(const char* var, vec4 vec) {
+void Shader::vec4f(const char* var, vec4 vec)
+{
 	vec4f(var, vec.x, vec.y, vec.z, vec.w);
 }
 
-void Shader::mat3x3(const char* var, mat3 matrix) {
+void Shader::mat3x3(const char* var, mat3 matrix)
+{
 	glUniformMatrix3fv(glGetUniformLocation(shader, var), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void Shader::mat4x4(const char* var, mat4 matrix) {
+void Shader::mat4x4(const char* var, mat4 matrix)
+{
 	glUniformMatrix4fv(glGetUniformLocation(shader, var), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 /* Attributes (Shader) */
-int Shader::getAttribute(const char* attrib) {
+int Shader::getAttribute(const char* attrib)
+{
 	return glGetAttribLocation(shader, attrib);
 }

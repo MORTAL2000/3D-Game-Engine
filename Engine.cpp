@@ -57,6 +57,7 @@ void Engine::load(const std::vector<std::string>& args)
 	std::string project_file;
     Project project;
 
+    // load project from argument 1
 	if(args.size() == 1)
 	{
         project.load(args[0]);
@@ -65,6 +66,7 @@ void Engine::load(const std::vector<std::string>& args)
 	}
     else if(args.size() == 2)
     {
+        // export current project as properties file
         if(args[0] == "-e")
         {
             Console::log("Exporting as package...");
@@ -75,14 +77,14 @@ void Engine::load(const std::vector<std::string>& args)
             project.exportAsRuntime();
             Console::log("Done.");
         }
+        // load a package from argument 1
         else if(args[0] == "-p")
         {
             FileReader::setPackage(args[1]);
             Console::log("Loading package: %s", args[1].c_str());
 
             std::vector<std::string> contents;
-            Package package;
-            package.getContents(args[1], &contents);
+            Package::get_files(args[1], contents);
 
             FILE* fp = fopen("content.txt", "wb");
             for(auto c : contents)
@@ -98,9 +100,9 @@ void Engine::load(const std::vector<std::string>& args)
             project.load(project_file);
         }
     }
+    // load project from properties file
 	else
 	{
-        // load project from properties
 		std::string temp = Property("project");
 		project_file = temp;
 

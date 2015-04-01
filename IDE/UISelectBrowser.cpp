@@ -88,7 +88,7 @@ void UISelectBrowser::processMouse(Mouse* mouse)
 			{
 				std::string selection = m_entries[i];
 				std::string path = m_directory + "/" + selection;
-				if(FileIO::isFile(path))
+				if(FileIO::is_file(path.c_str()))
 				{
 					m_final = m_entries[i];
 					m_path = path;

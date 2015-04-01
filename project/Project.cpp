@@ -104,25 +104,9 @@ void Project::exportAsRuntime()
 		return;
 	}
 
-	Package package;
-	package.add_file(Tokenizer::removePath(m_project_file));
-
-	for(auto f : FileIO::getFilesInDirectory("maps"))
-	package.add_file("maps/"+f);
-
-	for(auto f : FileIO::getFilesInDirectory("meshes"))
-	package.add_file("meshes/"+f);
-
-	for(auto f : FileIO::getFilesInDirectory("scripts"))
-	package.add_file("scripts/"+f);
-
-	for(auto f : FileIO::getFilesInDirectory("shaders"))
-	package.add_file("shaders/"+f);
-
-	for(auto f : FileIO::getFilesInDirectory("sounds"))
-	package.add_file("sounds/"+f);
-
-	package.compress(StringUtils::simplify(m_title)+".pkg");
+//	string folder = Tokenizer::getDirectory(m_project_file);
+//	Console::log("\"../%s\"", folder.c_str());
+	//Package::compress("\"../game\"", StringUtils::simplify(m_title)+".pkg");
 }
 
 bool Project::isValid()

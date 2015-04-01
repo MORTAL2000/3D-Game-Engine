@@ -8,20 +8,22 @@
 #ifdef __WINDOWS_API__
 	#include <windows.h>
 	#include <Shlobj.h>
-#endif
 
-#ifdef __LINUX_API__
-	#include <unistd.h>
-#endif
-
-#ifdef WIN32
 	#ifdef __CYGWIN__
 		#define mkdir(file) mkdir(file, 0777)
 	#else
 		#define mkdir _mkdir
 		#define rmdir _rmdir
 	#endif
-#else
+
+	#define S_IFDIR _S_IFDIR
+	#define S_IFMT _S_IFMT
+	#define S_IFREG _S_IFREG
+	#define stat _stat
+#endif
+
+#ifdef __LINUX_API__
+	#include <unistd.h>
 	#define mkdir(file) mkdir(file, 0777)
 #endif
 
@@ -45,12 +47,18 @@ void updateFilesystem()
 	}
 }
 
-bool isFile(const std::string& filename)
+bool is_dir(const char* path)
 {
-	FILE* fp = fopen(filename.c_str(), "rb");
-	if(!fp) return false;
-	fclose(fp);
-	return true;
+	struct stat buf;
+	stat(path, &buf);
+	return S_ISDIR(buf.st_mode);
+}
+
+bool is_file(const char* path)
+{
+	struct stat buf;
+	stat(path, &buf);
+	return S_ISREG(buf.st_mode);
 }
 
 std::vector<std::string> getFilesInDirectory(const std::string& path)
@@ -112,7 +120,7 @@ static int CALLBACK BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPAR
 {
 	if(uMsg == BFFM_INITIALIZED)
 	{
-		std::string tmp = (const char *)lpData;
+		std::string tmp = (const char*)lpData;
 		SendMessage(hwnd, BFFM_SETSELECTION, true, lpData);
 	}
 	return 0;

@@ -50,7 +50,7 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 	}
 
 	std::vector<std::string> lines;
-	if(!FileReader::readLines(filename, &lines))
+	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error loading OBJ from : %s", filename.c_str());
 		return 0;
@@ -332,7 +332,7 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 {
 	std::vector<std::string> lines;
-	if(!FileReader::readLines(filename, &lines))
+	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error loading MTL from %s", filename.c_str());
 		return 0;

@@ -3,6 +3,8 @@
 
 #include <string>
 #include <memory>
+#include "../core/Commons.h"
+#include "../core/Console.h"
 #include "../core/FileReader.h"
 
 namespace TextureLoader

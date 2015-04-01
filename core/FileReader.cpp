@@ -1,6 +1,5 @@
 #include "FileReader.h"
-
-#include <iostream>
+#include "Console.h"
 
 namespace FileReader
 {
@@ -9,8 +8,11 @@ namespace FileReader
 
 	void setPackage(const std::string& package)
 	{
-		m_package_file = package;
-		use_package = true;
+		if(!package.empty())
+		{
+			m_package_file = package;
+			use_package = true;
+		}
 	}
 
 	bool usesPackage()
@@ -18,66 +20,51 @@ namespace FileReader
 		return use_package;
 	}
 
-	/**
-	 *	Reads given file
-	 *  @param filename File to read
-	 *  @param buffer Readed characters
-	 *  @param size Length
-	 * 	@return Status
-	 */
-	bool read(const std::string& filename, unsigned char*& buffer, long* size)
+	bool read(const std::string& filename, unsigned char*& buffer, long& size)
 	{
 		if(!use_package)
 		{
 			FILE* file = fopen(filename.c_str(), "rb");
 			if(!file) return false;
 			fseek(file, 0, SEEK_END);
-			*size = ftell(file);
+			size = ftell(file);
 			rewind(file);
-			buffer = new unsigned char[*size+1];
+			buffer = new unsigned char[size+1];
 			if(!buffer) return false;
-			auto read = fread(buffer, 1, *size, file);
-			if(read != *size) return false;
-			buffer[*size] = '\0';
+			auto read = fread(buffer, 1, size, file);
+			if(read != size) return false;
+			buffer[size] = '\0';
 			fclose(file);
 		}
 		else
 		{
-			Package package;
-			return package.decompress_file(m_package_file, filename, buffer, size);
+			auto error = Package::read_file(m_package_file, filename, buffer, size);
+			if(error)
+			{
+				Console::log("Package: %s", Package::getErrorString(error).c_str());
+			}
+			return error;
 		}
 		return true;
 	}
 
-	/**
-	 *	Reads given file
-	 * 	@param filename File to read
-	 * 	@param str String pointer
-	 *  @return Status
-	 */
-	bool read(const std::string& filename, std::string* str)
+	bool read(const std::string& filename, std::string& str)
 	{
 		unsigned char* buffer;
 		long size;
-		if(!read(filename, buffer, &size)) return false;
+		if(!read(filename, buffer, size)) return false;
 		std::stringstream ss;
 		ss << buffer;
 		delete[] buffer;
-		*str = ss.str();
+		str = ss.str();
 		return true;
 	}
 
-	/**
-	 *	Reads given file
-	 * 	@param filename File to read
-	 * 	@param lines Vector pointer to store lines
-	 *  @return Status
-	 */
-	bool readLines(const std::string& filename, std::vector<std::string>* lines)
+	bool readLines(const std::string& filename, std::vector<std::string>& lines)
 	{
 		std::string source;
-		if(!read(filename, &source)) return false;
-		*lines = Tokenizer::parseLines(source);
+		if(!read(filename, source)) return false;
+		lines = Tokenizer::parseLines(source);
 		return true;
 	}
 }
