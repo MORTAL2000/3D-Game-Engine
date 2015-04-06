@@ -44,12 +44,21 @@ namespace TextureLoader
 			}
 			else
 			{
-				unsigned int error = lodepng_decode32_file(&data, &width, &height, filename.c_str());
+				std::vector<unsigned char> out;
+				unsigned error = lodepng::decode(out, width, height, filename);
 				if(error)
 				{
 					Console::log("Error loading texture '%s'\nError %u : %s", filename.c_str(), error, lodepng_error_text(error));
 					return data;
 				}
+
+				data = new unsigned char[out.size()];
+				for(auto i = 0; i < out.size(); i++)
+				{
+					data[i] = out[i];
+				}
+				out.clear();
+				return data;
 			}
 
 			bpp = GL_RGBA;

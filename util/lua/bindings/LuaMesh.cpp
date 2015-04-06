@@ -51,6 +51,7 @@ int LuaMesh::load(lua_State* lua)
  *  Loads a cube
  *  C++ Notation:
  *  void loadCube(double scale);
+ *	void loadCube(vec3 position, vec3 scale)
  */
 int LuaMesh::loadCube(lua_State* lua)
 {
@@ -63,6 +64,12 @@ int LuaMesh::loadCube(lua_State* lua)
 		}
 
 		m_mesh->loadCube(lua_tonumber(lua, -1));
+	}
+	else if(lua_gettop(lua) == 3)
+	{
+		vec3 scale = lua_read_vec3(lua, -2);
+		vec3 position = lua_read_vec3(lua, -1);
+		m_mesh->loadCube(position, scale);
 	}
 	else
 	{

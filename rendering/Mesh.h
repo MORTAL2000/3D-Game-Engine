@@ -31,6 +31,7 @@ public:
 	int loadSingleObject(const std::string&, int);
 
 	void loadCube(float);
+	void loadCube(const vec3& position, const vec3& scale);
 	void loadPlane(float);
 	void loadIcosahedron(float);
 

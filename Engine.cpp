@@ -53,6 +53,7 @@ void Engine::load(const std::vector<std::string>& args)
         composer.load(camera);
     }
 
+    // Project initialization
 	Console::log("Loading script and project files...");
 	std::string project_file;
     Project project;
@@ -84,19 +85,20 @@ void Engine::load(const std::vector<std::string>& args)
             Console::log("Loading package: %s", args[1].c_str());
 
             std::vector<std::string> contents;
-            Package::get_files(args[1], contents);
+            auto error = Package::get_files(args[1], contents);
+            if(error)
+            {
+                Console::log("Package: %s", Package::getErrorString(error).c_str());
+            }
 
-            FILE* fp = fopen("content.txt", "wb");
             for(auto c : contents)
             {
-                fprintf(fp, "%s\n", c.c_str());
                 if(Tokenizer::getFileExtension(c) == "vproj")
                 {
                     project_file = c;
                 }
             }
 
-            fclose(fp);
             project.load(project_file);
         }
     }
@@ -111,6 +113,7 @@ void Engine::load(const std::vector<std::string>& args)
         FileIO::setCurrentDirectory(directory);
 	}
 
+    // load main script
 	LuaAPI::getInstance().load(project.getScript(), script);
 	Context::getInstance().updateTitle(project.getTitle());
 	hasUpdateFunc = script.hasFunction("onUpdate");

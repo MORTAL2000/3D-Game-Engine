@@ -10,6 +10,7 @@
 
 #include "Tokenizer.h"
 #include "Package.h"
+#include "FileIO.h"
 
 namespace FileReader
 {

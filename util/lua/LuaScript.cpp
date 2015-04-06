@@ -25,6 +25,7 @@ bool LuaScript::reload()
 		Console::log("Lua :: error loading file(%s)", m_filename.c_str());
 		return false;
 	}
+
 	if(luaL_dostring(m_lua, source.c_str()))
 	{
 		Console::log("Lua :: error loading file(%s)\ndescription: %s", m_filename.c_str(), lua_tostring(m_lua, -1));

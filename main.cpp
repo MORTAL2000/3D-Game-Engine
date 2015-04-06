@@ -109,13 +109,13 @@ SOFTWARE.
 /*      - small changes                                                         */
 /* v5.3 - Cubemaps fully supported, SceneManager update, Frontend update,       */
 /*      - network tests / development, Commons.h changes, Image based lighting  */
+/* v5.4 - Package support!, *.pak system development now in a seperate project  */
+/*      - basic package loading and running is working, TODO: fix *.pak issues  */
 /*                                                                              */
 /********************************************************************************/
 
 /********************************************************************************/
 /* TODO: (not sorted)                                                           */
-/* - compression of package files                                               */
-/* - use of package files                                                       */
 /* - plug-in mechanism for lua scripted plug-ins								*/
 /* - add Standard Pipeline and Fixed Pipeline rendering (standard or custom)    */
 /* - Shading system / spot lights shadows                                       */
@@ -130,8 +130,8 @@ SOFTWARE.
 /* - occlusion / frustum culling, faster obj loading, optimizations             */
 /********************************************************************************/
 
-#define ENGINE_TITLE "Engine demo v5.3"
-#define EDITOR_TITLE "Frontend Editor v5.3"
+#define ENGINE_TITLE "Engine demo v5.4"
+#define EDITOR_TITLE "Frontend Editor v5.4"
 
 #include <iostream>
 #include <cstdio>

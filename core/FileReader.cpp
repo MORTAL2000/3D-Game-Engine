@@ -4,6 +4,7 @@
 namespace FileReader
 {
 	std::string m_package_file;
+	std::string m_top_dir;
 	bool use_package = false;
 
 	void setPackage(const std::string& package)
@@ -12,6 +13,11 @@ namespace FileReader
 		{
 			m_package_file = package;
 			use_package = true;
+
+			// get global package folder
+			std::vector<std::string> files;
+			Package::get_files(package, files);
+			FileIO::getTopDir(files[0], m_top_dir);
 		}
 	}
 
@@ -38,12 +44,18 @@ namespace FileReader
 		}
 		else
 		{
-			auto error = Package::read_file(m_package_file, filename, buffer, size);
+			std::string temp = filename;
+			if(temp.substr(0, m_top_dir.size()) != m_top_dir)
+			{
+				temp = m_top_dir + '/' + filename;
+			}
+
+			auto error = Package::read_file(m_package_file, temp, buffer, size);
 			if(error)
 			{
-				Console::log("Package: %s", Package::getErrorString(error).c_str());
+				Console::log("Package(%s): %s", temp.c_str(), Package::getErrorString(error).c_str());
 			}
-			return error;
+			return (error == 0);
 		}
 		return true;
 	}

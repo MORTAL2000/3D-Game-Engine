@@ -61,6 +61,24 @@ bool is_file(const char* path)
 	return S_ISREG(buf.st_mode);
 }
 
+bool inDir(const std::string& path, std::string& dir)
+{
+	unsigned found = path.find_last_of("\\/");
+	if(found == (unsigned)-1) return false;
+	dir = path.substr(0, found);
+	return true;
+}
+
+bool getTopDir(const std::string& path, std::string& dir)
+{
+	std::string temp = path;
+	while(inDir(temp, dir))
+	{
+		temp = dir;
+	}
+	return dir.empty() == false;
+}
+
 std::vector<std::string> getFilesInDirectory(const std::string& path)
 {
 	std::vector<std::string> files;

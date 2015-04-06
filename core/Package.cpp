@@ -93,9 +93,9 @@ namespace Package
 		closedir(dir);
 		return files;
 	}
-	
+
 	/** Begin methods **/
-	
+
 	int compress(const string& directory)
 	{
 		return compress(directory, directory + ".pak");
@@ -146,7 +146,7 @@ namespace Package
 				delete[] buffer;
 				return PAK_ERROR_READ;
 			}
-			
+
 			fclose(fp);
 			package_file pak;
 			memset(&pak, 0, sizeof(package_file));
@@ -216,7 +216,7 @@ namespace Package
 		fclose(file);
 		return PAK_ERROR_NONE;
 	}
-	
+
 	int read_file(const string& archive, const string& filename, unsigned char*& buffer, long& size)
 	{
 		FILE* file = fopen(archive.c_str(), "rb");
@@ -258,7 +258,7 @@ namespace Package
 		fclose(file);
 		return PAK_ERROR_CONTENT;
 	}
-	
+
 	int read_file(const string& archive, const string& filename, string& content)
 	{
 		unsigned char* buffer;
@@ -269,7 +269,7 @@ namespace Package
 		ss << buffer;
 		delete[] buffer;
 		content = ss.str();
-		
+
 		return error;
 	}
 

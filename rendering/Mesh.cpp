@@ -154,6 +154,66 @@ void Mesh::loadCube(float size)
 	load(vertices, normals, texcoords);
 }
 
+void Mesh::loadCube(const vec3& position, const vec3& scale)
+{
+	float _vertices[] =
+	{
+		1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
+		-1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
+		1, 1, 1,   1,-1, 1,   1,-1,-1,      // v0-v3-v4 (right)
+		1,-1,-1,   1, 1,-1,   1, 1, 1,      // v4-v5-v0
+		1, 1, 1,   1, 1,-1,  -1, 1,-1,      // v0-v5-v6 (top)
+		-1, 1,-1,  -1, 1, 1,   1, 1, 1,      // v6-v1-v0
+		-1, 1, 1,  -1, 1,-1,  -1,-1,-1,      // v1-v6-v7 (left)
+		-1,-1,-1,  -1,-1, 1,  -1, 1, 1,      // v7-v2-v1
+		-1,-1,-1,   1,-1,-1,   1,-1, 1,      // v7-v4-v3 (bottom)
+		1,-1, 1,  -1,-1, 1,  -1,-1,-1,      // v3-v2-v7
+		1,-1,-1,  -1,-1,-1,  -1, 1,-1,      // v4-v7-v6 (back)
+		-1, 1,-1,   1, 1,-1,   1,-1,-1      // v6-v5-v4
+	};
+
+	float _normals[] =
+	{
+		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v0-v1-v2 (front)
+		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v2-v3-v0
+		1, 0, 0,   1, 0, 0,   1, 0, 0,      // v0-v3-v4 (right)
+		1, 0, 0,   1, 0, 0,   1, 0, 0,      // v4-v5-v0
+		0, 1, 0,   0, 1, 0,   0, 1, 0,      // v0-v5-v6 (top)
+		0, 1, 0,   0, 1, 0,   0, 1, 0,      // v6-v1-v0
+		-1, 0, 0,  -1, 0, 0,  -1, 0, 0,      // v1-v6-v7 (left)
+		-1, 0, 0,  -1, 0, 0,  -1, 0, 0,      // v7-v2-v1
+		0,-1, 0,   0,-1, 0,   0,-1, 0,      // v7-v4-v3 (bottom)
+		0,-1, 0,   0,-1, 0,   0,-1, 0,      // v3-v2-v7
+		0, 0,-1,   0, 0,-1,   0, 0,-1,      // v4-v7-v6 (back)
+		0, 0,-1,   0, 0,-1,   0, 0,-1       // v6-v5-v4
+	};
+
+	float _uvs[] =
+	{
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0,0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
+		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0
+	};
+
+	for(auto i = 0; i < sizeof(_vertices)/sizeof(float)/3; i++)
+	{
+		_vertices[i*3] = (_vertices[i*3] + position.x) * scale.x;
+		_vertices[i*3+1] = (_vertices[i*3+1] + position.y) * scale.y;
+		_vertices[i*3+2] = (_vertices[i*3+2] + position.z) * scale.z;
+		vertices.push_back(_vertices[i*3]);
+		vertices.push_back(_vertices[i*3+1]);
+		vertices.push_back(_vertices[i*3+2]);
+	}
+
+	for(auto j = 0; j < sizeof(_normals)/sizeof(float); j++) normals.push_back(_normals[j]);
+	for(auto k = 0; k < sizeof(_uvs)/sizeof(float); k++) texcoords.push_back(_uvs[k]);
+
+	load(vertices, normals, texcoords);
+}
+
 void Mesh::loadPlane(float size)
 {
 	vector<vec3> _vertices, _normals;
