@@ -116,6 +116,10 @@ SOFTWARE.
 
 /********************************************************************************/
 /* TODO: (not sorted)                                                           */
+/* - identify console logs by adding prefix of module, like: "Main: Error at * "*/
+/* - remove freetype dependency / old gui code in IDE folder or update          */
+/* - custom memory allocation, also leakcheck                                   */
+/* - openal audio system                                                        */
 /* - plug-in mechanism for lua scripted plug-ins								*/
 /* - add Standard Pipeline and Fixed Pipeline rendering (standard or custom)    */
 /* - Shading system / spot lights shadows                                       */

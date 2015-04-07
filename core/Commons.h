@@ -49,6 +49,9 @@ inline double clamp(double x, double min, double max)
 	#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "native-activity", __VA_ARGS__))
 #endif
 
+#include <AL/al.h>
+#include <AL/alc.h>
+
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>

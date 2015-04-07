@@ -248,7 +248,7 @@ bool LuaAPI::initialize()
 {
 	if(isValid())
 	{
-		Console::log("Lua is already loaded");
+		Console::log("Interpreter: Lua is already loaded");
 		return false;
 	}
 
@@ -309,12 +309,12 @@ void LuaAPI::finalize()
 {
 	if(m_lua != 0)
 	{
-		Console::log("Disposing lua components...");
+		Console::log("Interpreter: Disposing lua components...");
 		lua_clean(m_lua);
 		lua_gc(m_lua, LUA_GCCOLLECT, 0);
-		Console::log("Closing lua...");
+		Console::log("Interpreter: Closing lua...");
 		lua_close(m_lua);
-		Console::log("Closed lua.");
+		Console::log("Interpreter: Closed lua.");
 		m_lua = 0;
 	}
 }
@@ -323,7 +323,7 @@ bool LuaAPI::registerFunction(const std::string& name, lua_CFunction function, c
 {
 	if(!isValid())
 	{
-		Console::log("Lua :: initialize before register a function");
+		Console::log("Interpreter: initialize before register a function");
 		return false;
 	}
 
@@ -357,7 +357,7 @@ bool LuaAPI::load(const std::string& filename, LuaScript& script)
 {
 	if(!isValid() || filename.empty())
 	{
-		Console::log("Lua :: Could not load script");
+		Console::log("Interpreter: Could not load script");
 		script = LuaScript(0, filename);
 		return false;
 	}
@@ -369,13 +369,13 @@ bool LuaAPI::runCommand(const std::string& command)
 {
 	if(!isValid())
 	{
-		Console::log("Lua :: Could not run command, context is invalid");
+		Console::log("Interpreter: Could not run command, context is invalid");
 		return false;
 	}
 
 	if(luaL_dostring(m_lua, command.c_str()))
 	{
-		Console::log("Lua :: Invalid command");
+		Console::log("Interpreter: Invalid command");
 		return false;
 	}
 	lua_clean(m_lua);

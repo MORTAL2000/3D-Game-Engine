@@ -36,6 +36,7 @@
 
 #include "IDE/UIContext.h"
 #include "gui/UIFrontend.h"
+#include "audio/AudioEngine.h"
 
 /**
  *	Game engine main component

@@ -12,7 +12,7 @@ void BulletPhysicsEngine::initialize()
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
 	m_dynamicsWorld->setGravity(btVector3(0, -9.81, 0));
 
-	Console::log("Done initializing bullet physics.");
+	Console::log("Physics: Done initializing bullet physics.");
 }
 
 void BulletPhysicsEngine::add(BulletBody* body)
@@ -68,7 +68,7 @@ void BulletPhysicsEngine::finalize()
 	m_dispatcher = 0;
 	m_collisionConfiguration = 0;
 
-	Console::log("Successfully destroyed bullet physics components.");
+	Console::log("Physics: Successfully destroyed bullet physics components.");
 }
 
 void BulletPhysicsEngine::setGravity(const vec3& gravity)

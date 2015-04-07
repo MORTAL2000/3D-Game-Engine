@@ -32,7 +32,8 @@ void Engine::load(const std::vector<std::string>& args)
 	glShadeModel(GL_FLAT);
 	glEnable(GL_FRAMEBUFFER_SRGB);
 	MaterialLibrary::getInstance().initialize();
-	Console::log("Initialized Graphics and Materials.");
+    // AudioEngine::getInstance().initialize();
+	Console::log("Main: Initialized graphics, materials");
 
 	camera.setPosition(vec3(0, 0, 10));
 	camera.setTarget(vec3(0, 0, 0));
@@ -54,7 +55,7 @@ void Engine::load(const std::vector<std::string>& args)
     }
 
     // Project initialization
-	Console::log("Loading script and project files...");
+	Console::log("Main: Loading script and project files...");
 	std::string project_file;
     Project project;
 
@@ -70,7 +71,7 @@ void Engine::load(const std::vector<std::string>& args)
         // export current project as properties file
         if(args[0] == "-e")
         {
-            Console::log("Exporting as package...");
+            Console::log("Main: Exporting as package...");
             std::string temp = Property("project");
             project_file = temp;
             project.load(project_file);
@@ -82,13 +83,13 @@ void Engine::load(const std::vector<std::string>& args)
         else if(args[0] == "-p")
         {
             FileReader::setPackage(args[1]);
-            Console::log("Loading package: %s", args[1].c_str());
+            Console::log("Main: Loading package: %s", args[1].c_str());
 
             std::vector<std::string> contents;
             auto error = Package::get_files(args[1], contents);
             if(error)
             {
-                Console::log("Package: %s", Package::getErrorString(error).c_str());
+                Console::log("Main: Package: %s", Package::getErrorString(error).c_str());
             }
 
             for(auto c : contents)
@@ -119,12 +120,12 @@ void Engine::load(const std::vector<std::string>& args)
 	hasUpdateFunc = script.hasFunction("onUpdate");
     hasRenderFunc = script.hasFunction("onDraw");
 
-	Console::log("Loaded project, running lua init");
+	Console::log("Main: Loaded project, running lua init");
 	if(script.hasFunction("onInit"))
 	{
 		script.runFunction("onInit");
 	}
-	Console::log("Finished, creating context...");
+	Console::log("Main: Finished, creating context...");
 }
 
 void Engine::update()
@@ -176,6 +177,7 @@ void Engine::render()
 void Engine::clear()
 {
     m_physics.finalize();
+    // AudioEngine::getInstance().free();
     MaterialLibrary::getInstance().free();
     LuaAPI::getInstance().finalize();
 }
