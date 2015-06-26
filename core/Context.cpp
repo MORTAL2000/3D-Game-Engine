@@ -20,7 +20,7 @@ Context& Context::getInstance()
  * @param properties The file to parse to get creation properties
  * @param silent Disable warning / error and info messages
  */
-bool Context::load(const std::string& title, const std::string& properties, bool silent)
+bool Context::load(const string& title, const string& properties, bool silent)
 {
 	Console::setActive(!silent);
 	try
@@ -44,7 +44,7 @@ bool Context::load(const std::string& title, const std::string& properties, bool
  * @param title The title for the created window
  * @param properties The file to parse to get creation properties
  */
-void Context::initialize(const std::string& title, const std::string& properties)
+void Context::initialize(const string& title, const string& properties)
 {
 	// load properties file
 	if(!PropertyParser::getInstance().load(properties)) throw Exception("Property file not available");
@@ -111,7 +111,7 @@ void Context::initialize(const std::string& title, const std::string& properties
  * Runs the specified core
  * @param core The core to run
  */
-void Context::run(Core* core, const std::vector<std::string>& args)
+void Context::run(Core* core, const vector<string>& args)
 {
 	if(core == 0)
 	{
@@ -138,7 +138,7 @@ void Context::run(Core* core, const std::vector<std::string>& args)
 	glfwTerminate();
 }
 
-void Context::changeCore(Core* core, const std::vector<std::string>& args)
+void Context::changeCore(Core* core, const vector<string>& args)
 {
 	Core* origin = m_core;
 	origin->close();
@@ -211,22 +211,22 @@ void Context::centerCursor()
 	glfwSetCursorPos(m_window, m_width * 0.5, m_height * 0.5);
 }
 
-void Context::updateTitle(const std::string& title)
+void Context::updateTitle(const string& title)
 {
 	glfwSetWindowTitle(m_window, title.c_str());
 }
 
-void Context::setClipboardContent(const std::string& content)
+void Context::setClipboardContent(const string& content)
 {
 	glfwSetClipboardString(m_window, content.c_str());
 }
 
-std::string Context::getClipboardContent()
+string Context::getClipboardContent()
 {
-	return std::string(glfwGetClipboardString(m_window));
+	return string(glfwGetClipboardString(m_window));
 }
 
-void Context::takeScreenshot(const std::string& filename)
+void Context::takeScreenshot(const string& filename)
 {
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	int w = getWidth();

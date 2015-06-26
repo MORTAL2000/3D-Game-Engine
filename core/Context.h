@@ -9,14 +9,16 @@
 #include <string>
 #include <memory>
 #include <vector>
+using std::string;
+using std::vector;
 
-#include "Commons.h"
-#include "Core.h"
-#include "Exception.h"
-#include "Console.h"
+#include <core/Commons.h>
+#include <core/Core.h>
+#include <core/Exception.h>
+#include <core/Console.h>
 
-#include "PropertyParser.h"
-#include "Property.h"
+#include <core/PropertyParser.h>
+#include <core/Property.h>
 
 /**
  *	Context class handles OpenGL context
@@ -27,9 +29,9 @@ class Context
 public:
 	static Context& getInstance();
 
-	bool load(const std::string&, const std::string&, bool);
-	void run(Core*, const std::vector<std::string>&);
-	void changeCore(Core*, const std::vector<std::string>&);
+	bool load(const string&, const string&, bool);
+	void run(Core*, const vector<string>&);
+	void changeCore(Core*, const vector<string>&);
 
 	float getWidth();
 	float getHeight();
@@ -41,11 +43,11 @@ public:
 	vec2 getCursorPosition();
 	void setCursorVisibility(bool);
 	void centerCursor();
-	void updateTitle(const std::string&);
-	void setClipboardContent(const std::string&);
-	std::string getClipboardContent();
+	void updateTitle(const string&);
+	void setClipboardContent(const string&);
+	string getClipboardContent();
 
-	void takeScreenshot(const std::string&);
+	void takeScreenshot(const string&);
 
 	Core* getCore();
 	GLFWwindow* getWindow();
@@ -56,7 +58,7 @@ private:
 	Core* m_core;
 
 	Context();
-	void initialize(const std::string&, const std::string&);
+	void initialize(const string&, const string&);
 
 	static void onKeyInput(GLFWwindow*, int, int, int, int);
 	static void onCharInput(GLFWwindow*, unsigned int);

@@ -8,12 +8,11 @@
 
 #include <algorithm>
 
-#include "core/Commons.h"
-
-#include "core/Core.h"
-#include "core/FileIO.h"
-#include "core/Context.h"
-#include "core/Property.h"
+#include <core/Commons.h>
+#include <core/Core.h>
+#include <core/FileIO.h>
+#include <core/Context.h>
+#include <core/Property.h>
 
 #include "rendering/PostComposer.h"
 #include "rendering/GL.h"
@@ -34,9 +33,9 @@
 #include "project/Project.h"
 #include "scene/SceneNode.h"
 
-#include "IDE/UIContext.h"
-#include "gui/UIFrontend.h"
-#include "audio/AudioEngine.h"
+#include <gui/UIFrontend.h>
+#include <gui/CFontManager.h>
+#include <audio/AudioEngine.h>
 
 /**
  *	Game engine main component

@@ -104,6 +104,11 @@ void Project::exportAsRuntime()
 		return;
 	}
 
+	string cwd = FileIO::getCurrentDirectory();
+	FileIO::setCurrentDirectory("../");
+	Package::compress(cwd);
+	FileIO::setCurrentDirectory(cwd);
+
 //	string folder = Tokenizer::getDirectory(m_project_file);
 //	Console::log("\"../%s\"", folder.c_str());
 	//Package::compress("\"../game\"", StringUtils::simplify(m_title)+".pkg");

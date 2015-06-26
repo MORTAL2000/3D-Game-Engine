@@ -1,4 +1,4 @@
-/** Created by Alexander Koch, Copyright (c) 2015 **/
+/** Copyright (c) 2015, Alexander Koch **/
 
 #include "Package.h"
 
@@ -11,8 +11,8 @@
 	#ifdef __CYGWIN__
 		#define mkdir(file) mkdir(file, 0777)
 	#else
-		#define mkdir _mkdir
-		#define rmdir _rmdir
+		//#define mkdir _mkdir
+		//#define rmdir _rmdir
 	#endif
 
 	#define stat _stat
@@ -59,14 +59,14 @@ namespace Package
     	return S_ISDIR(buf.st_mode);
 	}
 
-	void mkdirRecursive(const char* dir)
+	void mkdirRecursive(const string& dir)
 	{
 		string subDir;
 		if(inDir(dir, subDir))
 		{
 			mkdir(subDir.c_str());
 		}
-		mkdir(dir);
+		mkdir(dir.c_str());
 	}
 
 	vector<string> getFilesInDirectory(const string& path)
@@ -198,7 +198,7 @@ namespace Package
 			string dir;
 			if(inDir(pak.filename, dir))
 			{
-				mkdirRecursive(dir.c_str());
+				mkdirRecursive(dir);
 			}
 
 			FILE* fp = fopen(pak.filename, "wb");

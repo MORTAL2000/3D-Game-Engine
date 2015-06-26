@@ -8,8 +8,10 @@
 
 #include <vector>
 #include <string>
+using std::string;
+using std::vector;
 
-#include "Commons.h"
+#include <core/Commons.h>
 
 class Core
 {
@@ -17,7 +19,7 @@ public:
 	Core();
 
     void setViewport(float, float, float, float);
-	void run(const std::vector<std::string>&);
+	void run(const vector<string>&);
 	bool isRunning();
     vec4 getViewport();
 	void close();
@@ -38,7 +40,7 @@ protected:
     vec4 m_viewport;
 private:
 	bool m_running;
-	virtual void load(const std::vector<std::string>&) = 0;
+	virtual void load(const vector<string>&) = 0;
 };
 
 #endif

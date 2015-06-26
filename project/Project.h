@@ -4,12 +4,12 @@
 #include <string>
 #include <ctype.h>
 
-#include "../core/Console.h"
-#include "../core/FileReader.h"
-#include "../core/FileIO.h"
-#include "../core/StringUtils.h"
-#include "../core/Tokenizer.h"
-#include "../core/Package.h"
+#include <core/Console.h>
+#include <core/FileReader.h>
+#include <core/FileIO.h>
+#include <core/StringUtils.h>
+#include <core/Tokenizer.h>
+#include <core/Package.h>
 
 class Project
 {

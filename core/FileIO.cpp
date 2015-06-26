@@ -12,8 +12,8 @@
 	#ifdef __CYGWIN__
 		#define mkdir(file) mkdir(file, 0777)
 	#else
-		#define mkdir _mkdir
-		#define rmdir _rmdir
+		//#define mkdir mkdir
+		//#define rmdir rmdir
 	#endif
 
 	#define S_IFDIR _S_IFDIR

@@ -156,7 +156,7 @@ void UIFrontend::load(const std::vector<std::string>& args)
 		"out vec4 Out_Color;\n"
 		"void main()\n"
 		"{\n"
-		"	Out_Color = Frag_Color * texture( Texture, Frag_UV.st);\n"
+		"	Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"
 		"}\n";
 
 	shader_handle = glCreateProgram();
@@ -248,6 +248,8 @@ void UIFrontend::load(const std::vector<std::string>& args)
 	m_scene.addChild(node);
 	updateProperties(node);
 }
+
+bool screenshot = false;
 
 void UIFrontend::render()
 {
@@ -407,6 +409,11 @@ void UIFrontend::render()
 			{
 				proj.exportAsRuntime();
 			}
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("Screenshot"))
+		{
+			screenshot = true;
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Close"))
@@ -760,6 +767,12 @@ void UIFrontend::render()
 	setWindowPos("Properties", ImVec2(m_dimension.x - 360, 90));
 
 	ImGui::Render();
+
+	if(screenshot)
+	{
+		Context::getInstance().takeScreenshot("screenshot.ppm");
+		screenshot = false;
+	}
 
 	if(change_core)
 	{

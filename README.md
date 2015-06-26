@@ -1,4 +1,4 @@
-3D Game Engine
+3D Game Engine (Project Voxel)
 =============================================================================
 
 Dieses Projekt stellt eine experimentelle Game Engine dar.
@@ -17,7 +17,7 @@ Features and Tools:
  * PNG und TGA Format
  * Freetype für Textdarstellung
  * ImGui Editor (in Entwicklung) WYSIWYG
- * ...
+ * [...]
 
 Scripting / Lua-Skripts
 -----------------------------------------------------------------------------

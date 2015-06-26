@@ -1,8 +1,6 @@
 #include "Engine.h"
 #include "util/lua/bindings/LuaMath.h"
-#include "IDE/CFontManager.h"
 #include "project/SceneManager.h"
-
 #include "network/Server.h"
 
 Engine::Engine() :
@@ -11,7 +9,7 @@ Engine::Engine() :
     frame(0.0), renderTime(0.0), processingTime(0.0)
 {}
 
-void Engine::load(const std::vector<std::string>& args)
+void Engine::load(const vector<string>& args)
 {
 	LuaAPI::getInstance().initialize();
 
@@ -56,7 +54,7 @@ void Engine::load(const std::vector<std::string>& args)
 
     // Project initialization
 	Console::log("Main: Loading script and project files...");
-	std::string project_file;
+	string project_file;
     Project project;
 
     // load project from argument 1
@@ -68,11 +66,11 @@ void Engine::load(const std::vector<std::string>& args)
 	}
     else if(args.size() == 2)
     {
-        // export current project as properties file
+        // export current project as package file
         if(args[0] == "-e")
         {
             Console::log("Main: Exporting as package...");
-            std::string temp = Property("project");
+            string temp = Property("project");
             project_file = temp;
             project.load(project_file);
             FileIO::setCurrentDirectory(Tokenizer::getDirectory(project_file));
@@ -85,7 +83,7 @@ void Engine::load(const std::vector<std::string>& args)
             FileReader::setPackage(args[1]);
             Console::log("Main: Loading package: %s", args[1].c_str());
 
-            std::vector<std::string> contents;
+            vector<string> contents;
             auto error = Package::get_files(args[1], contents);
             if(error)
             {
@@ -106,7 +104,7 @@ void Engine::load(const std::vector<std::string>& args)
     // load project from properties file
 	else
 	{
-		std::string temp = Property("project");
+		string temp = Property("project");
 		project_file = temp;
 
         project.load(project_file);
@@ -208,7 +206,7 @@ void Engine::renderTexture()
 void Engine::renderDebug()
 {
     glDisable(GL_CULL_FACE);
-	std::string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nEngine demo @Alexander Koch 2015";
+	string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nEngine demo @Alexander Koch 2015";
 	vec3 pos = camera.getPosition();
 	CFont* font = CFontManager::getFont("default");
 	font->renderf(vec2(10, 20), m_dimension, text.c_str(), fps, frame, pos.x, pos.y, pos.z, renderTime, processingTime);

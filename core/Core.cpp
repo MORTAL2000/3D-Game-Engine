@@ -11,7 +11,7 @@ void Core::setViewport(float x, float y, float width, float height)
     m_viewport = vec4(x, y, width, height);
 }
 
-void Core::run(const std::vector<std::string>& args)
+void Core::run(const vector<string>& args)
 {
     m_running = true;
     load(args);
