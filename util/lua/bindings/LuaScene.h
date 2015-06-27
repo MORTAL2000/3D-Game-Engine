@@ -5,17 +5,17 @@
 
 #include "LuaCamera.h"
 #include "LuaMaterial.h"
-#include "../LuaBase.h"
-#include "../LuaClass.h"
-#include "../LuaConsole.h"
+#include <util/lua/LuaBase.h>
+#include <util/lua/LuaClass.h>
+#include <util/lua/LuaConsole.h>
 
-#include "../../../scene/SceneNode.h"
-#include "../../../project/SceneManager.h"
-#include "../../../physics/BulletPhysicsEngine.h"
-#include "../../../physics/BulletBody.h"
-#include "../../FilmCamera.h"
+#include <scene/SceneNode.h>
+#include <project/SceneManager.h>
+#include <physics/BulletPhysicsEngine.h>
+#include <physics/BulletBody.h>
+#include <util/FilmCamera.h>
 
-#include "../../../rendering/ShadowMap.h"
+#include <rendering/ShadowMap.h>
 
 /**
  *	Implementation of a Scene,
@@ -30,14 +30,33 @@ public:
 	int addEntity(lua_State*);
 	int removeEntity(lua_State*);
 
+	/**
+	 *	Require: loads a material file
+	 */
 	int require(lua_State*);
+
+	/**
+	 *	loadLevel: EXPERIMENTAL: loads a 'scene'-file
+	 */
 	int loadLevel(lua_State*);
+
+	/**
+	 *	clear: Clears the scene / SceneNode
+	 */
 	int clear(lua_State*);
+
+	/**
+	 * 	Sets the scene gravity
+	 */
 	int setGravity(lua_State*);
 
+	/**
+	 *	Returns a camera reference
+	 */
 	int getDefaultCamera(lua_State*);
 
-	//dev
+	// EXPERIMENTAL:
+	// Directional shadow mapping see 'game'-demo
 	int enableShadows(lua_State*);
 	int renderShadows(lua_State*);
 	int passShadowInfo(lua_State*);

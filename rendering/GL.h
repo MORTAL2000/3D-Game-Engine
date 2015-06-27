@@ -2,9 +2,8 @@
 #define DEBUG_H
 
 #include <math.h>
-
-#include "../core/Commons.h"
-#include "../util/Shader.h"
+#include <core/Commons.h>
+#include <util/Shader.h>
 
 namespace gl
 {

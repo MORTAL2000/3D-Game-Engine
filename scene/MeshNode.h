@@ -2,7 +2,7 @@
 #define MESH_NODE_H
 
 #include "SceneNode.h"
-#include "../rendering/MeshRenderer.h"
+#include <rendering/MeshRenderer.h>
 
 class MeshNode : public SceneNode
 {

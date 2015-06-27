@@ -40,7 +40,7 @@ long SceneNode::getId()
 	return m_id;
 }
 
-void SceneNode::setName(const std::string& name)
+void SceneNode::setName(const string& name)
 {
 	m_name = name;
 }

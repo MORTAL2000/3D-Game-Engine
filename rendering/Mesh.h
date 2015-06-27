@@ -12,23 +12,26 @@
 using std::vector;
 using std::string;
 
-#include "../core/Commons.h"
-#include "../util/ObjLoader.h"
-#include "../util/Shader.h"
+#include <core/Commons.h>
+#include <util/ObjLoader.h>
+#include <util/Shader.h>
 
+/**
+ *	Mesh Object, stores vertices, normals and uv-coords
+ */
 class Mesh
 {
 public:
 	Mesh();
-	Mesh(const std::string&);
+	Mesh(const string&);
 	~Mesh();
 
-	void load(std::vector<vec3>);
-	void load(std::vector<float>);
-	void load(std::vector<vec3>, std::vector<vec3>, std::vector<vec2>);
-	void load(std::vector<float>, std::vector<float>, std::vector<float>);
-	int load(const std::string&);
-	int loadSingleObject(const std::string&, int);
+	void load(vector<vec3>);
+	void load(vector<float>);
+	void load(vector<vec3>, vector<vec3>, vector<vec2>);
+	void load(vector<float>, vector<float>, vector<float>);
+	int load(const string&);
+	int loadSingleObject(const string&, int);
 
 	void loadCube(float);
 	void loadCube(const vec3& position, const vec3& scale);
@@ -42,13 +45,13 @@ public:
 	int getNormalCount();
 	int getTexCoordCount();
 
-	std::vector<float> getVertices();
+	vector<float> getVertices();
 protected:
 	//uint vao;
  	unsigned int buffer[3];
-	std::vector<float> vertices;
-	std::vector<float> normals;
-	std::vector<float> texcoords;
+	vector<float> vertices;
+	vector<float> normals;
+	vector<float> texcoords;
 	bool m_valid;
 
 	void apply();

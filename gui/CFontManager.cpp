@@ -3,14 +3,7 @@
 std::map<std::string, std::shared_ptr<CFont>> CFontManager::m_fonts;
 
 CFontManager::CFontManager()
-{
-
-}
-
-CFontManager::~CFontManager()
-{
-
-}
+{}
 
 void CFontManager::initialize()
 {

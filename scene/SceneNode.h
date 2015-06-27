@@ -1,18 +1,20 @@
 #ifndef SCENE_NODE_H
 #define SCENE_NODE_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
-#include "../util/FilmCamera.h"
-#include "../util/Shader.h"
+#include <core/Commons.h>
+#include <core/Console.h>
+#include <util/FilmCamera.h>
+#include <util/Shader.h>
 
 #include <vector>
 #include <string>
+using std::vector;
+using std::string;
 
 class SceneNode
 {
 public:
-	typedef std::vector<SceneNode*> NodePointerList;
+	typedef vector<SceneNode*> NodePointerList;
 	enum Type { EMPTY, MESH };
 
 	SceneNode();
@@ -25,8 +27,8 @@ public:
 	void setId(long);
 	long getId();
 
-	void setName(const std::string&);
-	std::string getName();
+	void setName(const string&);
+	string getName();
 
 	Type getType();
 
@@ -39,7 +41,7 @@ protected:
 	long m_id;
 	long m_id_counter;
 	mat4 m_transformation;
-	std::string m_name;
+	string m_name;
 	NodePointerList m_children;
 	Type m_type;
 };

@@ -4,11 +4,11 @@
 #include <memory>
 
 #include "Quad.h"
-#include "../core/Property.h"
-#include "../util/Framebuffer.h"
-#include "../util/FilmCamera.h"
-#include "../util/Shader.h"
-#include "../util/Texture2D.h"
+#include <core/Property.h>
+#include <util/Framebuffer.h>
+#include <util/FilmCamera.h>
+#include <util/Shader.h>
+#include <util/Texture2D.h>
 
 class PostComposer
 {

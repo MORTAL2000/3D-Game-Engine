@@ -1,10 +1,10 @@
 #ifndef SHADOW_MAP_H
 #define SHADOW_MAP_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
-#include "../scene/SceneNode.h"
-#include "../util/Shader.h"
+#include <core/Commons.h>
+#include <core/Console.h>
+#include <scene/SceneNode.h>
+#include <util/Shader.h>
 
 class ShadowMap
 {

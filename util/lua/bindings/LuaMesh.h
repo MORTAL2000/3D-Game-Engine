@@ -7,8 +7,8 @@
 #include "../LuaBase.h"
 #include "../LuaClass.h"
 #include "../LuaConsole.h"
-#include "../../../rendering/MeshRenderer.h"
-#include "../../../scene/MeshNode.h"
+#include <rendering/MeshRenderer.h>
+#include <scene/MeshNode.h>
 
 /**
  *  Lua implementation of the MeshRenderer class

@@ -4,12 +4,7 @@ MeshRenderer::MeshRenderer() :
 	m_material(0), m_position(0.0), m_scale(1.0),
 	m_cullFace(GL_BACK), m_useDepthMask(true)
 {}
-
-MeshRenderer::~MeshRenderer()
-{
-
-}
-
+	
 void MeshRenderer::setMaterial(Material* material)
 {
 	m_material = material;

@@ -3,17 +3,17 @@
 
 #include <memory>
 
-#include "../LuaBase.h"
-#include "../LuaClass.h"
-#include "../LuaConsole.h"
-#include "../LuaEnums.h"
+#include <util/lua/LuaBase.h>
+#include <util/lua/LuaClass.h>
+#include <util/lua/LuaConsole.h>
+#include <util/lua/LuaEnums.h>
 #include "LuaMesh.h"
 
-#include "../../../physics/BulletBody.h"
-#include "../../../physics/BulletSphereBody.h"
-#include "../../../physics/BulletMeshBody.h"
-#include "../../../physics/BulletBoxBody.h"
-#include "../../../physics/BulletCylinderBody.h"
+#include <physics/BulletBody.h>
+#include <physics/BulletSphereBody.h>
+#include <physics/BulletMeshBody.h>
+#include <physics/BulletBoxBody.h>
+#include <physics/BulletCylinderBody.h>
 
 class LuaRigidBody : public LuaBase
 {

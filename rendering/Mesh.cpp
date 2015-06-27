@@ -5,7 +5,7 @@ Mesh::Mesh() :
 {
 }
 
-Mesh::Mesh(const std::string& filename) :
+Mesh::Mesh(const string& filename) :
 	m_valid(false)
 {
 	load(filename);
@@ -13,11 +13,10 @@ Mesh::Mesh(const std::string& filename) :
 
 Mesh::~Mesh()
 {
-
 	clear();
 }
 
-void Mesh::load(std::vector<vec3> vertices)
+void Mesh::load(vector<vec3> vertices)
 {
 	vector<float> _vertices, _normals, _texcoords;
 	for(auto i = 0; i < vertices.size(); i++)
@@ -27,9 +26,9 @@ void Mesh::load(std::vector<vec3> vertices)
 	load(_vertices, _normals, _texcoords);
 }
 
-void Mesh::load(std::vector<float> vertices)
+void Mesh::load(vector<float> vertices)
 {
-	std::vector<float> empty;
+	vector<float> empty;
 	load(vertices, empty, empty);
 }
 
@@ -348,7 +347,7 @@ void Mesh::loadIcosahedron(float radius)
 		_normals.push_back(normalize(_vertices[i] - vec3(0.0)));
 	}
 
-	std::vector<vec2> empty;
+	vector<vec2> empty;
 	load(_vertices, _normals, empty);
 }
 
@@ -408,7 +407,7 @@ int Mesh::getTexCoordCount()
 	return int(texcoords.size());
 }
 
-std::vector<float> Mesh::getVertices()
+vector<float> Mesh::getVertices()
 {
 	return vertices;
 }

@@ -43,6 +43,20 @@ oder eine Zeichnungsmethode. Folgendes Skript stellt das Standard-Skript dar.
 
     end
 
+Klassen können über die Funktion class() definiert werden. Die Initialisierungsmethode
+ist über __init() definiert.
+
+    Sky = class()
+
+    function Sky:__init()
+        self.color = BLUE
+    end
+
+    function Sky:render()
+        --do some stuff here
+    end
+
+Lua skripts können über die Funktion include("scripts/your/file/here.lua") integriert / importiert werden.
 
 Tech-Demos
 -----------------------------------------------------------------------------

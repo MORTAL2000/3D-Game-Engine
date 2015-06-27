@@ -1,8 +1,8 @@
 #include "LuaScene.h"
 
-#include "../../../Engine.h"
-#include "../../../core/Context.h"
-#include "../../MaterialLibrary.h"
+#include <Engine.h>
+#include <core/Context.h>
+#include <util/MaterialLibrary.h>
 
 #include "LuaMath.h"
 

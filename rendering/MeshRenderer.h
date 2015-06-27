@@ -1,7 +1,7 @@
 #ifndef MESH_RENDERER_H
 #define MESH_RENDERER_H
 
-#include "../core/Commons.h"
+#include <core/Commons.h>
 #include "Mesh.h"
 #include "materials/Material.h"
 
@@ -9,7 +9,6 @@ class MeshRenderer : public Mesh
 {
 public:
 	MeshRenderer();
-	~MeshRenderer();
 
 	void setMaterial(Material*);
 	Material* getMaterial();

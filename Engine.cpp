@@ -61,8 +61,7 @@ void Engine::load(const vector<string>& args)
 	if(args.size() == 1)
 	{
         project.load(args[0]);
-        auto directory = Tokenizer::getDirectory(args[0]);
-        FileIO::setCurrentDirectory(directory);
+        FileIO::setCurrentDirectory(Tokenizer::getDirectory(args[0]));
 	}
     else if(args.size() == 2)
     {
@@ -108,8 +107,7 @@ void Engine::load(const vector<string>& args)
 		project_file = temp;
 
         project.load(project_file);
-        auto directory = Tokenizer::getDirectory(project_file);
-        FileIO::setCurrentDirectory(directory);
+        FileIO::setCurrentDirectory(Tokenizer::getDirectory(project_file));
 	}
 
     // load main script

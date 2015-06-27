@@ -15,7 +15,6 @@ public:
 	static CFont* getFont(const std::string&);
 private:
 	CFontManager();
-	~CFontManager();
 	static std::map<std::string, std::shared_ptr<CFont>> m_fonts;
 };
 

@@ -14,24 +14,23 @@
 #include <core/Context.h>
 #include <core/Property.h>
 
-#include "rendering/PostComposer.h"
-#include "rendering/GL.h"
+#include <rendering/PostComposer.h>
+#include <rendering/GL.h>
 
-#include "util/FPSManager.h"
-#include "util/Profiler.h"
-#include "util/Framebuffer.h"
-#include "util/MaterialLibrary.h"
-#include "util/input/ActionListener.h"
+#include <util/FPSManager.h>
+#include <util/Profiler.h>
+#include <util/Framebuffer.h>
+#include <util/MaterialLibrary.h>
+#include <util/input/ActionListener.h>
+#include <util/lua/LuaAPI.h>
+#include <util/lua/LuaScript.h>
+#include <util/lua/bindings/LuaMesh.h>
+#include <util/lua/bindings/LuaMatrix.h>
 
-#include "util/lua/LuaAPI.h"
-#include "util/lua/LuaScript.h"
-#include "util/lua/bindings/LuaMesh.h"
-#include "util/lua/bindings/LuaMatrix.h"
+#include <physics/BulletPhysicsEngine.h>
 
-#include "physics/BulletPhysicsEngine.h"
-
-#include "project/Project.h"
-#include "scene/SceneNode.h"
+#include <project/Project.h>
+#include <scene/SceneNode.h>
 
 #include <gui/UIFrontend.h>
 #include <gui/CFontManager.h>
