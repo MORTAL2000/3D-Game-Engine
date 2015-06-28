@@ -4,6 +4,7 @@
 #include <string>
 #include "ITexture.h"
 #include "TextureLoader.h"
+#include <core/Console.h>
 
 class Cubemap : public ITexture
 {

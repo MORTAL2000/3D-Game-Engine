@@ -22,7 +22,7 @@ using std::vector;
 
 /**
  *	Context class handles OpenGL context
- *  and window creation. Also loads properties file.
+ *  and window creation. Also loads a properties file.
  */
 class Context
 {
@@ -47,6 +47,7 @@ public:
 	void setClipboardContent(const string&);
 	string getClipboardContent();
 
+	void swapBuffers();
 	void takeScreenshot(const string&);
 
 	Core* getCore();

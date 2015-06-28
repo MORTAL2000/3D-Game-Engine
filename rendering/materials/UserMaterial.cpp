@@ -89,6 +89,10 @@ void UserMaterial::process(const std::string& key, const GenericType& value)
 				m_texture_cache[textureKey] = texture;
 				m_shader->valuei(key.c_str(), texture->getId());
 			}
+			else
+			{
+				Console::log("Texture '%s' not found", textureKey.c_str());
+			}
 
 			break;
 		}

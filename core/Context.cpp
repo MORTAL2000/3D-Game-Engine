@@ -226,6 +226,11 @@ string Context::getClipboardContent()
 	return string(glfwGetClipboardString(m_window));
 }
 
+void Context::swapBuffers()
+{
+	glfwSwapBuffers(m_window);
+}
+
 void Context::takeScreenshot(const string& filename)
 {
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);

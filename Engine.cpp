@@ -13,14 +13,31 @@ void Engine::load(const vector<string>& args)
 {
 	LuaAPI::getInstance().initialize();
 
-	int size = Property("size_ttf");
+    int psize = Property("psize");
 	CFontManager::initialize();
-	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", size);
+	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", 11);
+    CFontManager::loadFont("header", "resources/fonts/SinkinSans-400Regular.otf", psize);
 
 	// Graphics initialization
     gl::init();
     gl::viewport(m_viewport);
     gl::clearColor(vec4(0.05, 0.05, 0.05, 1.0));
+    gl::clear();
+
+    m_mouse.position = Context::getInstance().getCursorPosition();
+
+    glDisable(GL_CULL_FACE);
+	CFont* font = CFontManager::getFont("header");
+    rect_t sz = font->getGlyphDimension('H');
+    string cnt = "Game Engine v5.4\nLoading assets ...";
+    int xw = sz.w * cnt.length() / 4;
+    int yw = sz.h / 2;
+
+	font->renderf(vec2(m_dimension.x / 2 - xw, m_dimension.y / 2 - yw), m_dimension, cnt.c_str());
+    glEnable(GL_CULL_FACE);
+    glDisable(GL_BLEND);
+
+    Context::getInstance().swapBuffers();
 
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glEnable(GL_CULL_FACE);

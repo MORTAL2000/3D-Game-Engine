@@ -26,7 +26,11 @@ bool Cubemap::load(const std::string& xpos, const std::string& xneg, const std::
 	unsigned char* zPos = TextureLoader::load(zpos, width, height, bpp);
 	unsigned char* zNeg = TextureLoader::load(zneg, width, height, bpp);
 
-	if(!xPos || !xNeg || !yPos || !yNeg || !zPos || !zNeg) return false;
+	if(!xPos || !xNeg || !yPos || !yNeg || !zPos || !zNeg)
+	{
+		Console::log("Error loading the cubemap textures");
+		return false;
+	}
 
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, width, height, 0, bpp, GL_UNSIGNED_BYTE, xPos);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, width, height, 0, bpp, GL_UNSIGNED_BYTE, xNeg);

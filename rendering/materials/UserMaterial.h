@@ -3,31 +3,35 @@
 
 #include <string>
 #include <map>
+using std::map;
+using std::string;
 
 #include "Material.h"
-#include "../../util/GenericType.h"
-#include "../../util/TextureLibrary.h"
-typedef std::map<std::string, GenericType> AttributeCache;
+#include <core/Console.h>
+#include <util/GenericType.h>
+#include <util/TextureLibrary.h>
+
+typedef map<string, GenericType> AttributeCache;
 
 class UserMaterial : public Material
 {
 public:
-	UserMaterial(const std::string&);
+	UserMaterial(const string&);
 	~UserMaterial();
 
-	bool contains(const std::string&);
-	GenericType& operator[](const std::string&);
-	void set(const std::string&, const GenericType&);
-	void updateValue(const std::string&, const GenericType&);
+	bool contains(const string&);
+	GenericType& operator[](const string&);
+	void set(const string&, const GenericType&);
+	void updateValue(const string&, const GenericType&);
 	void setCache(const AttributeCache&);
 
-	std::string getName();
+	string getName();
 
 	virtual void load();
 	virtual void update(FilmCamera*, const mat4&);
 private:
 	AttributeCache m_cache;
-	void process(const std::string&, const GenericType&);
+	void process(const string&, const GenericType&);
 };
 
 #endif
