@@ -89,13 +89,13 @@
 /*      - network tests / development, Commons.h changes, Image based lighting  */
 /* v5.4 - Package support!, *.pak system development now in a seperate project  */
 /*      - basic package loading and running is working, TODO: fix *.pak issues  */
+/* v5.5 - console logs classified, loading screen and removed dead code         */
+/*      - TODO: Fix image based lighting                                        */
 /*                                                                              */
 /********************************************************************************/
 
 /********************************************************************************/
 /* TODO: (not sorted)                                                           */
-/* - identify console logs by adding prefix of module, like: "Main: Error at * "*/
-/* - remove freetype dependency / old gui code in IDE folder or update          */
 /* - custom memory allocation, also leakcheck                                   */
 /* - openal audio system                                                        */
 /* - plug-in mechanism for lua scripted plug-ins								*/
@@ -112,8 +112,8 @@
 /* - occlusion / frustum culling, faster obj loading, optimizations             */
 /********************************************************************************/
 
-#define ENGINE_TITLE "Engine demo v5.4"
-#define EDITOR_TITLE "Frontend Editor v5.4"
+#define ENGINE_TITLE "Engine demo v5.5"
+#define EDITOR_TITLE "Frontend Editor v5.5"
 
 #include <iostream>
 #include <cstdio>

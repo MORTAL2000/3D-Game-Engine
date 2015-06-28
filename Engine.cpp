@@ -13,10 +13,9 @@ void Engine::load(const vector<string>& args)
 {
 	LuaAPI::getInstance().initialize();
 
-    int psize = Property("psize");
 	CFontManager::initialize();
 	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", 11);
-    CFontManager::loadFont("header", "resources/fonts/SinkinSans-400Regular.otf", psize);
+    CFontManager::loadFont("header", "resources/fonts/SinkinSans-400Regular.otf", 50);
 
 	// Graphics initialization
     gl::init();
@@ -29,7 +28,7 @@ void Engine::load(const vector<string>& args)
     glDisable(GL_CULL_FACE);
 	CFont* font = CFontManager::getFont("header");
     rect_t sz = font->getGlyphDimension('H');
-    string cnt = "Game Engine v5.4\nLoading assets ...";
+    string cnt = "Game Engine v5.5\nLoading assets ...";
     int xw = sz.w * cnt.length() / 4;
     int yw = sz.h / 2;
 
