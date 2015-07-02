@@ -4,7 +4,7 @@
 #include "../LuaBase.h"
 #include "../LuaClass.h"
 #include "../LuaConsole.h"
-#include "../../MaterialLibrary.h"
+#include <util/MaterialLibrary.h>
 
 /**
  * 	Lua implementation of the Material class

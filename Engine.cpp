@@ -1,7 +1,7 @@
 #include "Engine.h"
-#include "util/lua/bindings/LuaMath.h"
-#include "project/SceneManager.h"
-#include "network/Server.h"
+#include <lua/bindings/LuaMath.h>
+#include <project/SceneManager.h>
+#include <network/Server.h>
 
 Engine::Engine() :
     wireframe(false), postProcess(false), lockCursor(false),
@@ -15,7 +15,7 @@ void Engine::load(const vector<string>& args)
 
 	CFontManager::initialize();
 	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", 11);
-    CFontManager::loadFont("header", "resources/fonts/SinkinSans-400Regular.otf", 50);
+    CFontManager::loadFont("header", "resources/fonts/SourceSansPro-Regular.otf", 50);
 
 	// Graphics initialization
     gl::init();
@@ -25,12 +25,14 @@ void Engine::load(const vector<string>& args)
 
     m_mouse.position = Context::getInstance().getCursorPosition();
 
+    // Display loading message
     glDisable(GL_CULL_FACE);
 	CFont* font = CFontManager::getFont("header");
-    rect_t sz = font->getGlyphDimension('H');
     string cnt = "Game Engine v5.5\nLoading assets ...";
-    int xw = sz.w * cnt.length() / 4;
-    int yw = sz.h / 2;
+    int fw = font->getStringWidth(cnt);
+    int fh = font->getStringHeight(cnt);
+    int xw = fw / 4;
+    int yw = fh / 2;
 
 	font->renderf(vec2(m_dimension.x / 2 - xw, m_dimension.y / 2 - yw), m_dimension, cnt.c_str());
     glEnable(GL_CULL_FACE);

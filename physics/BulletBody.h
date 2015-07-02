@@ -1,9 +1,9 @@
 #ifndef BULLET_BODY_H
 #define BULLET_BODY_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
-#include "../rendering/MeshRenderer.h"
+#include <core/Commons.h>
+#include <core/Console.h>
+#include <rendering/MeshRenderer.h>
 #include "btBulletDynamicsCommon.h"
 
 class BulletBody

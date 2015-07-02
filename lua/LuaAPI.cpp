@@ -1,9 +1,9 @@
 #include "LuaAPI.h"
-#include "bindings/LuaMath.h"
-#include "../../core/Context.h"
-#include "../../Engine.h"
-#include "../../audio/WinMM.h"
-#include "../../audio/WaveFile.h"
+#include <lua/bindings/LuaMath.h>
+#include <core/Context.h>
+#include <Engine.h>
+#include <audio/WinMM.h>
+#include <audio/WaveFile.h>
 
 #define MOUSE_X "MOUSE_X"
 #define MOUSE_Y "MOUSE_Y"

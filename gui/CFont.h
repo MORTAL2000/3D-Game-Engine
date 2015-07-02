@@ -4,6 +4,9 @@
 #include <map>
 #include <cstddef>
 
+using std::string;
+using std::map;
+
 #include <core/Commons.h>
 #include <util/Shader.h>
 #include <util/Texture2D.h>
@@ -41,7 +44,7 @@ public:
 	 *  @param filename File to load (*.ttf)
 	 *  @param size Size of the font
 	 */
-	bool loadFromFile(const std::string& filename, const uint16_t size);
+	bool loadFromFile(const string& filename, const uint16_t size);
 
     void setColor(const vec4& color)
     {
@@ -51,13 +54,40 @@ public:
 	/**
 	 *	Renders a string using the font to the screen
 	 */
-     rect_t renderf(const vec2& position, const vec2& viewport, const char* format, ...);
-     rect_t render(const std::string& text, const vec2& position, const vec2& viewport);
+	rect_t renderf(const vec2& position, const vec2& viewport, const char* format, ...);
+	rect_t render(const string& text, const vec2& position, const vec2& viewport);
 
-     rect_t getGlyphDimension(char ch)
-     {
-         return m_glyphTextures[ch].dim;
-     }
+	/**
+	 *	Get the width of a string
+	 */
+	int getStringWidth(const string& text)
+	{
+		int sz = 0;
+		for(int i = 0; i < text.length(); i++)
+		{
+			sz += m_glyphTextures[text[i]].dim.w;
+		}
+		return sz;
+	}
+
+	/**
+	 *	Get the height of a string
+	 */
+	int getStringHeight(const string& text)
+	{
+		int sz = 0;
+		for(int i = 0; i < text.length(); i++)
+		{
+			int tmp = m_glyphTextures[text[i]].dim.h;
+			if(tmp > sz) sz = tmp;
+		}
+		return sz;
+	}
+
+	rect_t getGlyphDimension(char ch)
+    {
+ 		return m_glyphTextures[ch].dim;
+    }
 private:
 	static FT_Library s_ft_library;
 	static bool s_lib_loaded;
@@ -72,9 +102,9 @@ private:
 		rect_t dim;
 	};
 
-	std::map<char, Glyph> m_glyphTextures;
+	map<char, Glyph> m_glyphTextures;
 	FT_Face m_face;
-	std::string m_filename;
+	string m_filename;
 };
 
 #endif

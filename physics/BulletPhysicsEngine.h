@@ -1,8 +1,8 @@
 #ifndef BULLET_PHYSICS_ENGINE_H
 #define BULLET_PHYSICS_ENGINE_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
+#include <core/Commons.h>
+#include <core/Console.h>
 #include "btBulletDynamicsCommon.h"
 #include "BulletBody.h"
 #include "BulletSphereBody.h"

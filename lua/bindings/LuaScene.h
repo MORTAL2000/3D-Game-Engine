@@ -5,9 +5,9 @@
 
 #include "LuaCamera.h"
 #include "LuaMaterial.h"
-#include <util/lua/LuaBase.h>
-#include <util/lua/LuaClass.h>
-#include <util/lua/LuaConsole.h>
+#include <lua/LuaBase.h>
+#include <lua/LuaClass.h>
+#include <lua/LuaConsole.h>
 
 #include <scene/SceneNode.h>
 #include <project/SceneManager.h>

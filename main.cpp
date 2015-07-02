@@ -120,13 +120,13 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "core/Core.h"
-#include "core/Context.h"
-#include "core/Exception.h"
-#include "core/Console.h"
+#include <core/Core.h>
+#include <core/Context.h>
+#include <core/Exception.h>
+#include <core/Console.h>
 
 #include "Engine.h"
-#include "gui/UIFrontend.h"
+#include <gui/UIFrontend.h>
 
 int main(int argc, char** argv)
 {

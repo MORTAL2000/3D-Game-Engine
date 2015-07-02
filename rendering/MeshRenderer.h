@@ -2,8 +2,8 @@
 #define MESH_RENDERER_H
 
 #include <core/Commons.h>
-#include "Mesh.h"
-#include "materials/Material.h"
+#include <rendering/Mesh.h>
+#include <rendering/materials/Material.h>
 
 class MeshRenderer : public Mesh
 {

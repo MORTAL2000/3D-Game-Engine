@@ -10,17 +10,17 @@
 #include "LuaClass.h"
 #include "LuaEnums.h"
 
-#include "bindings/LuaMesh.h"
-#include "bindings/LuaMaterial.h"
-#include "bindings/LuaScene.h"
-#include "bindings/LuaMatrix.h"
-#include "bindings/LuaRigidBody.h"
-#include "bindings/LuaCamera.h"
+#include <lua/bindings/LuaMesh.h>
+#include <lua/bindings/LuaMaterial.h>
+#include <lua/bindings/LuaScene.h>
+#include <lua/bindings/LuaMatrix.h>
+#include <lua/bindings/LuaRigidBody.h>
+#include <lua/bindings/LuaCamera.h>
 
-#include "../../rendering/GL.h"
-#include "../Noise.h"
+#include <rendering/GL.h>
+#include <util/Noise.h>
 
-#include "../../network/Server.h"
+#include <network/Server.h>
 
 typedef int (*lua_CFunction) (lua_State *lua);
 

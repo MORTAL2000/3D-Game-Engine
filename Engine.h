@@ -22,10 +22,10 @@
 #include <util/Framebuffer.h>
 #include <util/MaterialLibrary.h>
 #include <util/input/ActionListener.h>
-#include <util/lua/LuaAPI.h>
-#include <util/lua/LuaScript.h>
-#include <util/lua/bindings/LuaMesh.h>
-#include <util/lua/bindings/LuaMatrix.h>
+#include <lua/LuaAPI.h>
+#include <lua/LuaScript.h>
+#include <lua/bindings/LuaMesh.h>
+#include <lua/bindings/LuaMatrix.h>
 
 #include <physics/BulletPhysicsEngine.h>
 

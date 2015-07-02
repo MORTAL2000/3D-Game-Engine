@@ -1,5 +1,5 @@
 #include "Project.h"
-#include "../util/lua/LuaScript.h"
+#include <lua/LuaScript.h>
 
 Project::Project() : m_title(""), m_script(""), m_valid(false)
 {}

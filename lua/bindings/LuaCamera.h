@@ -4,7 +4,7 @@
 #include "../LuaBase.h"
 #include "../LuaClass.h"
 #include "../LuaConsole.h"
-#include "../../FilmCamera.h"
+#include <util/FilmCamera.h>
 
 class LuaCamera : public LuaBase
 {

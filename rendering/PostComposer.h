@@ -10,6 +10,9 @@
 #include <util/Shader.h>
 #include <util/Texture2D.h>
 
+/**
+ *  A class for post-processing
+ */
 class PostComposer
 {
 private:
@@ -17,12 +20,12 @@ private:
     bool shaded;
     bool active;
 
-    // framebuffers
+    // Framebuffers
     std::shared_ptr<Framebuffer> mainBuffer;
     std::shared_ptr<Framebuffer> readBuffer;
     std::shared_ptr<Framebuffer> writeBuffer;
 
-    // shaders
+    // Shaders
     Shader base;
     Shader dof;
     Shader tonemapper;
@@ -30,21 +33,21 @@ private:
     Shader flare, flareCompose;
     Shader bloom;
 
-    // active shaders
+    // Shaders config
     bool doSSAO;
     bool doDOF;
     bool doLensFlares;
     bool doTonemapping;
 
-    // textures
+    // Dummy texture
     Texture2D dust;
 
-    // util
+    // Utility
     Quad quad;
     mat4 ortho;
     bool focus;
 
-    /* Passes */
+    // Passes
     void compose();
     void passSSAO();
     void passDoF();
@@ -54,11 +57,10 @@ private:
     void passBloom();
     void passFinalRender();
 
-    /* Util */
+    // Swap the 3 framebuffers
     void swapBuffers();
 
 public:
-    /* Main */
     PostComposer();
     ~PostComposer();
 

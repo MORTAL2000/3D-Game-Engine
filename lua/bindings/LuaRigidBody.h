@@ -3,10 +3,10 @@
 
 #include <memory>
 
-#include <util/lua/LuaBase.h>
-#include <util/lua/LuaClass.h>
-#include <util/lua/LuaConsole.h>
-#include <util/lua/LuaEnums.h>
+#include <lua/LuaBase.h>
+#include <lua/LuaClass.h>
+#include <lua/LuaConsole.h>
+#include <lua/LuaEnums.h>
 #include "LuaMesh.h"
 
 #include <physics/BulletBody.h>

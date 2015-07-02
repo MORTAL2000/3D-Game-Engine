@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "../../core/Console.h"
-#include "../../core/Commons.h"
+#include <core/Console.h>
+#include <core/Commons.h>
 
 extern "C"
 {

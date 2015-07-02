@@ -4,8 +4,8 @@
 #include <string>
 
 #include "LuaBase.h"
-#include "../../core/Tokenizer.h"
-#include "../../core/FileReader.h"
+#include <core/Tokenizer.h>
+#include <core/FileReader.h>
 
 class LuaScript
 {

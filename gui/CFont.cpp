@@ -37,7 +37,7 @@ void CFont::release()
 	}
 }
 
-bool CFont::loadFromFile(const std::string& filename, const uint16_t size)
+bool CFont::loadFromFile(const string& filename, const uint16_t size)
 {
 	if(!CFont::s_lib_loaded) return false;
 
@@ -85,6 +85,8 @@ bool CFont::loadFromFile(const std::string& filename, const uint16_t size)
         glBindTexture(GL_TEXTURE_2D, texture);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 		unsigned char* data = new unsigned char[w * h];
         memset(data, 0, w * h *  sizeof(unsigned char));
@@ -120,7 +122,7 @@ rect_t CFont::renderf(const vec2& position, const vec2& viewport, const char* fo
 	return render(string(buffer), position, viewport);
 }
 
-rect_t CFont::render(const std::string& text, const vec2& position, const vec2& viewport)
+rect_t CFont::render(const string& text, const vec2& position, const vec2& viewport)
 {
 	uint32_t vao = 0, vbo = 0, ibo = 0;
 	rect_t size(position.x, position.y, 0, 0);

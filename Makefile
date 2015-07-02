@@ -10,10 +10,9 @@ SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcar
 OBJS := $(patsubst %.cpp,%.o, $(SOURCES))
 FINAL_OBJS :=  $(addprefix $(BUILD_DIR)/, $(notdir $(OBJS)))
 
-INCLUDES := -I"./" -I"./dependencies" -I"./dependencies/lodepng/" -I"./dependencies/lua/" -I"./dependencies/freetype/include"
+INCLUDES := -I. -I"./dependencies" -I"./dependencies/lodepng/" -I"./dependencies/lua/" -I"./dependencies/freetype/include"
 INCLUDES += -I"./dependencies/glew/include/GL" -I"./dependencies/bullet3/src" -I"./dependencies/glfw3/include"
 INCLUDES += -I"./dependencies/imgui" -I"./dependencies/openal-soft/include"
-INCLUDES += -I.
 
 LUA := -L"./dependencies/lua/" -llua
 GLFW := -L"./dependencies/glfw3/src" -lglfw3
