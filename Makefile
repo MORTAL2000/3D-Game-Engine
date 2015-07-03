@@ -6,26 +6,26 @@ MODULE := Engine
 BUILD_TYPE := ENGINE
 
 BUILD_DIR := build
-SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp) $(wildcard */*/*/*.cpp)
+SOURCES := $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
 OBJS := $(patsubst %.cpp,%.o, $(SOURCES))
 FINAL_OBJS :=  $(addprefix $(BUILD_DIR)/, $(notdir $(OBJS)))
 
-INCLUDES := -I. -I"./dependencies" -I"./dependencies/lodepng/" -I"./dependencies/lua/" -I"./dependencies/freetype/include"
-INCLUDES += -I"./dependencies/glew/include/GL" -I"./dependencies/bullet3/src" -I"./dependencies/glfw3/include"
-INCLUDES += -I"./dependencies/imgui" -I"./dependencies/openal-soft/include"
+INCLUDES := -I. -I"./libs" -I"./libs/lodepng/" -I"./libs/lua/" -I"./libs/freetype/include"
+INCLUDES += -I"./libs/glew/include/GL" -I"./libs/bullet3/src" -I"./libs/glfw3/include"
+INCLUDES += -I"./libs/imgui" -I"./libs/openal-soft/include"
 
-LUA := -L"./dependencies/lua/" -llua
-GLFW := -L"./dependencies/glfw3/src" -lglfw3
-GLEW := -L"./dependencies/glew/lib" -lglew32
+LUA := -L"./libs/lua/" -llua
+GLFW := -L"./libs/glfw3/src" -lglfw3
+GLEW := -L"./libs/glew/lib" -lglew32
 OPENGL := -lopengl32
-BULLET := -L"./dependencies/bullet3/bin" -lBulletDynamics_gmake -lBulletCollision_gmake -lLinearMath_gmake
-AUDIO := -L"./dependencies/openal-soft/build" -lcommon -lOpenAL32.dll -lwinmm
-FREETYPE := -L"./dependencies/freetype" -lfreetype
+BULLET := -L"./libs/bullet3/bin" -lBulletDynamics_gmake -lBulletCollision_gmake -lLinearMath_gmake
+AUDIO := -L"./libs/openal-soft/build" -lcommon -lOpenAL32.dll -lwinmm
+FREETYPE := -L"./libs/freetype" -lfreetype
 STDLIBS := -lcomdlg32 -lole32 -lgdi32 -lgomp -lwsock32
 
 LIBS := $(GLFW) $(GLEW) $(OPENGL) $(LUA) $(BULLET) $(AUDIO) $(FREETYPE) -lstdc++ $(STDLIBS)
 
-CXXFLAGS := -O3 -Wall -Wextra -Wunreachable-code -Winline -Wcast-align -static -static-libgcc -static-libstdc++
+CXXFLAGS := -Wall -Wextra -Wunreachable-code -Winline -Wcast-align -static -static-libgcc -static-libstdc++ -O2
 LDFLAGS := -std=c++0x -DGLEW_STATIC -DBUILD_$(BUILD_TYPE)
 DEL_FILE = rm -f
 
