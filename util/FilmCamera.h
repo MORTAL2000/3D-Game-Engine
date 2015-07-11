@@ -7,8 +7,9 @@
 #ifndef FILMCAMERA_H
 #define FILMCAMERA_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
+#include <core/Commons.h>
+#include <core/Console.h>
+#include <rendering/Frustum.h>
 
 class FilmCamera
 {
@@ -17,38 +18,36 @@ public:
 
 	FilmCamera();
 
-	/* Set */
+	// Set
 	void setFOV(float);
-
 	void setViewport(float, float);
 	void setViewport(const vec2&);
 	void setClipping(float, float);
 	void setClipping(const vec2&);
-
 	void setPosition(const vec3&);
 	void setTarget(const vec3&);
 	void setTargetRaw(const vec3&);
 	void setUpVector(const vec3&);
 
-	// get
+	// Get
 	float getFOV();
 	float getAspectRatio();
 	vec2 getViewport();
 	vec2 getClipping();
-
 	vec3 getPosition();
 	vec3 getTarget();
 	vec3 getOldPosition();
 	virtual mat4 getViewMatrix();
 	virtual mat4 getProjectionMatrix();
-
-	// DEPRECATED REMOVE IF BULLET WORKS
-	void setFlightMode(bool);
-	bool getFlightMode();
+	Frustum getFrustum();
+	bool boxInFrustum(const BoundingBox& bbox);
 
 	void move(const MovementType&);
 	void rotate(double, double);
 	virtual void update();
+
+	void setFlightMode(bool);
+	bool getFlightMode();
 protected:
 	vec2 m_viewport;
 	float m_fovy;
@@ -67,6 +66,7 @@ protected:
 
 	mat4 m_viewMatrix;
 	mat4 m_projectionMatrix;
+	Frustum m_frustum;
 
 	bool m_flight;
 };

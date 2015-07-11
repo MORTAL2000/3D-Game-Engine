@@ -130,7 +130,11 @@ void Context::run(Core* core, const vector<string>& args)
 		glfwPollEvents();
 
 		if(glfwWindowShouldClose(m_window))
-		m_core->close();
+		{
+			m_core->close();
+		}
+
+		m_drawCalls = 0;
 	}
 
 	m_core->clear();
@@ -250,6 +254,17 @@ void Context::takeScreenshot(const string& filename)
 	delete[]buffer;
 
 	Console::log("Saved file as %s", filename.c_str());
+}
+
+
+void Context::addDrawCall()
+{
+	m_drawCalls++;
+}
+
+size_t Context::getDrawCalls()
+{
+	return m_drawCalls;
 }
 
 Core* Context::getCore()

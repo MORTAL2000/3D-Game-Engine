@@ -50,6 +50,9 @@ public:
 	void swapBuffers();
 	void takeScreenshot(const string&);
 
+	void addDrawCall();
+	size_t getDrawCalls();
+
 	Core* getCore();
 	GLFWwindow* getWindow();
 private:
@@ -57,6 +60,7 @@ private:
 	int m_height;
 	GLFWwindow* m_window;
 	Core* m_core;
+ 	size_t m_drawCalls;
 
 	Context();
 	void initialize(const string&, const string&);

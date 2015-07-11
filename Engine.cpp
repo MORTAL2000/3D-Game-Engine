@@ -221,11 +221,13 @@ void Engine::renderTexture()
 
 void Engine::renderDebug()
 {
+    size_t dc = Context::getInstance().getDrawCalls();
+
     glDisable(GL_CULL_FACE);
-	string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nEngine demo @Alexander Koch 2015";
+	string text = "FPS : %.3f  Frame : %i  Position : %.3f %.3f %.3f\nRenderTime : %.3f ms  ProcessingTime : %.3f ms\nDraw Calls: %d\nEngine demo @Alexander Koch 2015";
 	vec3 pos = camera.getPosition();
 	CFont* font = CFontManager::getFont("default");
-	font->renderf(vec2(10, 20), m_dimension, text.c_str(), fps, frame, pos.x, pos.y, pos.z, renderTime, processingTime);
+	font->renderf(vec2(10, 20), m_dimension, text.c_str(), fps, frame, pos.x, pos.y, pos.z, renderTime, processingTime, dc);
 	frame++;
     glEnable(GL_CULL_FACE);
     glDisable(GL_BLEND);

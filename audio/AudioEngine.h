@@ -3,11 +3,12 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <utility>
 using namespace std;
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
+#include <core/Commons.h>
+#include <core/Console.h>
 
 typedef map<string, pair<ALuint, ALuint>> SoundCache;
 

@@ -49,7 +49,7 @@ ist über __init() definiert.
     Sky = class()
 
     function Sky:__init()
-        self.color = BLUE
+        self.color = 0xFF00FF
     end
 
     function Sky:render()

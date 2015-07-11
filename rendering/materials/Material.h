@@ -5,10 +5,10 @@
 #include <string>
 #include <memory>
 
-#include "../../core/Commons.h"
-#include "../../util/FilmCamera.h"
-#include "../../util/Shader.h"
-#include "../../util/ITexture.h"
+#include <core/Commons.h>
+#include <util/FilmCamera.h>
+#include <util/Shader.h>
+#include <util/ITexture.h>
 
 class Material
 {

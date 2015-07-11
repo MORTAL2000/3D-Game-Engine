@@ -1,9 +1,10 @@
 #ifndef LUA_CAMERA_H
 #define LUA_CAMERA_H
 
-#include "../LuaBase.h"
-#include "../LuaClass.h"
-#include "../LuaConsole.h"
+#include <lua/LuaBase.h>
+#include <lua/LuaClass.h>
+#include <lua/LuaConsole.h>
+#include <lua/bindings/LuaMesh.h>
 #include <util/FilmCamera.h>
 
 class LuaCamera : public LuaBase

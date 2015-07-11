@@ -162,4 +162,17 @@ void FilmCamera::update()
 
 	// Sichtmatrix berechnen
 	m_viewMatrix = glm::lookAt(m_position, m_target, m_upVector);
+
+	// View-Frustum erstellen
+	m_frustum.calculate(m_projectionMatrix * m_viewMatrix);
+}
+
+Frustum FilmCamera::getFrustum()
+{
+	return m_frustum;
+}
+
+bool FilmCamera::boxInFrustum(const BoundingBox& bbox)
+{
+	return m_frustum.boxInFrustum(bbox);
 }

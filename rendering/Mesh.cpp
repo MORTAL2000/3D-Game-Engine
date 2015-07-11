@@ -18,12 +18,14 @@ Mesh::~Mesh()
 
 void Mesh::load(vector<vec3> vertices)
 {
-	vector<float> _vertices, _normals, _texcoords;
+	vector<float> verts, norms, tex;
 	for(auto i = 0; i < vertices.size(); i++)
-	for(auto j = 0; j < 3; j++)
-	_vertices.push_back(vertices[i][j]);
+	{
+		for(auto j = 0; j < 3; j++)
+		verts.push_back(vertices[i][j]);
+	}
 
-	load(_vertices, _normals, _texcoords);
+	load(verts, norms, tex);
 }
 
 void Mesh::load(vector<float> vertices)
@@ -34,28 +36,34 @@ void Mesh::load(vector<float> vertices)
 
 void Mesh::load(vector<vec3> vertices, vector<vec3> normals, vector<vec2> texcoords)
 {
-	vector<float> _vertices, _normals, _texcoords;
+	vector<float> verts, norms, tex;
 	size_t i, j;
 	for(i = 0; i < vertices.size(); i++)
-	for(j = 0; j < 3; j++)
-	_vertices.push_back(vertices[i][j]);
+	{
+		for(j = 0; j < 3; j++)
+		verts.push_back(vertices[i][j]);
+	}
 
 	for(i = 0; i < normals.size(); i++)
-	for(j = 0; j < 3; j++)
-	_normals.push_back(normals[i][j]);
+	{
+		for(j = 0; j < 3; j++)
+		norms.push_back(normals[i][j]);
+	}
 
 	for(i = 0; i < texcoords.size(); i++)
-	for(j = 0; j < 2; j++)
-	_texcoords.push_back(texcoords[i][j]);
+	{
+		for(j = 0; j < 2; j++)
+		tex.push_back(texcoords[i][j]);
+	}
 
-	load(_vertices, _normals, _texcoords);
+	load(verts, norms, tex);
 }
 
 void Mesh::load(vector<float> vertices, vector<float> normals, vector<float> texcoords)
 {
-	this->vertices = vertices;
-	this->normals = normals;
-	this->texcoords = texcoords;
+	m_vertices = vertices;
+	m_normals = normals;
+	m_texcoords = texcoords;
 
 	if(!m_valid)
 	{
@@ -63,6 +71,7 @@ void Mesh::load(vector<float> vertices, vector<float> normals, vector<float> tex
 		//glGenVertexArrays(1, &vao);
 		m_valid = true;
 	}
+
 	apply();
 }
 
@@ -71,15 +80,15 @@ int Mesh::load(const string& filename)
 	vector<Obj> objects;
 	if(!ObjLoader::getInstance().load(filename, objects)) return 0;
 
-	vector<float> _vertices, _normals, _texcoords;
+	vector<float> verts, norms, tex;
 	for(auto i = 0, j = 0; i < objects.size(); i++)
 	{
-		for(j = 0; j < objects[i].vertices.size(); j++) _vertices.push_back(objects[i].vertices[j]);
-		for(j = 0; j < objects[i].normals.size(); j++) _normals.push_back(objects[i].normals[j]);
-		for(j = 0; j < objects[i].texcoords.size(); j++) _texcoords.push_back(objects[i].texcoords[j]);
+		for(j = 0; j < objects[i].vertices.size(); j++) verts.push_back(objects[i].vertices[j]);
+		for(j = 0; j < objects[i].normals.size(); j++) norms.push_back(objects[i].normals[j]);
+		for(j = 0; j < objects[i].texcoords.size(); j++) tex.push_back(objects[i].texcoords[j]);
 	}
 
-	load(_vertices, _normals, _texcoords);
+	load(verts, norms, tex);
 	return 1;
 }
 
@@ -104,7 +113,7 @@ int Mesh::loadSingleObject(const string& filename, int index)
 
 void Mesh::loadCube(float size)
 {
-	float _vertices[] =
+	float verts[] =
 	{
 		1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
 		-1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
@@ -120,7 +129,7 @@ void Mesh::loadCube(float size)
 		-1, 1,-1,   1, 1,-1,   1,-1,-1      // v6-v5-v4
 	};
 
-	float _normals[] =
+	float norms[] =
 	{
 		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v0-v1-v2 (front)
 		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v2-v3-v0
@@ -136,7 +145,7 @@ void Mesh::loadCube(float size)
 		0, 0,-1,   0, 0,-1,   0, 0,-1       // v6-v5-v4
 	};
 
-	float _uvs[] =
+	float uvs[] =
 	{
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0,0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
@@ -146,16 +155,20 @@ void Mesh::loadCube(float size)
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0
 	};
 
-	for(auto i = 0; i < sizeof(_vertices)/sizeof(float); i++) vertices.push_back(_vertices[i] * size);
-	for(auto j = 0; j < sizeof(_normals)/sizeof(float); j++) normals.push_back(_normals[j]);
-	for(auto k = 0; k < sizeof(_uvs)/sizeof(float); k++) texcoords.push_back(_uvs[k]);
+	m_vertices.clear();
+	m_normals.clear();
+	m_texcoords.clear();
 
-	load(vertices, normals, texcoords);
+	for(auto i = 0; i < sizeof(verts)/sizeof(float); i++) m_vertices.push_back(verts[i] * size);
+	for(auto j = 0; j < sizeof(norms)/sizeof(float); j++) m_normals.push_back(norms[j]);
+	for(auto k = 0; k < sizeof(uvs)/sizeof(float); k++) m_texcoords.push_back(uvs[k]);
+
+	load(m_vertices, m_normals, m_texcoords);
 }
 
 void Mesh::loadCube(const vec3& position, const vec3& scale)
 {
-	float _vertices[] =
+	float verts[] =
 	{
 		1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
 		-1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
@@ -171,7 +184,7 @@ void Mesh::loadCube(const vec3& position, const vec3& scale)
 		-1, 1,-1,   1, 1,-1,   1,-1,-1      // v6-v5-v4
 	};
 
-	float _normals[] =
+	float norms[] =
 	{
 		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v0-v1-v2 (front)
 		0, 0, 1,   0, 0, 1,   0, 0, 1,      // v2-v3-v0
@@ -187,7 +200,7 @@ void Mesh::loadCube(const vec3& position, const vec3& scale)
 		0, 0,-1,   0, 0,-1,   0, 0,-1       // v6-v5-v4
 	};
 
-	float _uvs[] =
+	float uvs[] =
 	{
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0,0,0, 1,0, 1,1, 1,1, 0,1, 0,0,
@@ -197,20 +210,20 @@ void Mesh::loadCube(const vec3& position, const vec3& scale)
 		0,0, 1,0, 1,1, 1,1, 0,1, 0,0, 0,0, 1,0, 1,1, 1,1, 0,1, 0,0
 	};
 
-	for(auto i = 0; i < sizeof(_vertices)/sizeof(float)/3; i++)
+	for(auto i = 0; i < sizeof(verts)/sizeof(float)/3; i++)
 	{
-		_vertices[i*3] = (_vertices[i*3] + position.x) * scale.x;
-		_vertices[i*3+1] = (_vertices[i*3+1] + position.y) * scale.y;
-		_vertices[i*3+2] = (_vertices[i*3+2] + position.z) * scale.z;
-		vertices.push_back(_vertices[i*3]);
-		vertices.push_back(_vertices[i*3+1]);
-		vertices.push_back(_vertices[i*3+2]);
+		verts[i*3] = (verts[i*3] + position.x) * scale.x;
+		verts[i*3+1] = (verts[i*3+1] + position.y) * scale.y;
+		verts[i*3+2] = (verts[i*3+2] + position.z) * scale.z;
+		m_vertices.push_back(verts[i*3]);
+		m_vertices.push_back(verts[i*3+1]);
+		m_vertices.push_back(verts[i*3+2]);
 	}
 
-	for(auto j = 0; j < sizeof(_normals)/sizeof(float); j++) normals.push_back(_normals[j]);
-	for(auto k = 0; k < sizeof(_uvs)/sizeof(float); k++) texcoords.push_back(_uvs[k]);
+	for(auto j = 0; j < sizeof(norms)/sizeof(float); j++) m_normals.push_back(norms[j]);
+	for(auto k = 0; k < sizeof(uvs)/sizeof(float); k++) m_texcoords.push_back(uvs[k]);
 
-	load(vertices, normals, texcoords);
+	load(m_vertices, m_normals, m_texcoords);
 }
 
 void Mesh::loadPlane(float size)
@@ -353,7 +366,7 @@ void Mesh::loadIcosahedron(float radius)
 
 void Mesh::render(Shader* shader)
 {
-	render(shader, GL_TRIANGLES, vertices.size()/3);
+	render(shader, GL_TRIANGLES, m_vertices.size()/3);
 }
 
 void Mesh::render(Shader* shader, GLenum type, float size)
@@ -369,13 +382,13 @@ void Mesh::render(Shader* shader, GLenum type, float size)
 	glEnableVertexAttribArray(vertex);
 	glVertexAttribPointer(vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-	if(normals.size() > 0) {
+	if(m_normals.size() > 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
 		glEnableVertexAttribArray(normal);
 		glVertexAttribPointer(normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
-	if(texcoords.size() > 0) {
+	if(m_texcoords.size() > 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
 		glEnableVertexAttribArray(uv);
 		glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -385,59 +398,85 @@ void Mesh::render(Shader* shader, GLenum type, float size)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glDisableVertexAttribArray(vertex);
-	if(normals.size() > 0) glDisableVertexAttribArray(normal);
-	if(texcoords.size() > 0) glDisableVertexAttribArray(uv);
+	if(m_normals.size() > 0) glDisableVertexAttribArray(normal);
+	if(m_texcoords.size() > 0) glDisableVertexAttribArray(uv);
 
 	shader->unbind();
 	//glBindVertexArray(0);
 }
 
-int Mesh::getVertexCount()
+size_t Mesh::getVertexCount()
 {
-	return int(vertices.size());
+	return m_vertices.size();
 }
 
-int Mesh::getNormalCount()
+size_t Mesh::getNormalCount()
 {
-	return int(normals.size());
+	return m_normals.size();
 }
 
-int Mesh::getTexCoordCount()
+size_t Mesh::getTexCoordCount()
 {
-	return int(texcoords.size());
+	return m_texcoords.size();
 }
 
 vector<float> Mesh::getVertices()
 {
-	return vertices;
+	return m_vertices;
 }
 
-/* Private */
+// Private methods
 void Mesh::apply()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float), m_vertices.data(), GL_STATIC_DRAW);
 
-	if(normals.size() > 0)
+	if(m_normals.size() > 0)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-		glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(float), normals.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_normals.size() * sizeof(float), m_normals.data(), GL_STATIC_DRAW);
 	}
 
-	if(texcoords.size() > 0)
+	if(m_texcoords.size() > 0)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
-		glBufferData(GL_ARRAY_BUFFER, texcoords.size() * sizeof(float), texcoords.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, m_texcoords.size() * sizeof(float), m_texcoords.data(), GL_STATIC_DRAW);
 	}
+
+	// store 'points' and rebuild bounding box
+	vec3 first = vec3(m_vertices[0], m_vertices[1], m_vertices[2]);
+
+	vec3 min = first, max = first;
+	m_points.clear();
+	for(int i = 0; i < m_vertices.size(); i+=3)
+	{
+		vec3 v = vec3(m_vertices[i], m_vertices[i+1], m_vertices[i+2]);
+		m_points.push_back(v);
+
+		if(v.x > max.x) max.x = v.x;
+		if(v.y > max.y) max.y = v.y;
+		if(v.z > max.z) max.z = v.z;
+
+		if(v.x < min.x) min.x = v.x;
+		if(v.y < min.y) min.y = v.y;
+		if(v.z < min.z) min.z = v.z;
+	}
+
+	m_bbox.set(min, max);
+}
+
+BoundingBox Mesh::getBoundingBox()
+{
+	return m_bbox;
 }
 
 void Mesh::clear() {
-	if(vertices.size() > 0)
+	if(m_vertices.size() > 0)
 	{
 		//glDeleteVertexArrays(1, &vao);
 		glDeleteBuffers(3, buffer);
-		vertices.clear();
-		normals.clear();
-		texcoords.clear();
+		m_vertices.clear();
+		m_normals.clear();
+		m_texcoords.clear();
 	}
 }
