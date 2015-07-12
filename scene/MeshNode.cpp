@@ -20,34 +20,19 @@ void MeshNode::draw(const mat4& parentTransform, FilmCamera* camera)
 		m_transformation = m_renderer->getModelMatrix();
 		mat4 childTransform = parentTransform * m_transformation;
 
-		// Get the BoundingBox
+		// Get the new BoundingBox
 		BoundingBox bbox = m_renderer->getBoundingBox();
-		vec3 min = bbox.getMin();
-		vec3 max = bbox.getMax();
-
-		vec4 min4 = childTransform * vec4(min.x, min.y, min.z, 1.0f);
-		vec4 max4 = childTransform * vec4(max.x, max.y, max.z, 1.0f);
-
-		min.x = min4.x;
-		min.y = min4.y;
-		min.z = min4.z;
-
-		max.x = max4.x;
-		max.y = max4.y;
-		max.z = max4.z;
-		bbox = BoundingBox(min, max);
+		bbox.transform(childTransform);
 
 		// Test if visible
 		bool visible = camera->boxInFrustum(bbox);
-		if(!visible)
+		if(visible)
 		{
-			return;
+			Context::getInstance().addDrawCall();
+
+			m_renderer->update(childTransform, camera);
+			m_renderer->render();
 		}
-
-		Context::getInstance().addDrawCall();
-
-		m_renderer->update(childTransform, camera);
-		m_renderer->render();
 
 		for(NodePointerList::const_iterator ci = m_children.begin(); ci != m_children.end(); ci++)
 		{

@@ -1,12 +1,13 @@
 #include "Mesh.h"
 
-Mesh::Mesh() :
-	m_valid(false)
-{
-}
+#define MESH_VERTEX 0
+#define MESH_NORMAL 1
+#define MESH_UV 2
 
-Mesh::Mesh(const string& filename) :
-	m_valid(false)
+Mesh::Mesh() : m_valid(false)
+{}
+
+Mesh::Mesh(const string& filename) : m_valid(false)
 {
 	load(filename);
 }
@@ -16,7 +17,7 @@ Mesh::~Mesh()
 	clear();
 }
 
-void Mesh::load(vector<vec3> vertices)
+void Mesh::load(const vector<vec3>& vertices)
 {
 	vector<float> verts, norms, tex;
 	for(auto i = 0; i < vertices.size(); i++)
@@ -28,13 +29,13 @@ void Mesh::load(vector<vec3> vertices)
 	load(verts, norms, tex);
 }
 
-void Mesh::load(vector<float> vertices)
+void Mesh::load(const vector<float>& vertices)
 {
 	vector<float> empty;
 	load(vertices, empty, empty);
 }
 
-void Mesh::load(vector<vec3> vertices, vector<vec3> normals, vector<vec2> texcoords)
+void Mesh::load(const vector<vec3>& vertices, const vector<vec3>& normals, const vector<vec2>& uvs)
 {
 	vector<float> verts, norms, tex;
 	size_t i, j;
@@ -50,25 +51,25 @@ void Mesh::load(vector<vec3> vertices, vector<vec3> normals, vector<vec2> texcoo
 		norms.push_back(normals[i][j]);
 	}
 
-	for(i = 0; i < texcoords.size(); i++)
+	for(i = 0; i < uvs.size(); i++)
 	{
 		for(j = 0; j < 2; j++)
-		tex.push_back(texcoords[i][j]);
+		tex.push_back(uvs[i][j]);
 	}
 
 	load(verts, norms, tex);
 }
 
-void Mesh::load(vector<float> vertices, vector<float> normals, vector<float> texcoords)
+void Mesh::load(const vector<float>& vertices, const vector<float>& normals, const vector<float>& uvs)
 {
 	m_vertices = vertices;
 	m_normals = normals;
-	m_texcoords = texcoords;
+	m_texcoords = uvs;
 
 	if(!m_valid)
 	{
 		glGenBuffers(3, buffer);
-		//glGenVertexArrays(1, &vao);
+		glGenVertexArrays(1, &vao);
 		m_valid = true;
 	}
 
@@ -371,38 +372,14 @@ void Mesh::render(Shader* shader)
 
 void Mesh::render(Shader* shader, GLenum type, float size)
 {
-	//glBindVertexArray(vao);
+	glBindVertexArray(vao);
 	shader->bind();
-
-	uint8_t vertex = 0;
-	uint8_t normal = 1;
-	uint8_t uv = 2;
-
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	glEnableVertexAttribArray(vertex);
-	glVertexAttribPointer(vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	if(m_normals.size() > 0) {
-		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-		glEnableVertexAttribArray(normal);
-		glVertexAttribPointer(normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	}
-
-	if(m_texcoords.size() > 0) {
-		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
-		glEnableVertexAttribArray(uv);
-		glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	}
 
 	glDrawArrays(type, 0, size);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glDisableVertexAttribArray(vertex);
-	if(m_normals.size() > 0) glDisableVertexAttribArray(normal);
-	if(m_texcoords.size() > 0) glDisableVertexAttribArray(uv);
-
 	shader->unbind();
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 }
 
 size_t Mesh::getVertexCount()
@@ -443,7 +420,7 @@ void Mesh::apply()
 		glBufferData(GL_ARRAY_BUFFER, m_texcoords.size() * sizeof(float), m_texcoords.data(), GL_STATIC_DRAW);
 	}
 
-	// store 'points' and rebuild bounding box
+	// Store 'points' and rebuild bounding box
 	vec3 first = vec3(m_vertices[0], m_vertices[1], m_vertices[2]);
 
 	vec3 min = first, max = first;
@@ -463,6 +440,29 @@ void Mesh::apply()
 	}
 
 	m_bbox.set(min, max);
+
+	// Setup vertex array object
+	glBindVertexArray(vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glEnableVertexAttribArray(MESH_VERTEX);
+	glVertexAttribPointer(MESH_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	if(m_normals.size() > 0)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+		glEnableVertexAttribArray(MESH_NORMAL);
+		glVertexAttribPointer(MESH_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	}
+
+	if(m_texcoords.size() > 0)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+		glEnableVertexAttribArray(MESH_UV);
+		glVertexAttribPointer(MESH_UV, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	}
+
+	glBindVertexArray(0);
 }
 
 BoundingBox Mesh::getBoundingBox()
@@ -473,7 +473,7 @@ BoundingBox Mesh::getBoundingBox()
 void Mesh::clear() {
 	if(m_vertices.size() > 0)
 	{
-		//glDeleteVertexArrays(1, &vao);
+		glDeleteVertexArrays(1, &vao);
 		glDeleteBuffers(3, buffer);
 		m_vertices.clear();
 		m_normals.clear();

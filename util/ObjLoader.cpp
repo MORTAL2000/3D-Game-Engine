@@ -1,27 +1,3 @@
-/* Copyright (c), Alexander Koch
-* All rights reserved.
-*
-* Use and copying of this software and preparation of derivative works
-* based upon this software are permitted. Any copy of this software or
-* of any derivative work must include the above copyright notice, this
-* paragraph and the one after it.  Any distribution of this software or
-* derivative works must comply with all aplicable laws.
-
-* This software is made available AS IS, and COPYRIGHT OWNERS DISCLAIMS
-* ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-* PURPOSE, AND NOTWITHSTANDING ANY OTHER PROVISION CONTAINED HEREIN, ANY
-* LIABILITY FOR DAMAGES RESULTING FROM THE SOFTWARE OR ITS USE IS
-* EXPRESSLY DISCLAIMED, WHETHER ARISING IN CONTRACT, TORT (INCLUDING
-* NEGLIGENCE) OR STRICT LIABILITY, EVEN IF COPYRIGHT OWNERS ARE ADVISED
-* OF THE POSSIBILITY OF SUCH DAMAGES.
-*/
-
-/*
-* @file ObjLoader.h
-* @author Alexander Koch
-*/
-
 #include "ObjLoader.h"
 
 ObjLoader::ObjLoader() {}
@@ -32,16 +8,16 @@ ObjLoader& ObjLoader::getInstance()
 	return instance;
 }
 
-int ObjLoader::loadSingleObject(const std::string& filename, int index, Obj& object)
+int ObjLoader::loadSingleObject(const string& filename, int index, Obj& object)
 {
-	std::vector<Obj> objects;
+	vector<Obj> objects;
 	if(!load(filename, objects)) return 0;
 	if(index > objects.size()-1 || index < 0) return 0;
 	object = objects[index];
 	return 1;
 }
 
-int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
+int ObjLoader::load(const string& filename, vector<Obj>& objects)
 {
 	if(Tokenizer::getFileExtension(filename) != "obj")
 	{
@@ -49,28 +25,28 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 		return 0;
 	}
 
-	std::vector<std::string> lines;
+	vector<string> lines;
 	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error loading OBJ from : %s", filename.c_str());
 		return 0;
 	}
 
-	std::vector<FaceGroup> groups;
+	vector<FaceGroup> groups;
 	int o = 0, g = 0;
-	std::vector<vec3> positions;
-	std::vector<vec2> texCoords;
-	std::vector<vec3> normals;
-	std::vector<Index> faces;
+	vector<vec3> positions;
+	vector<vec2> texCoords;
+	vector<vec3> normals;
+	vector<Index> faces;
 	bool hasTexCoords = false, hasNormals = false;
 
 	// external materials
-	std::vector<Mtl> materials;
+	vector<Mtl> materials;
 	size_t current_mtl_index = 0;
 
 	for(auto i = 0; i < lines.size(); i++)
 	{
-		std::vector<std::string> tokens = Tokenizer::tokenize(lines[i], ' ');
+		vector<string> tokens = Tokenizer::tokenize(lines[i], ' ');
 		if(tokens.size() == 0 || tokens[0] == "#") continue;
 
 		if(tokens[0] == "o")
@@ -126,7 +102,7 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 
 			for(size_t j = 1; j < tokens.size(); j++)
 			{
-				std::vector<std::string> sub_tokens = Tokenizer::tokenize(tokens[j], '/');
+				vector<string> sub_tokens = Tokenizer::tokenize(tokens[j], '/');
 				if(!sub_tokens.size() || !sub_tokens[0].size() || sub_tokens[0].empty()) continue;
 
 				int value0 = 0;
@@ -220,10 +196,10 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 		}
 		else if(tokens[0] == "mtllib")
 		{
-			std::string directory = Tokenizer::getDirectory(filename, true);
-			std::string path = directory+tokens[1];
+			string directory = Tokenizer::getDirectory(filename, true);
+			string path = directory+tokens[1];
 
-			std::vector<Mtl> sub_materials;
+			vector<Mtl> sub_materials;
 			if(!loadMtl(path, sub_materials))
 			{
 				Console::log("Failed at loading material");
@@ -264,9 +240,9 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 
 	for(size_t o = 0; o < groups.size(); o++)
 	{
-		std::vector<float> finalVertices;
-		std::vector<float> finalNormals;
-		std::vector<float> finalUvs;
+		vector<float> finalVertices;
+		vector<float> finalNormals;
+		vector<float> finalUvs;
 
 		// for each object
 		// for each face
@@ -329,9 +305,9 @@ int ObjLoader::load(const std::string& filename, std::vector<Obj>& objects)
 	return 1;
 }
 
-int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
+int ObjLoader::loadMtl(const string& filename, vector<Mtl>& materials)
 {
-	std::vector<std::string> lines;
+	vector<string> lines;
 	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error loading MTL from %s", filename.c_str());
@@ -341,7 +317,7 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 	Mtl* current_mtl = 0;
 	for(size_t i = 0; i < lines.size(); i++)
 	{
-		std::vector<std::string> tokens = Tokenizer::tokenize(lines[i], ' ');
+		vector<string> tokens = Tokenizer::tokenize(lines[i], ' ');
 		if(tokens.size() == 0 || tokens[0] == "#") continue;
 
 		if(tokens[0] == "newmtl")
@@ -397,8 +373,8 @@ int ObjLoader::loadMtl(const std::string& filename, std::vector<Mtl>& materials)
 		else if(tokens[0] == "map_Kd")
 		{
 			if(current_mtl == 0) return 0;
-			std::string dir = Tokenizer::getDirectory(filename, true);
-			std::string path = dir + tokens[1];
+			string dir = Tokenizer::getDirectory(filename, true);
+			string path = dir + tokens[1];
 			current_mtl->map_Kd_path = path;
 		}
 	}

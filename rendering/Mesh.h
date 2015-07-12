@@ -1,7 +1,7 @@
 /**
  * @file Mesh.h
  * @author Alexander Koch
- * @desc triangle mesh
+ * @desc Triangle mesh
  */
 
 #ifndef MESH_H
@@ -24,15 +24,15 @@ class Mesh
 {
 public:
 	Mesh();
-	Mesh(const string&);
+	Mesh(const string& filename);
 	~Mesh();
 
-	void load(vector<vec3>);
-	void load(vector<float>);
-	void load(vector<vec3>, vector<vec3>, vector<vec2>);
-	void load(vector<float>, vector<float>, vector<float>);
-	int load(const string&);
-	int loadSingleObject(const string&, int);
+	void load(const vector<vec3>& vertices);
+	void load(const vector<float>& vertices);
+	void load(const vector<vec3>& vertices, const vector<vec3>& normals, const vector<vec2>& uvs);
+	void load(const vector<float>& vertices, const vector<float>& normals, const vector<float>& uvs);
+	int load(const string& filename);
+	int loadSingleObject(const string& filename, int index);
 
 	void loadCube(float);
 	void loadCube(const vec3& position, const vec3& scale);
@@ -49,7 +49,7 @@ public:
 	vector<float> getVertices();
 	BoundingBox getBoundingBox();
 protected:
-	//uint vao;
+	unsigned int vao;
  	unsigned int buffer[3];
 	vector<float> m_vertices;
 	vector<float> m_normals;
