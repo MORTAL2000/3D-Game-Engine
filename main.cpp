@@ -1,7 +1,7 @@
 // Copyright (c) 2014-2015 Alexander Koch
 
-#define ENGINE_TITLE "Engine demo v5.5"
-#define EDITOR_TITLE "Frontend Editor v5.5"
+#define ENGINE_TITLE "Game Engine v5.6"
+#define EDITOR_TITLE "Frontend Editor v5.6"
 
 #include <iostream>
 #include <cstdio>

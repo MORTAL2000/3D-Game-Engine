@@ -28,7 +28,7 @@ void Engine::load(const vector<string>& args)
     // Display loading message
     glDisable(GL_CULL_FACE);
 	CFont* font = CFontManager::getFont("header");
-    string cnt = "Game Engine v5.5\nLoading assets ...";
+    string cnt = "Game Engine v5.6\nLoading assets ...";
     int fw = font->getStringWidth(cnt);
     int fh = font->getStringHeight(cnt);
     int xw = fw / 4;

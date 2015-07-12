@@ -22,10 +22,10 @@ void MeshRenderer::setPosition(const vec3& position)
 
 void MeshRenderer::setRotation(const vec3& rotation)
 {
- 	/*quat qx = quat(vec3(1.0f, 0.0f, 0.0f), rotation.x);
-	quat qy = quat(vec3(0.0f, 1.0f, 0.0f), rotation.y);
-	quat qz = quat(vec3(0.0f, 0.0f, 1.0), rotation.z);
-	m_rotation = qx * qy * qz;*/
+ 	// quat qx = quat(vec3(1.0f, 0.0f, 0.0f), rotation.x);
+	// quat qy = quat(vec3(0.0f, 1.0f, 0.0f), rotation.y);
+	// quat qz = quat(vec3(0.0f, 0.0f, 1.0), rotation.z);
+	// m_rotation = qx * qy * qz;
 	m_rotation = quat(rotation);
 }
 

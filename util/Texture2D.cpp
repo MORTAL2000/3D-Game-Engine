@@ -21,7 +21,7 @@ int Texture2D::load(const std::string& filename)
 int Texture2D::load(const std::string& filename, bool flipYAxis)
 {
 	glGenTextures(1, &texture);
-	unsigned char* data = TextureLoader::load(filename, width, height, m_bytesPerPixel);
+	vector<unsigned char> data = TextureLoader::getInstance().load(filename, width, height, m_bytesPerPixel);
 
 	if(flipYAxis)
 	{
@@ -30,7 +30,7 @@ int Texture2D::load(const std::string& filename, bool flipYAxis)
 	else
 	{
 		bind(GL_TEXTURE0);
-		glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data.data());
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter);
 		unbind();
@@ -42,25 +42,24 @@ int Texture2D::load(const std::string& filename, bool flipYAxis)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-	delete[] data;
 	return (valid = true);
 }
 
-void Texture2D::flipX(unsigned char* data)
+void Texture2D::flipX(vector<unsigned char>& data)
 {
 	bind(GL_TEXTURE0);
 	flip_horizontal(data, width, height);
-	glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data.data());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter);
 	unbind();
 }
 
-void Texture2D::flipY(unsigned char* data)
+void Texture2D::flipY(vector<unsigned char>& data)
 {
 	bind(GL_TEXTURE0);
 	flip_vertical(data, width, height);
-	glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, m_bytesPerPixel, width, height, 0, m_bytesPerPixel, GL_UNSIGNED_BYTE, data.data());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter);
 	unbind();
@@ -110,42 +109,34 @@ void Texture2D::clear()
 	valid = false;
 }
 
-void Texture2D::flip_horizontal(unsigned char* data, unsigned int width, unsigned int height)
+void Texture2D::flip_horizontal(vector<unsigned char>& data, unsigned int width, unsigned int height)
 {
+	vector<unsigned char> new_data;
 	unsigned int size = width * height * 4;
 	unsigned int stride = sizeof(char) * width * 4;
-	unsigned char *new_data = new unsigned char[size];
-	if(!new_data)
-	{
-		Console::log("Memory error");
-		return;
-	}
+	new_data.reserve(size);
 
 	for(unsigned int j = 0; j < width; j++)
 	{
 		unsigned int i = width - j - 1;
-		memcpy(new_data + j * stride, data + i * stride, stride);
+		memcpy(new_data.data() + j * stride, data.data() + i * stride, stride);
 	}
-	memcpy(data, new_data, size);
-	delete[] new_data;
+	memcpy(data.data(), new_data.data(), size);
+	new_data.clear();
 }
 
-void Texture2D::flip_vertical(unsigned char *data, unsigned int width, unsigned int height)
+void Texture2D::flip_vertical(vector<unsigned char>& data, unsigned int width, unsigned int height)
 {
+	vector<unsigned char> new_data;
 	unsigned int size = width * height * 4;
 	unsigned int stride = sizeof(char) * width * 4;
-	unsigned char *new_data = new unsigned char[size];
-	if(!new_data)
-	{
-		Console::log("Memory error");
-		return;
-	}
+	new_data.reserve(size);
 
 	for(unsigned int i = 0; i < height; i++)
 	{
 		unsigned int j = height - i - 1;
-		memcpy(new_data + j * stride, data + i * stride, stride);
+		memcpy(new_data.data() + j * stride, data.data() + i * stride, stride);
 	}
-	memcpy(data, new_data, size);
-	delete[] new_data;
+	memcpy(data.data(), new_data.data(), size);
+	new_data.clear();
 }

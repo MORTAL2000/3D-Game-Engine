@@ -20,13 +20,13 @@ class Texture2D : public ITexture
 {
 public:
 	Texture2D();
-	Texture2D(const std::string&);
+	Texture2D(const string& path);
 	~Texture2D();
 
-	int load(const std::string&);
-	int load(const std::string&, bool);
-	void flipX(unsigned char*);
-	void flipY(unsigned char*);
+	int load(const string& filename);
+	int load(const string& filename, bool flipYAxis);
+	void flipX(vector<unsigned char>& data);
+	void flipY(vector<unsigned char>& data);
 
 	void bind(GLenum);
 	void unbind();
@@ -47,8 +47,8 @@ private:
 	GLenum m_filter;
 	GLenum m_bytesPerPixel;
 
-	void flip_vertical(unsigned char*, unsigned int, unsigned int);
-	void flip_horizontal(unsigned char*, unsigned int, unsigned int);
+	void flip_vertical(vector<unsigned char>& data, unsigned int, unsigned int);
+	void flip_horizontal(vector<unsigned char>& data, unsigned int, unsigned int);
 };
 
 #endif

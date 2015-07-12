@@ -68,6 +68,7 @@ ITexture* TextureLibrary::get(const std::string& key)
 
 void TextureLibrary::free()
 {
+	Console::log("Cache: Textures freed.");
 	for(auto it = m_tex2d_cache.begin(); it != m_tex2d_cache.end(); it++)
 	{
 		it->second.clear();

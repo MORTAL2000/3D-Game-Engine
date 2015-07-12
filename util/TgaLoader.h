@@ -12,9 +12,9 @@ struct TGA
 	unsigned int height;
 	unsigned int bpp;
 	unsigned int memory;
-	unsigned char* data;
+ 	vector<unsigned char> data;
 
-	TGA() : data(0)
+	TGA()
 	{}
 };
 
@@ -47,7 +47,7 @@ bool load(const std::string& filename, TGA* tga)
 		return false;
 	}
 
-	unsigned int width = header[1] * 256 + header[0]; 
+	unsigned int width = header[1] * 256 + header[0];
 	unsigned int height = header[3] * 256 + header[2];
 
 	if(width < 1 || height < 1 || (header[4] != 24 && header[4] != 32))
@@ -56,16 +56,11 @@ bool load(const std::string& filename, TGA* tga)
 		return false;
 	}
 
+	vector<unsigned char> data;
 	unsigned int bpp = header[4];
 	unsigned int bytesPerPixel = bpp / 8;
 	unsigned int memory = width * height * bytesPerPixel;
-	unsigned char* data = new unsigned char[memory];
-
-	if(!data)
-	{
-		fclose(file);
-		return false;
-	}
+	data.reserve(memory);
 
 	if(compressed)
 	{
@@ -79,7 +74,6 @@ bool load(const std::string& filename, TGA* tga)
 			unsigned char chunk = 0;
 			if(fread(&chunk, sizeof(unsigned char), 1, file) == 0)
 			{
-				delete[] data;
 				fclose(file);
 				return false;
 			}
@@ -91,7 +85,6 @@ bool load(const std::string& filename, TGA* tga)
 				{
 					if(fread(buffer, 1, bytesPerPixel, file) != bytesPerPixel)
 					{
-						delete[] data;
 						fclose(file);
 						return false;
 					}
@@ -110,7 +103,6 @@ bool load(const std::string& filename, TGA* tga)
 
 					if(current > count)
 					{
-						delete[] data;
 						fclose(file);
 						return false;
 					}
@@ -121,7 +113,6 @@ bool load(const std::string& filename, TGA* tga)
 				chunk -= 127;
 				if(fread(buffer, 1, bytesPerPixel, file) != bytesPerPixel)
 				{
-					delete[] data;
 					fclose(file);
 					return false;
 				}
@@ -143,7 +134,6 @@ bool load(const std::string& filename, TGA* tga)
 
 				if(current > count)
 				{
-					delete[] data;
 					fclose(file);
 					return false;
 				}
@@ -153,9 +143,8 @@ bool load(const std::string& filename, TGA* tga)
 	}
 	else
 	{
-		if(fread(data, 1, memory, file) != memory)
+		if(fread(data.data(), 1, memory, file) != memory)
 		{
-			delete[] data;
 			fclose(file);
 			return false;
 		}
