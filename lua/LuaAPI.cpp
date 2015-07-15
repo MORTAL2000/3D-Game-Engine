@@ -2,8 +2,6 @@
 #include <lua/bindings/LuaMath.h>
 #include <core/Context.h>
 #include <Engine.h>
-#include <audio/WinMM.h>
-#include <audio/WaveFile.h>
 
 #define MOUSE_X "MOUSE_X"
 #define MOUSE_Y "MOUSE_Y"
@@ -142,13 +140,6 @@ static int lua_getAxis(lua_State* lua)
 	return 0;
 }
 
-static int lua_play_sound(lua_State* lua)
-{
-	std::string file = std::string(lua_tostring(lua, -1));
-	play_sound(file);
-	return 0;
-}
-
 static int lua_takepic(lua_State* lua)
 {
 	std::string name = std::string(lua_tostring(lua, -1));
@@ -243,6 +234,22 @@ static int lua_include(lua_State* lua)
 	return 0;
 }
 
+static int lua_load_sound(lua_State* lua)
+{
+	std::string key = std::string(lua_tostring(lua, -1));
+	std::string path = std::string(lua_tostring(lua, -2));
+
+	AudioEngine::getInstance().loadSound(path, key);
+	return 0;
+}
+
+static int lua_play_sound(lua_State* lua)
+{
+	std::string key = std::string(lua_tostring(lua, -1));
+	AudioEngine::getInstance().playSound(key);
+	return 0;
+}
+
 // register bindings, load lua
 bool LuaAPI::initialize()
 {
@@ -289,7 +296,6 @@ bool LuaAPI::initialize()
 	registerFunction("isKeyDown", lua_keydown, 0);
 	registerFunction("getAxis", lua_getAxis, 0);
 
-	registerFunction("playSound", lua_play_sound, 0);
 	registerFunction("screenshot", lua_takepic, 0);
 
 	registerFunction("checkSphere", lua_check_sphere, "physics");
@@ -300,6 +306,9 @@ bool LuaAPI::initialize()
 	registerFunction("drawWireCube", lua_draw_wire_cube, "debug");
 
 	registerFunction("include", lua_include, 0);
+
+	registerFunction("loadSound", lua_load_sound, "audio");
+	registerFunction("playSound", lua_play_sound, "audio");
 
 	return true;
 }

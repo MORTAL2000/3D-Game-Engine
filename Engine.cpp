@@ -3,8 +3,7 @@
 #include <project/SceneManager.h>
 #include <network/Server.h>
 
-Engine::Engine() :
-    wireframe(false), postProcess(false), lockCursor(false),
+Engine::Engine() : wireframe(false), postProcess(false), lockCursor(false),
     hasUpdateFunc(false), hasRenderFunc(false), fps(0.0),
     frame(0.0), renderTime(0.0), processingTime(0.0)
 {}
@@ -16,6 +15,7 @@ void Engine::load(const vector<string>& args)
 	CFontManager::initialize();
 	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", 11);
     CFontManager::loadFont("header", "resources/fonts/SourceSansPro-Regular.otf", 50);
+    AudioEngine::getInstance().initialize();
 
 	// Graphics initialization
     gl::init();
@@ -48,7 +48,6 @@ void Engine::load(const vector<string>& args)
 	glShadeModel(GL_FLAT);
 	glEnable(GL_FRAMEBUFFER_SRGB);
 	MaterialLibrary::getInstance().initialize();
-    // AudioEngine::getInstance().initialize();
 	Console::log("Main: Initialized graphics, materials");
 
 	camera.setPosition(vec3(0, 0, 10));
@@ -190,8 +189,8 @@ void Engine::render()
 
 void Engine::clear()
 {
+    AudioEngine::getInstance().free();
     m_physics.finalize();
-    // AudioEngine::getInstance().free();
     MaterialLibrary::getInstance().free();
     LuaAPI::getInstance().finalize();
 }

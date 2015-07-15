@@ -9,6 +9,7 @@ using namespace std;
 
 #include <core/Commons.h>
 #include <core/Console.h>
+#include <audio/SoundLoader.h>
 
 typedef map<string, pair<ALuint, ALuint>> SoundCache;
 
@@ -21,7 +22,7 @@ public:
 	void free();
 
 	void loadSound(const string& path, const string& key);
-	void play(const string& key);
+	void playSound(const string& key);
 
 private:
 	AudioEngine();

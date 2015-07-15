@@ -55,7 +55,7 @@ namespace Tokenizer
 	std::string removePath(const std::string& name)
 	{
 		unsigned found = name.find_last_of("\\/");
-		if(found == (unsigned)-1) return std::string();
+		if(found == (unsigned)-1) return name;
 		return name.substr(found+1);
 	}
 

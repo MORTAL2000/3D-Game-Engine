@@ -107,7 +107,7 @@ bool CFont::loadFromFile(const string& filename, const uint16_t size)
 	FT_Done_Face(m_face);
 	m_filename = filename;
 
-	Console::log("Successfully loaded font from file");
+	Console::log("Loaded font '%s'", Tokenizer::removePath(filename).c_str());
 
 	return (m_ft_loaded = true);
 }

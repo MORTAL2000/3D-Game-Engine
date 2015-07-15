@@ -21,6 +21,7 @@
 #include <util/Noise.h>
 
 #include <network/Server.h>
+#include <audio/AudioEngine.h>
 
 typedef int (*lua_CFunction) (lua_State *lua);
 

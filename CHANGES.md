@@ -3,8 +3,9 @@ Change log
 
 ### TODO (Not sorted)
 
+* terrain rendering using quadtrees
 * custom memory allocation, also leakcheck
-* openal audio system
+* expand openal audio system
 * package loading
 * plug-in mechanism for lua scripted plug-ins
 * add Standard Pipeline and Fixed Pipeline rendering (standard or custom)
@@ -21,6 +22,12 @@ Change log
 
 Changes
 ====
+
+
+### Current dev
+
+* OpenAL Audio Engine working
+* Fixed shadow shader / MeshNode custom shader draw update
 
 ### v5.6 - Performance and optimization update!
 

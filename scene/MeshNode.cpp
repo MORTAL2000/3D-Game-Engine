@@ -48,12 +48,11 @@ void MeshNode::draw(const mat4& parentTransform, Shader* shader)
 		m_transformation = m_renderer->getModelMatrix();
 		mat4 childTransform = parentTransform * m_transformation;
 
-		Shader* shdr = m_renderer->getMaterial()->getShader();
-		shdr->bind();
-		shdr->mat4x4("modelMatrix", childTransform);
+		shader->bind();
+		shader->mat4x4("modelMatrix", childTransform);
 		mat3 normalMatrix = glm::transpose(glm::inverse(mat3(childTransform)));
-		shdr->mat3x3("normalMatrix", normalMatrix);
-		shdr->unbind();
+		shader->mat3x3("normalMatrix", normalMatrix);
+		shader->unbind();
 
 		m_renderer->render(shader);
 
