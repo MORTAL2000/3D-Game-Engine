@@ -3,6 +3,8 @@ Change log
 
 ### TODO (Not sorted)
 
+* LOD (Level of detail) system
+* some type of shadow caster culling
 * terrain rendering using quadtrees
 * custom memory allocation, also leakcheck
 * expand openal audio system
@@ -23,11 +25,15 @@ Change log
 Changes
 ====
 
-
-### Current dev
+### v5.6a - Current dev
 
 * OpenAL Audio Engine working
 * Fixed shadow shader / MeshNode custom shader draw update
+* Framebuffer memory function used `glDeleteFramebuffer`
+* Added:
+ * Class `AudioEngine`
+ * Class `SoundLoader`
+ * Class `Sound`
 
 ### v5.6 - Performance and optimization update!
 
@@ -67,6 +73,28 @@ Changes
 * Editor improvement, now export of level files, python build script
 * ITexture texture interface, Cubemap support in development
 * Small changes
+
+### v5.1
+
+* Fixed lua crash, updated lua to v5.3, created include function
+* New debug drawing function in lua + lua functions
+* gl class reimplements depcrecated opengl function (new approach)
+* first person view control using lua and bullet (no fly)
+
+### v5.0
+
+* Shadow mapping reimplemented, now in scene class
+* Implementing gl class / namespace for opengl functions
+* Debug-drawing, editor development restarted using imgui
+* Bullet rotation fix
+
+### v4.9
+
+* FileReader update, introduced new Package class, export option
+* Project as package file (archive file type)
+* TODO:
+ * Internal compression of package files
+
 
 ### Old - TODO: reformat
 

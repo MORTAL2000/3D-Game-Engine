@@ -1,15 +1,11 @@
 #include "ShadowMap.h"
 
-ShadowMap::ShadowMap()
-{
-	buffer = 0;
-	texture = 0;
-}
+ShadowMap::ShadowMap() {}
 
 ShadowMap::~ShadowMap()
 {
-//	if(buffer != 0) glDeleteFramebuffers(1, &buffer);
-//	if(texture != 0) glDeleteTextures(1, &texture);
+	glDeleteFramebuffers(1, &buffer);
+	glDeleteTextures(1, &texture);
 }
 
 void ShadowMap::init(int width, int height)

@@ -14,7 +14,7 @@ namespace FileReader
 			m_package_file = package;
 			use_package = true;
 
-			// get global package folder
+			// Get global package folder
 			std::vector<std::string> files;
 			Package::get_files(package, files);
 			FileIO::getTopDir(files[0], m_top_dir);

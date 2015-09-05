@@ -24,12 +24,10 @@ void MeshNode::draw(const mat4& parentTransform, FilmCamera* camera)
 		BoundingBox bbox = m_renderer->getBoundingBox();
 		bbox.transform(childTransform);
 
-		// Test if visible
-		bool visible = camera->boxInFrustum(bbox);
-		if(visible)
+		// Test if in view frustum
+		if(camera->boxInFrustum(bbox))
 		{
 			Context::getInstance().addDrawCall();
-
 			m_renderer->update(childTransform, camera);
 			m_renderer->render();
 		}
@@ -48,12 +46,14 @@ void MeshNode::draw(const mat4& parentTransform, Shader* shader)
 		m_transformation = m_renderer->getModelMatrix();
 		mat4 childTransform = parentTransform * m_transformation;
 
+		// Standard info
 		shader->bind();
 		shader->mat4x4("modelMatrix", childTransform);
 		mat3 normalMatrix = glm::transpose(glm::inverse(mat3(childTransform)));
 		shader->mat3x3("normalMatrix", normalMatrix);
 		shader->unbind();
 
+		// Draw call
 		m_renderer->render(shader);
 
 		for(NodePointerList::const_iterator ci = m_children.begin(); ci != m_children.end(); ci++)
