@@ -55,7 +55,7 @@ void Engine::load(const vector<string>& args)
 	camera.setViewport(m_dimension);
     m_physics.initialize();
 
-	postProcess = Property("postProcessing");
+	postProcess = Property("postprocessing");
 	wireframe = Property("wireframe");
 	lockCursor = Property("lockCursor");
 
@@ -153,10 +153,12 @@ void Engine::update()
 		if(actionListener['A']) camera.move(FilmCamera::STRAFE_LEFT);
 		if(actionListener['D']) camera.move(FilmCamera::STRAFE_RIGHT);
 
+        // Space and shift
 		if(actionListener[' ']) camera.move(FilmCamera::UP);
 		if(actionListener[340]) camera.move(FilmCamera::DOWN);
 	}
 
+    // Escape
 	if(actionListener[256])
 	{
 		close();
@@ -239,7 +241,7 @@ void Engine::onKeyInput(int key, int scancode, int action, int mods)
 
 void Engine::onCharInput(unsigned int character)
 {
-
+    // TODO: Some gui code here for in-game GUIs
 }
 
 void Engine::onMouseMovement(double x, double y)

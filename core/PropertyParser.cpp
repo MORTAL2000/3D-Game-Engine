@@ -13,9 +13,9 @@ PropertyParser& PropertyParser::getInstance()
 	return instance;
 }
 
-bool PropertyParser::load(const std::string& filename)
+bool PropertyParser::load(const string& filename)
 {
-	std::vector<std::string> lines;
+	vector<string> lines;
 	if(!FileReader::readLines(filename, lines))
 	{
 		Console::log("Error reading file %s", filename.c_str());
@@ -25,36 +25,36 @@ bool PropertyParser::load(const std::string& filename)
 	for(size_t i = 0; i < lines.size(); i++)
 	{
 		size_t comment = lines[i].find('#');
-		if(comment != std::string::npos) lines[i].erase(comment);
+		if(comment != string::npos) lines[i].erase(comment);
 		if(lines[i].size() == 0) continue;
 
 		lines[i] = Tokenizer::removeWhitespace(lines[i]);
-		std::vector<std::string> values = Tokenizer::tokenize(lines[i], '=');
+		vector<string> values = Tokenizer::tokenize(lines[i], '=');
 		m_cache[values[0]] = values[1];
 	}
 
 	return true;
 }
 
-/* access methods */
-void PropertyParser::getProperty(const std::string& key, bool& value)
+// access methods
+void PropertyParser::getProperty(const string& key, bool& value)
 {
 	int v;
 	sscanf(m_cache[key].c_str(), "%i", &v);
 	value = (v > 0);
 }
 
-void PropertyParser::getProperty(const std::string& key, float& value)
+void PropertyParser::getProperty(const string& key, float& value)
 {
 	sscanf(m_cache[key].c_str(), "%f", &value);
 }
 
-void PropertyParser::getProperty(const std::string& key, int& value)
+void PropertyParser::getProperty(const string& key, int& value)
 {
 	sscanf(m_cache[key].c_str(), "%i", &value);
 }
 
-void PropertyParser::getProperty(const std::string& key, std::string& value)
+void PropertyParser::getProperty(const string& key, string& value)
 {
 	value = m_cache[key];
 }

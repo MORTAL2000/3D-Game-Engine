@@ -1,8 +1,8 @@
 #ifndef FRAMEBUFFER_H
 #define FRAMEBUFFER_H
 
-#include "../core/Commons.h"
-#include "../core/Console.h"
+#include <core/Commons.h>
+#include <core/Console.h>
 
 class Framebuffer
 {
@@ -19,9 +19,9 @@ public:
 
 	void checkValidity();
 private:
-	unsigned int m_framebuffer;
- 	unsigned int m_depthTexture;
-	unsigned int m_texture;
+	GLuint m_framebuffer;
+ 	GLuint m_depthTexture;
+	GLuint m_texture;
 };
 
 #endif

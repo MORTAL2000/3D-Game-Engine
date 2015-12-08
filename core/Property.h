@@ -13,7 +13,6 @@ class Property
 {
 public:
 	Property(const std::string&);
-	~Property();
 
 	operator bool();
 	operator int();

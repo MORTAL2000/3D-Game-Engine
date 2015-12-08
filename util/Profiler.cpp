@@ -1,7 +1,6 @@
 #include "Profiler.h"
 
-Profiler::Profiler()
-	: invocations(0), totalTime(0.0), startTime(0.0)
+Profiler::Profiler() : invocations(0), totalTime(0.0), startTime(0.0)
 {}
 
 void Profiler::startInvocation() {

@@ -30,30 +30,13 @@ public:
 	int addEntity(lua_State*);
 	int removeEntity(lua_State*);
 
-	/**
-	 *	Require: loads a material file
-	 */
 	int require(lua_State*);
-
-	/**
-	 *	loadLevel: EXPERIMENTAL: loads a 'scene'-file
-	 */
 	int loadLevel(lua_State*);
-
-	/**
-	 *	clear: Clears the scene / SceneNode
-	 */
 	int clear(lua_State*);
-
-	/**
-	 * 	Sets the scene gravity
-	 */
 	int setGravity(lua_State*);
-
-	/**
-	 *	Returns a camera reference
-	 */
 	int getDefaultCamera(lua_State*);
+
+	int loadMeshes(lua_State*);
 
 	// EXPERIMENTAL:
 	// Directional shadow mapping see 'game'-demo

@@ -1,7 +1,6 @@
-Change log
-======
+# Change log
 
-### TODO (Not sorted)
+## TODO (Not sorted)
 
 * LOD (Level of detail) system
 * some type of shadow caster culling
@@ -22,8 +21,7 @@ Change log
 * occlusion - culling, faster obj loading, more optimizations
 
 
-Changes
-====
+## Changes
 
 ### v5.6a - Current dev
 

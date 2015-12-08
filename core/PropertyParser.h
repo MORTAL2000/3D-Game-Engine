@@ -1,7 +1,7 @@
 /**
  * @file PropertyParser.h
  * @author Alexander Koch
- * @desc parses .properties files
+ * @desc Parses .properties files
  */
 
 #ifndef PROPERTYPARSER_H
@@ -10,6 +10,9 @@
 #include <map>
 #include <string>
 #include <vector>
+using std::string;
+using std::map;
+using std::vector;
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,18 +21,18 @@
 #include "FileReader.h"
 #include "Console.h"
 
-typedef std::map<std::string, std::string> PropertiesCache;
+typedef map<string, string> PropertiesCache;
 
 class PropertyParser
 {
 public:
 	static PropertyParser& getInstance();
 
-	bool load(const std::string&);
-	void getProperty(const std::string&, bool&);
-	void getProperty(const std::string&, int&);
-	void getProperty(const std::string&, float&);
-	void getProperty(const std::string&, std::string&);
+	bool load(const string&);
+	void getProperty(const string&, bool&);
+	void getProperty(const string&, int&);
+	void getProperty(const string&, float&);
+	void getProperty(const string&, string&);
 
 	void printCache();
 private:

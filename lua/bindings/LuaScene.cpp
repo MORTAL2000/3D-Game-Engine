@@ -3,6 +3,7 @@
 #include <Engine.h>
 #include <core/Context.h>
 #include <util/MaterialLibrary.h>
+#include <util/MeshBuilder.h>
 
 #include "LuaMath.h"
 
@@ -144,6 +145,14 @@ int LuaScene::getDefaultCamera(lua_State* lua)
 	return 0;
 }
 
+int LuaScene::loadMeshes(lua_State* lua)
+{
+	if(lua_gettop(lua) == 2)
+	{
+		MeshBuilder::getInstance().load(m_scene, lua_tostring(lua, -1));
+	}
+}
+
 // dev
 // enableShadows()
 int LuaScene::enableShadows(lua_State* lua)
@@ -191,6 +200,7 @@ const LuaClass<LuaScene>::Function LuaScene::functions[] =
 	{"clear", &LuaScene::clear},
 	{"setGravity", &LuaScene::setGravity},
 	{"getDefaultCamera", &LuaScene::getDefaultCamera},
+	{"loadMeshes", &LuaScene::loadMeshes},
 
 	{"enableShadows", &LuaScene::enableShadows},
 	{"renderShadows", &LuaScene::renderShadows},

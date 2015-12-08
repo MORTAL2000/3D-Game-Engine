@@ -1,7 +1,6 @@
 #include "Framebuffer.h"
 
-Framebuffer::Framebuffer() :
-	m_framebuffer(0), m_depthTexture(0), m_texture(0)
+Framebuffer::Framebuffer() : m_framebuffer(0), m_depthTexture(0), m_texture(0)
 {}
 
 Framebuffer::~Framebuffer()
@@ -14,7 +13,7 @@ Framebuffer::~Framebuffer()
 
 void Framebuffer::initialize(int width, int height)
 {
-	/* create depth texture */
+	// create depth texture
 	glActiveTexture(GL_TEXTURE1);
 	glGenTextures(1, &m_depthTexture);
 	glBindTexture(GL_TEXTURE_2D, m_depthTexture);
@@ -35,12 +34,13 @@ void Framebuffer::initialize(int width, int height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-	/* create framebuffer */
+	// create framebuffer
 	glGenFramebuffers(1, &m_framebuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
 
+	// check and unbind
 	checkValidity();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -72,10 +72,9 @@ void Framebuffer::unbindTexture()
 	glDisable(GL_TEXTURE_2D);
 }
 
-/* Private methods */
 void Framebuffer::checkValidity()
 {
-	auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if(status != GL_FRAMEBUFFER_COMPLETE)
 	{
 		switch(status)

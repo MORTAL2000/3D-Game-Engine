@@ -1,100 +1,111 @@
-3D Game Engine (Project Voxel)
-=============================================================================
+# 3D Game Engine
 
-Dieses Projekt stellt eine experimentelle Game Engine dar.
-Das Projekt wird in C++ 11 entwickelt (C++0x) von Alexander Koch
-Ziel ist es eine plattformübergreifende Engine zu entwickeln, die über eine oder
-mehrere Skriptsprachen programmiert werden kann.
-Derzeit ist dies die Lua-Skriptsprache.
-Zusätzlich soll sie durch Plugins erweiterbar sein.
+A Game Engine written in C++11 with an embedded Lua interpreter.
 
-Features and Tools:
+## Features:
 
- * C++ 11
- * Bullet Physics
- * Lua für Skripts und Konfigurationsdateien
- * Wavefront OBJ
- * PNG und TGA Format
- * Freetype für Textdarstellung
- * ImGui Editor (in Entwicklung) WYSIWYG
- * [...]
+- Bullet physics
+- Lua for scripting and project files
+- Wavefront OBJ mesh loading
+- PNG and TGA image files loading
+- Text rendering using Freetype
 
-Scripting / Lua-Skripts
------------------------------------------------------------------------------
+## Scripting and projects
 
-Ein Lua-Skript beinhaltet eine Initialisierungsmethode und kann weitere
-Methoden optional definieren. So ist es möglich eine Update methode hinzuzufügen
-oder eine Zeichnungsmethode. Folgendes Skript stellt das Standard-Skript dar.
+### Project structure
 
-    scene = Scene()
+A project consists of a toplevel directory with the projects name and subfolders for the contents.
 
-    -- Use this for initialization
-    function onInit()
+	project
+	|
+	|-- levels
+	|-- meshes
+	|-- scripts
+	|	|-- main.lua
+	|	`-- main.mat
+	|
+	|-- shaders
+	|-- sounds
+	`-- project.vproj
 
-    end
+The project file (*.vproj) points to the script to be started at the beginning. An example project file
+could look like this:
 
-    -- Update is called once per frame
-    function onUpdate()
+	project = {
+		name = "Game",
+		script = "scripts/main.lua"
+	}
 
-    end
+The name attribute is shown in the window title, the script is the initial script.
 
-    -- Draw debug gizoms here
-    function onDraw()
+### Scripting
 
-    end
+The main script has three different function for you to use. Below is a basic file shown.
 
-Klassen können über die Funktion class() definiert werden. Die Initialisierungsmethode
-ist über __init() definiert.
+```lua
+scene = Scene()
 
-    Sky = class()
+function onInit()
+	-- Your initialisation method
+end
 
-    function Sky:__init()
-        self.color = 0xFF00FF
-    end
+function onUpdate()
+	-- The update method is called once per frame
+end
 
-    function Sky:render()
-        --do some stuff here
-    end
+function onDraw()
+	-- Debug drawing
+end
+```
 
-Lua skripts können über die Funktion include("scripts/your/file/here.lua") integriert / importiert werden.
+The scene variable lets you access the whole scene and modify it. For example you can add an object in the onInit method(),
+save it in a global variable and move it in update by applying a force on it. Vectors are represented by a table e.g. {1,3,5} -
+a three-dimensional vector with x=1, y=3, z=5.
 
-Tech-Demos
------------------------------------------------------------------------------
+If you want to declare your own class, you can use the method class().
+The constructor is declared by an __init() method.
+Example:
 
-Tech-Demos befinden sich im Verzeichnis examples.
-Folgende Projekte sind vorhanden
+```lua
+Sky = class()
 
- * dungeon
- * sponza
- * main
- * physics
- * spherical
- * a_star
- * game
+function Sky:__init()
+	self.color = 0xFF00FF
+end
 
-Dungeon stellt eine zufällig generierte Struktur dar, main eine Graphik-Demo, physics eine Physik-Demo
-mithilfe der Bullet-Physik, spherical eine Shader-Demo, a_star den A*-Algorithmus und Klassen in Lua, sponza eine Architekturvisualisierung.
+function Sky:render()
+	--do some stuff here
+end
+```
 
-Für Entwickler
------------------------------------------------------------------------------
+Other script can be imported / included using the 'include'-function.
+```lua
+include("scripts/your/file/here.lua")
+```
 
-Um das Projekt zu kompilieren wird derzeitig ein Makefile verwendet (mingw32-make).
-Öffnen sie eine Kommandozeile mit folgendem Inhalt im selben Ordner des Makefiles
+## Tech-Demos
 
-    make / mingw32-make
+The following tech-demos are available:
 
-Für den Editor der Game Engine (experimentell)
+- game - A 3D Fist-person simulation
+- dungeon - A pseudo-random dungeon structure
+- sponza - The classic Sponza demo
+- main - A atmospherical scattering demo
+- physics - Use bullet physics to break a wall
+- spherical - Tests for shaders
+- a_star - The A*-Pathfinding algorithm
 
-    make MODULE=Editor BUILD_TYPE=EDITOR
+## Front-End
 
-Oder verwenden Sie das Python-Skript
+The frontend is created using [imgui](https://github.com/ocornut/imgui) and is still in development.
 
-    python build.py <engine|editor>
+## For Developers
 
+The project is compiled using a Makefile and uses MinGW.
+To compile the project you have to download and install the dependencies for your system.
+For the dependencies you need to have cmake installed.
 
-### Dependencies ###
-
-Die Game Engine ist abhängig von folgenden Bibliotheken.
+### Dependencies
 
 * [Bullet](http://bulletphysics.org/)
 * [Freetype](http://www.freetype.org/)
@@ -104,64 +115,3 @@ Die Game Engine ist abhängig von folgenden Bibliotheken.
 * [lodepng](http://lodev.org/lodepng/)
 * [Lua](http://www.lua.org/)
 * [imgui](https://github.com/ocornut/imgui)
-
-Um diese für das System zu kompilieren:
-
-	cd dependencies
-	make
-
-Dies installiert lua und glew für das System. GLM und lodepng müssen nicht kompiliert werden.
-Alle anderen müssen zusätzlich noch erstellt werden (falls das Betriebssystem kein Windows-Derivat ist).
-Es folgen die Befehle zum generieren.
-
-**Bullet**
-
-	cd build3
-	premake4 gmake
-	cd gmake
-	make
-
-**GLFW und Freetype**
-
-	cmake . -G "MSYS Makefiles"
-	make
-
-Lizenz
------------------------------------------------------------------------------
-
-Der Lizenztype ist noch nicht absolut sicher. Folgend ist nur eine Kopie, falls die MIT Lizenz benutzt wird.
-
-(The MIT License)
-
-Copyright (c) 2014-2015 Alexander Koch
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
-Links
------------------------------------------------------------------------------
-Links für Tools und nützliche Webseiten
-
- * http://choosealicense.com
- * https://github.com/pengwynn/flint
- * https://github.com/github/markup
- * https://github.com/stevedonovan/LDoc/blob/master/ldoc/markdown.lua
- * http://irrlicht.sourceforge.net/forum/viewtopic.php?f=4&t=14656
-
------------------------------------------------------------------------------

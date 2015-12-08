@@ -1,10 +1,7 @@
 #include "Property.h"
 
-Property::Property(const std::string& key) :
-	m_key(key)
+Property::Property(const std::string& key) : m_key(key)
 {}
-
-Property::~Property() {}
 
 Property::operator bool()
 {
