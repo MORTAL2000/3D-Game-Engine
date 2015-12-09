@@ -6,7 +6,7 @@ PostComposer::PostComposer() :
 
 PostComposer::~PostComposer()
 {
-	dust.clear();
+	if(doLensFlares) dust.clear();
 }
 
 void PostComposer::load(FilmCamera& camera)
@@ -20,7 +20,6 @@ void PostComposer::load(FilmCamera& camera)
 	mainBuffer->initialize(dimension.x, dimension.y);
 	readBuffer->initialize(dimension.x, dimension.y);
 	writeBuffer->initialize(dimension.x, dimension.y);
-	dust.load("resources/textures/lens.png");
 
 	quad.load();
 	ortho = glm::ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
@@ -83,6 +82,11 @@ void PostComposer::load(FilmCamera& camera)
 	doDOF = Property("dof_enabled");
 	doLensFlares = Property("lens_flares_enabled");
 	doTonemapping = Property("tonemapping_enabled");
+
+	if(doLensFlares) {
+		string path = Property("lens_dust_texture");
+		dust.load(path);
+	}
 }
 
 void PostComposer::bind()

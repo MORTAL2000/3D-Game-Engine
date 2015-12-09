@@ -1,11 +1,9 @@
 #include "Context.h"
 
-Context::Context() :
-	m_height(720), m_width(1280), m_window(0), m_core(0)
-{}
+Context::Context() : m_height(720), m_width(1280), m_window(0), m_core(0) {}
 
 /**
- *	Returns the global Context instance
+ *  Returns the global Context instance
  */
 Context& Context::getInstance()
 {
@@ -142,6 +140,9 @@ void Context::run(Core* core, const vector<string>& args)
 	glfwTerminate();
 }
 
+/**
+ *	<<Experimental>>
+ */
 void Context::changeCore(Core* core, const vector<string>& args)
 {
 	Core* origin = m_core;
@@ -251,8 +252,7 @@ void Context::takeScreenshot(const string& filename)
 		fwrite(&buffer[3*(h-1-y)*w],1,3*w,fp);
 	}
 	fclose(fp);
-	delete[]buffer;
-
+	delete[] buffer;
 	Console::log("Saved file as %s", filename.c_str());
 }
 
