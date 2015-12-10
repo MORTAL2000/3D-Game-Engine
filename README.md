@@ -5,6 +5,7 @@ A Game Engine written in C++11 with an embedded Lua interpreter.
 ## Features:
 
 - Bullet physics
+- Simple scene graph rendering system
 - Lua for scripting and project files
 - Wavefront OBJ mesh loading
 - PNG and TGA image files loading
@@ -16,11 +17,12 @@ A Game Engine written in C++11 with an embedded Lua interpreter.
 
 ![Screenshot1](./images/Screenshot1.png)
 
-## Scripting and projects
+## 1. Scripting and projects
 
 ### Project structure
 
 A project consists of a toplevel directory with the projects name and subfolders for the contents.
+You can generate one by using the Frontend-Editor - FrontEd.
 
 	project
 	|
@@ -90,38 +92,41 @@ Other script can be imported / included using the 'include'-function.
 include("scripts/your/file/here.lua")
 ```
 
-## Tech-Demos
+## 2. Tech-Demos
 
 The following tech-demos are available:
 
-- game - A 3D Fist-person simulation
+- a_star - The A*-Pathfinding algorithm
 - dungeon - A pseudo-random dungeon structure
-- sponza - The classic Sponza demo
+- game - A 3D Fist-person simulation
+- ibl - Image based rendering demo
 - main - A atmospherical scattering demo
 - physics - Use bullet physics to break a wall
+- pledge - Pledge algorithm example
 - spherical - Tests for shaders
-- a_star - The A*-Pathfinding algorithm
+- sponza - The classic Sponza demo
 
-## Front-End
+## 3. Front-End
 
 The frontend is created using [imgui](https://github.com/ocornut/imgui) and is still in development.
 
-## For Developers
+## 4. For Developers
 
-The project is compiled using a Makefile and uses MinGW.
+The project is compiled using a Makefile and uses MinGW (GNU GCC).
 To compile the project you have to download and install the dependencies for your system.
-For the dependencies you need to have cmake installed.
+For the dependencies you need to have CMake installed.
 
-### Dependencies
+**Dependencies**
 
-* [Bullet](http://bulletphysics.org/)
-* [Freetype](http://www.freetype.org/)
-* [GLEW](http://glew.sourceforge.net/)
-* [GLFW](http://www.glfw.org/)
-* [GLM](http://glm.g-truc.net/0.9.6/index.html)
-* [lodepng](http://lodev.org/lodepng/)
-* [Lua](http://www.lua.org/)
-* [imgui](https://github.com/ocornut/imgui)
+* [Bullet](http://bulletphysics.org/) - zlib
+* [Freetype](http://www.freetype.org/) - FTL BSD
+* [GLEW](http://glew.sourceforge.net/) - GLEW BSD
+* [GLFW](http://www.glfw.org/) - zlib/libpng
+* [GLM](http://glm.g-truc.net/0.9.6/index.html) - MIT
+* [lodepng](http://lodev.org/lodepng/) - lodepng
+* [Lua](http://www.lua.org/) - MIT
+* [imgui](https://github.com/ocornut/imgui) - MIT
+* [OpenAL](https://www.openal.org/) - LGPL
 
 ## License
 
