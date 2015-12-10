@@ -1,3 +1,5 @@
+# Build script in python
+
 from sys import *
 import os
 

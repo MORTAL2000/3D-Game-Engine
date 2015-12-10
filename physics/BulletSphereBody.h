@@ -1,7 +1,6 @@
 /*
  * Copyright 2015 Alexander Koch
  * File: BulletSphereBody.h
- * Description: Wrapper for the bullet physics engine.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

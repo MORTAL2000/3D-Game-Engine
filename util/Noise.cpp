@@ -1,3 +1,20 @@
+/*
+ * Copyright 2015 Alexander Koch
+ * File: Noise.cpp
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "Noise.h"
 
 const static float GRAD3[16][3] = {
@@ -7,7 +24,6 @@ const static float GRAD3[16][3] = {
 	{ 1, 0,-1}, {-1, 0,-1}, { 0,-1, 1}, { 0, 1, 1}
 };
 
-/* Permutation table */
 static unsigned char PERM[] = {
 	151, 160, 137,  91,  90,  15, 131,  13,
 	201,  95,  96,  53, 194, 233,   7, 225,
@@ -77,9 +93,8 @@ static unsigned char PERM[] = {
 
 void seed(unsigned int x) {
 	srand(x);
-	int i = 0;
-	for(; i < 256; i++) PERM[i] = i;
-	for(i = 255; i > 0; i--) {
+	for(auto i = 0; i < 256; i++) PERM[i] = i;
+	for(auto i = 255; i > 0; i--) {
 		int j;
 		int n = i + 1;
 		while (n <= (j = rand() / (RAND_MAX / n)));
@@ -119,12 +134,11 @@ float noise2(float x, float y) {
 	g[1] = PERM[I + i1 + PERM[J + j1]] % 12;
 	g[2] = PERM[I + 1 + PERM[J + 1]] % 12;
 
-	int c;
-	for(c = 0; c <= 2; c++) {
+	for(auto c = 0; c <= 2; c++) {
 		f[c] = 0.5f - xx[c]*xx[c] - yy[c]*yy[c];
 	}
 
-	for(c = 0; c <= 2; c++) {
+	for(auto c = 0; c <= 2; c++) {
 		if(f[c] > 0) {
 			noise[c] = f[c] * f[c] * f[c] * f[c] * (GRAD3[g[c]][0] * xx[c] + GRAD3[g[c]][1] * yy[c]);
 		}
@@ -138,7 +152,7 @@ float simplex2(float x, float y, float octaves, float persistence, float lacunar
 	float amp = 1.0;
 	float max = 1.0;
 	float total = noise2(x,y);
-	for(int i = 1; i < octaves; i++) {
+	for(auto i = 1; i < octaves; i++) {
 		freq *= lacunarity;
 		amp *= persistence;
 		max += amp;
