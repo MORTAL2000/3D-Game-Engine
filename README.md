@@ -126,6 +126,7 @@ For the dependencies you need to have CMake installed.
 * [lodepng](http://lodev.org/lodepng/) - lodepng
 * [Lua](http://www.lua.org/) - MIT
 * [imgui](https://github.com/ocornut/imgui) - MIT
+* [tinyobjloader](https://github.com/syoyo/tinyobjloader) - 2 clause BSD
 
 ## License
 

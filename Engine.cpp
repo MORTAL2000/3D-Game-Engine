@@ -30,9 +30,13 @@ void Engine::load(const vector<string>& args)
 {
 	LuaAPI::getInstance().initialize();
 
+    string font1 = Property("font1");
+    string font2 = Property("font2");
+
 	CFontManager::initialize();
-	CFontManager::loadFont("default", "resources/fonts/RobotoCondensed-Bold.ttf", 11);
-    CFontManager::loadFont("header", "resources/fonts/SourceSansPro-Regular.otf", 50);
+    CFontManager::loadFont("default", font1, 11);
+    CFontManager::loadFont("header", font2, 50);
+
     AudioEngine::getInstance().initialize();
 
 	// Graphics initialization
