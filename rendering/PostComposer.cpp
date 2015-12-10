@@ -40,13 +40,13 @@ void PostComposer::load(FilmCamera& camera)
 
 	quad.load();
 	ortho = glm::ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
-	if(base.load("resources/postprocessing/quad.vsh", "resources/postprocessing/base.fsh")) {
+	if(base.load("shader/quad.vsh", "shader/base.fsh")) {
 		base.bind();
 		base.mat4x4("mvp", ortho);
 		base.unbind();
 	}
 
-	if(ssao.load("resources/postprocessing/quad.vsh", "resources/postprocessing/ssao.fsh")) {
+	if(ssao.load("shader/quad.vsh", "shader/ssao.fsh")) {
 		ssao.bind();
 		ssao.mat4x4("mvp", ortho);
 		ssao.vec2f("dimension", dimension);
@@ -56,7 +56,7 @@ void PostComposer::load(FilmCamera& camera)
 		ssao.unbind();
 	}
 
-	if(dof.load("resources/postprocessing/quad.vsh", "resources/postprocessing/dof.fsh")) {
+	if(dof.load("shader/quad.vsh", "shader/dof.fsh")) {
 		dof.bind();
 		dof.mat4x4("mvp", ortho);
 		dof.vec2f("dimension", dimension);
@@ -68,27 +68,27 @@ void PostComposer::load(FilmCamera& camera)
 		dof.unbind();
 	}
 
-	if(tonemapper.load("resources/postprocessing/quad.vsh", "resources/postprocessing/tonemapper.fsh")) {
+	if(tonemapper.load("shader/quad.vsh", "shader/tonemapper.fsh")) {
 		tonemapper.bind();
 		tonemapper.mat4x4("mvp", ortho);
 		tonemapper.vec2f("inverseTextureSize", vec2(1/camera.getViewport().x, 1/camera.getViewport().y));
 		tonemapper.unbind();
 	}
 
-	if(flare.load("resources/postprocessing/quad.vsh", "resources/postprocessing/flare.fsh")) {
+	if(flare.load("shader/quad.vsh", "shader/flare.fsh")) {
 		flare.bind();
 		flare.mat4x4("mvp", ortho);
 		flare.unbind();
 	}
 
-	if(flareCompose.load("resources/postprocessing/quad.vsh", "resources/postprocessing/flareCompose.fsh")) {
+	if(flareCompose.load("shader/quad.vsh", "shader/flareCompose.fsh")) {
 		flareCompose.bind();
 		flareCompose.mat4x4("mvp", ortho);
 		flareCompose.vec2f("textureDimension", vec2(dust.getWidth(), dust.getHeight()));
 		flareCompose.unbind();
 	}
 
-	if(bloom.load("resources/postprocessing/quad.vsh", "resources/postprocessing/bloom.fsh")) {
+	if(bloom.load("shader/quad.vsh", "shader/bloom.fsh")) {
 		bloom.bind();
 		bloom.mat4x4("mvp", ortho);
 		bloom.unbind();
