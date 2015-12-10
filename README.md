@@ -10,6 +10,12 @@ A Game Engine written in C++11 with an embedded Lua interpreter.
 - PNG and TGA image files loading
 - Text rendering using Freetype
 
+## Screenshots
+
+![Screenshot0](./images/Screenshot0.png)
+
+![Screenshot1](./images/Screenshot1.png)
+
 ## Scripting and projects
 
 ### Project structure
