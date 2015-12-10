@@ -8,16 +8,17 @@
 
 #include <string>
 #include "PropertyParser.h"
+using std::string;
 
 class Property
 {
 public:
-	Property(const std::string&);
+	Property(const string&);
 
 	operator bool();
 	operator int();
 	operator float();
-	operator std::string();
+	operator string();
 private:
 	std::string m_key;
 };

@@ -1,4 +1,4 @@
-# Change log
+# Changelog
 
 ## TODO (Not sorted)
 
@@ -92,6 +92,14 @@
 * Project as package file (archive file type)
 * TODO:
  * Internal compression of package files
+
+### 4.8
+
+ * Removed python
+ * Dependencies now fully integrated
+ * Created Makefile for the dependencies
+ * Added README.md for info
+ * TODO: Level files and Blender addon 
 
 
 ### Old - TODO: reformat

@@ -5,19 +5,21 @@
 #include <string>
 #include <vector>
 #include <ctype.h>
+using vector;
+using string;
 
 namespace Tokenizer
 {
-	std::vector<std::string> tokenize(std::string, char);
-	std::string getFileExtension(const std::string&);
-	std::string getDirectory(const std::string&);
-	std::string getDirectory(const std::string&, bool);
-	std::string removePath(const std::string&);
-	std::string removeWhitespace(const std::string&);
-	std::vector<std::string> parseLines(const std::string&);
-	std::string removeCharacter(const std::string&, char);
-	std::vector<std::size_t> findAll(const std::string&, const std::string&);
-	std::vector<std::size_t> findAllDigits(const std::string&);
+	vector<string> tokenize(string, char);
+	string getFileExtension(const string&);
+	string getDirectory(const string&);
+	string getDirectory(const string&, bool);
+	string removePath(const string&);
+	string removeWhitespace(const string&);
+	vector<string> parseLines(const string&);
+	string removeCharacter(const string&, char);
+	vector<std::size_t> findAll(const string&, const string&);
+	vector<std::size_t> findAllDigits(const string&);
 }
 
 #endif

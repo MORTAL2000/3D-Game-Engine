@@ -6,12 +6,14 @@
 #include "TextureLoader.h"
 #include <core/Console.h>
 
+using std::string;
+
 class Cubemap : public ITexture
 {
 public:
 	Cubemap();
 
- 	bool load(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
+ 	bool load(const string&, const string&, const string&, const string&, const string&, const string&);
 	void bind(GLenum);
 	void unbind();
 	void clear();

@@ -21,14 +21,7 @@ BulletBody::~BulletBody()
 
 void BulletBody::construct(btCollisionShape* shape, const quat& rotation, const vec3& position)
 {
-	if(!shape)
-	{
-		m_shape = (btCollisionShape*)new btSphereShape(1.0);
-	}
-	else
-	{
-		m_shape = shape;
-	}
+	m_shape = ((shape == NULL) ? ((btCollisionShape*)new btSphereShape(1.0)) : shape);
 
 	btTransform transform;
 	transform.setIdentity();
@@ -36,8 +29,7 @@ void BulletBody::construct(btCollisionShape* shape, const quat& rotation, const 
 	transform.setRotation(btQuaternion(rotation.w, rotation.x, rotation.y, rotation.z));
 
 	btVector3 inertia(0, 0, 0);
-	if(m_mass > 0)
-	{
+	if(m_mass > 0) {
 		m_shape->calculateLocalInertia(m_mass, inertia);
 	}
 
@@ -49,8 +41,8 @@ void BulletBody::construct(btCollisionShape* shape, const quat& rotation, const 
 	m_body = new btRigidBody(info);
 	m_body->setSleepingThresholds(0.2f, 0.2f);
 
-	if(m_mass <= 0)
-	{
+	// If mass is less than zero, set it to static
+	if(m_mass <= 0) {
 		m_mass = 0;
 		m_body->setCollisionFlags(m_body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
 		m_body->setActivationState(DISABLE_DEACTIVATION);

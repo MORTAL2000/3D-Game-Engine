@@ -1,7 +1,7 @@
 #ifndef CUSTOM_CAMERA_H
 #define CUSTOM_CAMERA_H
 
-#include "../util/FilmCamera.h"
+#include <util/FilmCamera.h>
 
 class CustomCamera : public FilmCamera
 {

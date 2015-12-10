@@ -1,8 +1,7 @@
 #include "TextureLoader.h"
 #include "TgaLoader.h"
 
-TextureLoader::TextureLoader()
-{}
+TextureLoader::TextureLoader() {}
 
 TextureLoader& TextureLoader::getInstance()
 {

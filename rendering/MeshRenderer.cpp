@@ -95,10 +95,11 @@ void MeshRenderer::update(const mat4& transformation, FilmCamera* camera)
 
 void MeshRenderer::render(Shader* shader)
 {
-	if(m_cullFace == GL_NONE)
+	if(m_cullFace == GL_NONE) {
 		glDisable(GL_CULL_FACE);
-	else
+	} else {
 		glCullFace(m_cullFace);
+	}
 
 	glDepthMask(m_useDepthMask);
 	m_material->bindTextures();
@@ -106,10 +107,11 @@ void MeshRenderer::render(Shader* shader)
 	m_material->unbindTextures();
 	glDepthMask(GL_TRUE);
 
-	if(m_cullFace == GL_NONE)
+	if(m_cullFace == GL_NONE) {
 		glEnable(GL_CULL_FACE);
-	else
+	} else {
 		glCullFace(GL_BACK);
+	}
 }
 
 void MeshRenderer::render()

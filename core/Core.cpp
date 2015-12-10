@@ -1,8 +1,6 @@
 #include "Core.h"
 
-Core::Core() :
-    m_dimension(0.0), m_offset(0.0), m_running(false)
-{}
+Core::Core() : m_dimension(0.0), m_offset(0.0), m_running(false) {}
 
 void Core::setViewport(float x, float y, float width, float height)
 {

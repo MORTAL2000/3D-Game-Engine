@@ -1,7 +1,6 @@
 #include "Property.h"
 
-Property::Property(const std::string& key) : m_key(key)
-{}
+Property::Property(const string& key) : m_key(key) {}
 
 Property::operator bool()
 {
@@ -24,9 +23,9 @@ Property::operator float()
 	return value;
 }
 
-Property::operator std::string()
+Property::operator string()
 {
-	std::string value = "";
+	string value = "";
 	PropertyParser::getInstance().getProperty(m_key, value);
 	return value;
 }

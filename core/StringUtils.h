@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <string>
+using std::string;
 
 namespace StringUtils
 {
@@ -13,7 +14,7 @@ namespace StringUtils
 	 * 	@param format Format to use
 	 *	@return formatted string
 	 */
-	std::string format_str(const char* format, ...);
+	string format_str(const char* format, ...);
 
 	/**
 	 *	Simplify:
@@ -22,14 +23,14 @@ namespace StringUtils
 	 *	@param source Source input
 	 *	@return simplified string
 	 */
-	std::string simplify(const std::string& source);
+	string simplify(const string& source);
 
 	/**
 	 *	Converts a whole string to lowercase
 	 *  @param str Source input
 	 *	@return lowercase string
 	 */
-	std::string toLower(const std::string& str);
+	string toLower(const string& str);
 }
 
 #endif

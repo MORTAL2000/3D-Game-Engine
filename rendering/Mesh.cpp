@@ -4,8 +4,7 @@
 #define MESH_NORMAL 1
 #define MESH_UV 2
 
-Mesh::Mesh() : m_valid(false)
-{}
+Mesh::Mesh() : m_valid(false) {}
 
 Mesh::Mesh(const string& filename) : m_valid(false)
 {
@@ -257,8 +256,7 @@ void Mesh::loadPlane(float size)
 	_vertices.push_back(v0);
 
 	vec3 up = vec3(0, 1, 0);
-	for(auto i = 0; i < 6; i++)
-	{
+	for(auto i = 0; i < 6; i++) {
 		_normals.push_back(up);
 	}
 

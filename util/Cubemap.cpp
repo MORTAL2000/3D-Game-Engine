@@ -1,11 +1,8 @@
 #include "Cubemap.h"
 
-Cubemap::Cubemap()
-{
+Cubemap::Cubemap() {}
 
-}
-
-bool Cubemap::load(const std::string& xpos, const std::string& xneg, const std::string& ypos, const std::string& yneg, const std::string& zpos, const std::string& zneg)
+bool Cubemap::load(const string& xpos, const string& xneg, const string& ypos, const string& yneg, const string& zpos, const string& zneg)
 {
 	glActiveTexture(GL_TEXTURE0);
     glEnable(GL_TEXTURE_CUBE_MAP);

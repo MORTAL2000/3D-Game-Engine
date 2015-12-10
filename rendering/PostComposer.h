@@ -10,9 +10,7 @@
 #include <util/Shader.h>
 #include <util/Texture2D.h>
 
-/**
- *  A class for post-processing
- */
+// Special type of Post-Processor
 class PostComposer
 {
 private:

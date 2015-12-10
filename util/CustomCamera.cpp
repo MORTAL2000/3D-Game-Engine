@@ -1,9 +1,6 @@
 #include "CustomCamera.h"
 
-CustomCamera::CustomCamera()
-{
-
-}
+CustomCamera::CustomCamera() {}
 
 void CustomCamera::setModelViewProjection(const mat4& mvp)
 {

@@ -10,8 +10,7 @@ Texture2D::Texture2D(const std::string& path) :
 	load(path);
 }
 
-Texture2D::~Texture2D()
-{}
+Texture2D::~Texture2D() {}
 
 int Texture2D::load(const std::string& filename)
 {

@@ -1,12 +1,8 @@
 #include "Shader.h"
 
-Shader::Shader() :
-	compiled(false)
-{}
+Shader::Shader() : compiled(false) {}
 
-Shader::Shader(const string& vertex, const string& fragment, bool raw = false) :
-	compiled(false)
-{
+Shader::Shader(const string& vertex, const string& fragment, bool raw = false) : compiled(false) {
 	if(!raw) load(vertex, fragment);
 	else loadRaw(vertex, fragment);
 }
@@ -16,7 +12,7 @@ Shader::~Shader()
 	if(compiled) destroy();
 }
 
-/* Private methods */
+// Private methods
 void Shader::printLog(unsigned int shaderId)
 {
 	int len = 0;
@@ -106,15 +102,15 @@ void Shader::destroy()
 	compiled = false;
 }
 
-/* Public methods */
+// Public methods
 
-/* loads a vertex and a fragment shader into the program */
+// loads a vertex and a fragment shader into the program
 bool Shader::load(string vshFilename, string fshFilename)
 {
 	this->vshFilename = vshFilename;
 	this->fshFilename = fshFilename;
 	string vshSource, fshSource;
-	/* read from file */
+
 	if(!FileReader::read(vshFilename, vshSource))
 	{
 		Console::log("File is invalid [%s]", vshFilename.c_str());
@@ -197,8 +193,7 @@ bool Shader::isCompiled()
 	return compiled;
 }
 
-/* uniform pass */
-/* float */
+// uniform pass: float
 void Shader::valuef(const char* var, float value)
 {
 	glUniform1f(glGetUniformLocation(shader, var), value);
@@ -219,7 +214,7 @@ void Shader::vec4f(const char* var, float v1, float v2, float v3, float v4)
 	glUniform4f(glGetUniformLocation(shader, var), v1, v2, v3, v4);
 }
 
-/* int */
+// int
 void Shader::valuei(const char* var, int value)
 {
 	glUniform1i(glGetUniformLocation(shader, var), value);
@@ -240,7 +235,7 @@ void Shader::vec4i(const char* var, int v1, int v2, int v3, int v4)
 	glUniform4i(glGetUniformLocation(shader, var), v1, v2, v3, v4);
 }
 
-/* glm */
+// glm vector types
 void Shader::vec2f(const char* var, vec2 vec)
 {
 	vec2f(var, vec.x, vec.y);
@@ -266,7 +261,7 @@ void Shader::mat4x4(const char* var, mat4 matrix)
 	glUniformMatrix4fv(glGetUniformLocation(shader, var), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-/* Attributes (Shader) */
+// Attribute location
 int Shader::getAttribute(const char* attrib)
 {
 	return glGetAttribLocation(shader, attrib);

@@ -6,8 +6,7 @@
 #define MOUSE_X "MOUSE_X"
 #define MOUSE_Y "MOUSE_Y"
 
-LuaAPI::LuaAPI() : m_lua(0)
-{}
+LuaAPI::LuaAPI() : m_lua(0) {}
 
 LuaAPI::~LuaAPI()
 {

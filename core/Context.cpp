@@ -2,9 +2,7 @@
 
 Context::Context() : m_height(720), m_width(1280), m_window(0), m_core(0) {}
 
-/**
- *  Returns the global Context instance
- */
+// Global Context instance
 Context& Context::getInstance()
 {
 	static Context instance;
@@ -141,7 +139,7 @@ void Context::run(Core* core, const vector<string>& args)
 }
 
 /**
- *	<<Experimental>>
+ * <<Experimental>>
  */
 void Context::changeCore(Core* core, const vector<string>& args)
 {
