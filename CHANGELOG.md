@@ -25,7 +25,7 @@
 
 ### v5.6a - Current dev
 
-* OpenAL Audio Engine working
+* OpenAL Audio Engine removed because of licensing issues
 * Fixed shadow shader / MeshNode custom shader draw update
 * Framebuffer memory function used `glDeleteFramebuffer`
 * Added:
@@ -99,7 +99,7 @@
  * Dependencies now fully integrated
  * Created Makefile for the dependencies
  * Added README.md for info
- * TODO: Level files and Blender addon 
+ * TODO: Level files and Blender addon
 
 
 ### Old - TODO: reformat

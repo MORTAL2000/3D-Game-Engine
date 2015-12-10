@@ -29,7 +29,7 @@ using namespace std;
 #include <core/Console.h>
 #include <audio/SoundLoader.h>
 
-typedef map<string, pair<ALuint, ALuint>> SoundCache;
+//typedef map<string, pair<ALuint, ALuint>> SoundCache;
 
 class AudioEngine
 {
@@ -45,7 +45,7 @@ public:
 private:
 	AudioEngine();
 
-	SoundCache m_cache;
+	//SoundCache m_cache;
 };
 
 #endif

@@ -126,7 +126,6 @@ For the dependencies you need to have CMake installed.
 * [lodepng](http://lodev.org/lodepng/) - lodepng
 * [Lua](http://www.lua.org/) - MIT
 * [imgui](https://github.com/ocornut/imgui) - MIT
-* [OpenAL](https://www.openal.org/) - LGPL
 
 ## License
 
