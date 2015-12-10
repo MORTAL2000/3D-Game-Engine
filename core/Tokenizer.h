@@ -23,8 +23,8 @@
 #include <string>
 #include <vector>
 #include <ctype.h>
-using vector;
-using string;
+using std::vector;
+using std::string;
 
 namespace Tokenizer
 {

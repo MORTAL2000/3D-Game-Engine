@@ -23,7 +23,7 @@
 #include <string>
 #include "CFont.h"
 
-using string;
+using std::string;
 
 class CFontManager
 {
