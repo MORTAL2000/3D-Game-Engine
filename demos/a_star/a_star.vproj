@@ -1,0 +1,4 @@
+project = {
+	name = "a_star",
+	script = "scripts/main.lua"
+}
