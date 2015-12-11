@@ -24,11 +24,10 @@ INCLUDES += -I"./libs/imgui" -I"./libs/tinyobjloader"
 LUA := -L"./libs/lua/" -llua
 GLFW := -L"./libs/glfw3/src" -lglfw3
 GLEW := -L"./libs/glew/lib" -lglew32
-OPENGL := -lopengl32
 BULLET := -L"./libs/bullet3" -lBulletDynamics -lBulletCollision -lLinearMath
 FREETYPE := -L"./libs/freetype" -lfreetype
 STDLIBS := -lcomdlg32 -lole32 -lgdi32 -lgomp -lwsock32
-LIBS := $(GLFW) $(GLEW) $(OPENGL) $(LUA) $(BULLET) $(FREETYPE) -lstdc++ $(STDLIBS)
+LIBS := $(GLFW) $(GLEW) -lopengl32 $(LUA) $(BULLET) $(FREETYPE) -lstdc++ $(STDLIBS)
 
 # Flags
 CXXFLAGS := -Wall -Wextra -Wunreachable-code -Winline -Wcast-align -static -static-libgcc -static-libstdc++ -O2

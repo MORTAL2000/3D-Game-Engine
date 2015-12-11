@@ -2,13 +2,12 @@
 
 ## Bullet
 
+	$ cd libs/bullet3
 	$ cmake . -G "MinGW Makefiles"
 	$ mingw32-make install
 
-Fails building the demos. The rest should work fine.
-Move the libraries out of the folders in src.
-
 We just need BulletDynamics, BulletCommon and LinearMath. You can build them individualy.
+**IMPORTANT**: Move the lib%%.a files into the bullet3 folder in order to compile the project correctly (see toplevel Makefile).
 
 ## Bullet (32-bit issue - old mingw version)
 
@@ -27,6 +26,7 @@ endif
 
 ## Freetype
 
+	$ cd libs/freetype
 	$ cmake . -G "MSYS Makefiles"
 	$ mingw32-make
 
@@ -55,13 +55,3 @@ endif
 ## Lua
 
 	$ mingw32-make mingw
-
-## OpenAL-soft
-
-	$ cd build
-	$ cmake .. -G "MinGW Makefiles"
-	$ mingw32-make
-
-Author
----
-Alexander Koch 2015

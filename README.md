@@ -72,7 +72,7 @@ save it in a global variable and move it in update by applying a force on it. Ve
 a three-dimensional vector with x=1, y=3, z=5.
 
 If you want to declare your own class, you can use the method class().
-The constructor is declared by an __init() method.
+The constructor is declared by the __init() method.
 Example:
 
 ```lua
@@ -92,6 +92,45 @@ Other script can be imported / included using the 'include'-function.
 include("scripts/your/file/here.lua")
 ```
 
+### Materials
+
+Materials are created using GLSL-Shaders and a *.mat file.
+Every material file has three different entries: textures, cubemaps and materials.
+The file is formatted as a Lua file.
+
+Here is an example:
+```lua
+textures = {
+	lightmap = "maps/bake.png",
+	box = "maps/box.png",
+}
+
+cubemaps = {
+	cube0 = {
+		posX = "maps/cubemap2/pos-x.png",
+		negX = "maps/cubemap2/neg-x.png",
+		posY = "maps/cubemap2/pos-y.png",
+		negY = "maps/cubemap2/neg-y.png",
+		posZ = "maps/cubemap2/pos-z.png",
+		negZ = "maps/cubemap2/neg-z.png"
+	}
+}
+
+materials = {
+	ground = {
+		shader = "shaders/ground",
+		turbidity = 2.0,
+		rayleighCoefficient = 2.5,
+		mieCoefficient = 0.01,
+		mieDirectionalG = 0.80,
+		hasShadowMap = 0,
+		sunDirection = {0.836, 0.091, -0.54},
+		textured = 1,
+		_texture = "lightmap"
+	},
+	...
+```
+
 ## 2. Tech-Demos
 
 The following tech-demos are available:
@@ -99,16 +138,12 @@ The following tech-demos are available:
 - a_star - The A*-Pathfinding algorithm
 - dungeon - A pseudo-random dungeon structure
 - game - A 3D Fist-person simulation
-- ibl - Image based rendering demo
-- main - A atmospherical scattering demo
 - physics - Use bullet physics to break a wall
-- pledge - Pledge algorithm example
-- spherical - Tests for shaders
-- sponza - The classic Sponza demo
 
 ## 3. Front-End
 
 The frontend is created using [imgui](https://github.com/ocornut/imgui) and is still in development.
+It is a WYSIWYG-Editor with a 3D-Scene-View. Objects can be placed and materials can be loaded.
 
 ## 4. For Developers
 
@@ -118,6 +153,8 @@ For the dependencies you need to have CMake installed.
 
 	$ mkdir build
 	$ make
+
+All the dependencies/third-party-libraries should be placed in the libs-folder.
 
 **Dependencies**
 
