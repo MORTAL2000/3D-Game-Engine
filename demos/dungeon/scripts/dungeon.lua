@@ -1,10 +1,13 @@
+-- @author Alexander Koch
+-- A simple demo for 'dungeon' or maze-like map generation
+
 scene = Scene()
 
--- materials
+-- Material references
 floor = nil
 player = nil
 
--- objects
+-- Object lists
 map = {}
 objects = {}
 elevators = {}
@@ -12,9 +15,11 @@ elevators = {}
 function onInit()
 	scene:require("scripts/dungeon.mat")
 
+	-- Load the material and generate the map
 	floor = Material("floor")
 	generateMap(50, 50, 200, 10)
 
+	-- Enable flight mode
 	camera = scene:getDefaultCamera()
 	camera:setFlightMode()
 end

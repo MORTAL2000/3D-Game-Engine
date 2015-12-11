@@ -1,0 +1,37 @@
+textures = {
+	lightmap = "maps/bake.png",
+	box = "maps/box.png",
+}
+
+materials = {
+	ground = {
+		shader = "shaders/ground",
+		turbidity = 2.0,
+		rayleighCoefficient = 2.5,
+		mieCoefficient = 0.01,
+		mieDirectionalG = 0.80,
+		hasShadowMap = 0,
+		sunDirection = {0.836, 0.091, -0.54},
+		textured = 1,
+		_texture = "lightmap"
+	},
+	box = {
+		shader = "shaders/ground",
+		turbidity = 2.0,
+		rayleighCoefficient = 2.5,
+		mieCoefficient = 0.01,
+		mieDirectionalG = 0.80,
+		hasShadowMap = 0,
+		sunDirection = {0.836, 0.091, -0.54},
+		textured = 1,
+		_texture = "box"
+	},
+	sky = {
+		shader = "shaders/sky",
+		turbidity = 2.0,
+		rayleighCoefficient = 2.5,
+		mieCoefficient = 0.01,
+		mieDirectionalG = 0.80,
+		sunDirection = {0.836, 0.091, -0.54}
+	}
+}
