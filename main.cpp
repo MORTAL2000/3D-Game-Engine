@@ -32,11 +32,14 @@
 #include "Engine.h"
 #include <gui/UIFrontend.h>
 
+using std::string;
+using std::vector;
+
 int main(int argc, char** argv)
 {
     Console::log("///////// Game Engine /////////////////////");
     Console::log("Copyright (c), 2014-2015 Alexander Koch");
-    std::vector<std::string> args(argv + 1, argv + argc + !argc);
+    vector<string> args(argv + 1, argv + argc + !argc);
 
 #ifdef BUILD_ENGINE
     Engine engine;

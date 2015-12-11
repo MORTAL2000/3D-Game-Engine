@@ -1,0 +1,19 @@
+textures = {
+	bricks = "maps/bricks.png",
+	grid = "maps/grid.png"
+}
+
+materials = {
+	wall = {
+		shader = "shaders/bullet",
+		color = {0.8, 0.8, 0.8, 1.0},
+		texture = "bricks",
+		textured = 1
+	},
+	floor = {
+		shader = "shaders/bullet",
+		color = {0.8, 0.8, 0.8, 1.0},
+		textured = 1,
+		texture = "grid"
+	}
+}
