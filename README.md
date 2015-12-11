@@ -116,6 +116,9 @@ The project is compiled using a Makefile and uses MinGW (GNU GCC).
 To compile the project you have to download and install the dependencies for your system.
 For the dependencies you need to have CMake installed.
 
+	$ mkdir build
+	$ make
+
 **Dependencies**
 
 * [Bullet](http://bulletphysics.org/) - zlib

@@ -1,0 +1,12 @@
+textures = {
+	bricks = "maps/bricks.png"
+}
+
+materials = {
+	floor = {
+		shader = "shaders/dungeon",
+		color = {0.8, 0.8, 0.8, 1.0},
+		texture = "bricks",
+		textured = 1
+	}
+}
