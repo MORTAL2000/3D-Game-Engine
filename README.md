@@ -13,12 +13,6 @@ The project was used in the German science competition "Jugend forscht" 2014.
 - PNG and TGA image files loading
 - Text rendering using Freetype
 
-## Screenshots
-
-![Screenshot0](./images/Screenshot0.png)
-
-![Screenshot1](./images/Screenshot1.png)
-
 ## 1. Scripting and projects
 
 ### Project structure
@@ -162,6 +156,12 @@ The following tech-demos are available:
 - dungeon - A pseudo-random dungeon structure
 - game - A 3D Fist-person simulation
 - physics - Use bullet physics to break a wall
+
+### Screenshots
+
+![Screenshot0](./images/Screenshot0.png)
+
+![Screenshot1](./images/Screenshot1.png)
 
 ## 3. Front-End
 
