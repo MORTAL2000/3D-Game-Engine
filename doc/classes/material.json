@@ -1,0 +1,140 @@
+{
+	"name" : "Material",
+	"desc" : "A material class",
+	"methods" : [
+		{
+			"name" : "Material",
+			"type" : "Constructor",
+			"desc" : "Material class constructor",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Optional string id for direct loading of a material"
+				}
+			]
+		},
+		{
+			"name" : "set",
+			"type" : "nil",
+			"desc" : "Sets the material (loads from MaterialLibrary class)",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Material id specified in *.mat file"
+				}
+			]
+		},
+		{
+			"name" : "setValue",
+			"type" : "nil",
+			"desc" : "Sets the specified value of the material / shader. Type: Integer",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Value identifier"
+				},
+				{
+					"name" : "value",
+					"type" : "Integer",
+					"desc" : "Value to set"
+				}
+			]
+		},
+		{
+			"name" : "setValue",
+			"type" : "nil",
+			"desc" : "Sets the specified value of the material / shader. Type: Double",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Value identifier"
+				},
+				{
+					"name" : "value",
+					"type" : "Double",
+					"desc" : "Value to set"
+				}
+			]
+		},
+		{
+			"name" : "setValue",
+			"type" : "nil",
+			"desc" : "Sets the specified value of the material / shader. Type: Vector3",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Value identifier"
+				},
+				{
+					"name" : "x",
+					"type" : "Double",
+					"desc" : "First value of 3-dimensional Vector"
+				},
+				{
+					"name" : "y",
+					"type" : "Double",
+					"desc" : "Second value of 3-dimensional Vector"
+				},
+				{
+					"name" : "z",
+					"type" : "Double",
+					"desc" : "Third value of 3-dimensional Vector"
+				}
+			]
+		},
+		{
+			"name" : "setValue",
+			"type" : "nil",
+			"desc" : "Sets the specified value of the material / shader. Type: Vector4",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Value identifier"
+				},
+				{
+					"name" : "x",
+					"type" : "Double",
+					"desc" : "First value of 4-dimensional Vector"
+				},
+				{
+					"name" : "y",
+					"type" : "Double",
+					"desc" : "Second value of 4-dimensional Vector"
+				},
+				{
+					"name" : "z",
+					"type" : "Double",
+					"desc" : "Third value of 4-dimensional Vector"
+				},
+				{
+					"name" : "w",
+					"type" : "Double",
+					"desc" : "Fourth value of 4-dimensional Vector"
+				}
+			]
+		},
+		{
+			"name" : "setValue",
+			"type" : "nil",
+			"desc" : "Sets the specified value of the material / shader. Type: Texture",
+			"params" : [
+				{
+					"name" : "id",
+					"type" : "String",
+					"desc" : "Value identifier"
+				},
+				{
+					"name" : "value",
+					"type" : "String",
+					"desc" : "Texture to assign (id from *.mat file)"
+				}
+			]
+		}
+	]
+}

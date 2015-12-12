@@ -2,6 +2,8 @@
 
 A Game Engine written in C++11 with an embedded Lua interpreter.
 
+The project was used in the German science competition "Jugend forscht" 2014.
+
 ## Features:
 
 - Bullet physics
@@ -128,8 +130,29 @@ materials = {
 		textured = 1,
 		_texture = "lightmap"
 	},
-	...
+	[...]
 ```
+
+### Engine configuration
+
+The Engine is configured using the engine.properties file.
+This file is in a similar file format to java's properties files and
+decides how and what the engine should run.
+The window size and other internal properties can be set.
+Important for the scripting is that you have to set the path of the current project
+inside this file. Otherwise the engine will try to load the predefined project.
+
+Example config:
+```ruby
+# Context settings
+width = 1920
+height = 1080
+fullscreen = 0
+
+# Project file
+project = demos/physics/bullet.vproj
+```
+
 
 ## 2. Tech-Demos
 

@@ -1,0 +1,42 @@
+{
+	"name" : "Mesh",
+	"desc" : "A class representing a 3D-Polygon-Object",
+	"methods" : [
+		{
+			"name" : "load",
+			"type" : "nil",
+			"desc" : "Loads a mesh from path",
+			"params" : [
+				{
+					"name" : "path",
+					"type" : "String",
+					"desc" : "Path to a Wavefront OBJ Object"
+				}
+			]
+		},
+		{
+			"name" : "loadCube",
+			"type" : "nil",
+			"desc" : "Creates / loads a cube",
+			"params" : [
+				{
+					"name" : "radius",
+					"type" : "Float",
+					"desc" : "Radius of the cube"
+				}
+			]
+		},
+		{
+			"name" : "loadPlane",
+			"type" : "nil",
+			"desc" : "Creates / loads a plane",
+			"params" : [
+				{
+					"name" : "radius",
+					"type" : "Float",
+					"desc" : "Radius of the plane"
+				}
+			]
+		}
+	]
+}
