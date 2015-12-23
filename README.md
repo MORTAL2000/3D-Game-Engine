@@ -32,7 +32,7 @@ You can generate one by using the Frontend-Editor - FrontEd.
 	|-- sounds
 	`-- project.vproj
 
-The project file (*.vproj) points to the script to be started at the beginning. An example project file
+Also a project file (*.vproj) is needed. An example project file
 could look like this:
 ```lua
 project = {
@@ -83,7 +83,7 @@ function Sky:render()
 end
 ```
 
-Other script can be imported / included using the 'include'-function.
+Other scripts can be imported / included using the 'include'-function.
 ```lua
 include("scripts/your/file/here.lua")
 ```
