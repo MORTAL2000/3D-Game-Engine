@@ -2,7 +2,7 @@
 
 A Game Engine written in C++11 with an embedded Lua interpreter.
 
-The project was used in the German science competition "Jugend forscht" 2014.
+The project was used in the German science competition "Jugend forscht" 2015.
 
 ## Features:
 
