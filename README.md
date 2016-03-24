@@ -17,7 +17,7 @@ The project was used in the german science competition "Jugend forscht" 2015.
 
 ### Project structure
 
-A project consists of a toplevel directory with the projects name and subfolders for the contents.
+A project consists of a toplevel directory with the project's name and subfolders for the contents.
 You can generate one by using the Frontend-Editor - FrontEd.
 
 	project
@@ -45,7 +45,8 @@ The name attribute is shown in the window title, the script is the initial scrip
 
 ### Scripting
 
-The main script has three different function for you to use. Below is a basic file shown.
+The main script has three different functions for you to use:
+onInit, onUpdate and onDraw.
 
 ```lua
 scene = Scene()
@@ -63,12 +64,12 @@ function onDraw()
 end
 ```
 
-The scene variable lets you access the whole scene and modify it. For example you can add an object in the onInit method(),
+The scene variable lets you access the whole scene and modify it. For example you can add an object in the onInit method,
 save it in a global variable and move it in update by applying a force on it. Vectors are represented by a table e.g. {1,3,5} -
 a three-dimensional vector with x=1, y=3, z=5.
 
 If you want to declare your own class, you can use the method class().
-The constructor is declared by the __init() method.
+The constructor is declared by using the __init() method.
 Example:
 
 ```lua
