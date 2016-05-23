@@ -26,8 +26,7 @@ Engine::Engine() : wireframe(false), postProcess(false), lockCursor(false),
     frame(0.0), renderTime(0.0), processingTime(0.0)
 {}
 
-void Engine::load(const vector<string>& args)
-{
+void Engine::load(const vector<string>& args) {
 	LuaAPI::getInstance().initialize();
 
     string font1 = Property("font1");
@@ -81,13 +80,11 @@ void Engine::load(const vector<string>& args)
 	wireframe = Property("wireframe");
 	lockCursor = Property("lockCursor");
 
-    if(lockCursor)
-    {
+    if(lockCursor) {
         Context::getInstance().setCursorVisibility(false);
     }
 
-    if(postProcess)
-    {
+    if(postProcess) {
         composer.load(camera);
     }
 
@@ -163,13 +160,11 @@ void Engine::load(const vector<string>& args)
 	Console::log("Main: Finished, creating context...");
 }
 
-void Engine::update()
-{
+void Engine::update() {
 	m_physics.step();
 	if(hasUpdateFunc) script.runFunction("onUpdate");
 
-	if(camera.getFlightMode())
-	{
+	if(camera.getFlightMode()) {
 		if(actionListener['W']) camera.move(FilmCamera::FORWARD);
 		if(actionListener['S']) camera.move(FilmCamera::BACKWARD);
 		if(actionListener['A']) camera.move(FilmCamera::STRAFE_LEFT);
@@ -181,8 +176,7 @@ void Engine::update()
 	}
 
     // Escape
-	if(actionListener[256])
-	{
+	if(actionListener[256]) {
 		close();
 	}
 
@@ -190,8 +184,7 @@ void Engine::update()
     gl::update(camera.getProjectionMatrix() * camera.getViewMatrix());
 }
 
-void Engine::render()
-{
+void Engine::render() {
 	update();
 
 	glEnable(GL_CULL_FACE);
@@ -211,16 +204,14 @@ void Engine::render()
 	fps = FPSManager::getInstance().tick();
 }
 
-void Engine::clear()
-{
+void Engine::clear() {
     AudioEngine::getInstance().free();
     m_physics.finalize();
     MaterialLibrary::getInstance().free();
     LuaAPI::getInstance().finalize();
 }
 
-void Engine::renderGeometry()
-{
+void Engine::renderGeometry() {
 	composer.bind();
 	if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -236,14 +227,12 @@ void Engine::renderGeometry()
 	composer.unbind();
 }
 
-void Engine::renderTexture()
-{
+void Engine::renderTexture() {
 	if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	composer.render();
 }
 
-void Engine::renderDebug()
-{
+void Engine::renderDebug() {
     size_t dc = Context::getInstance().getDrawCalls();
 
     glDisable(GL_CULL_FACE);
@@ -256,22 +245,18 @@ void Engine::renderDebug()
     glDisable(GL_BLEND);
 }
 
-void Engine::onKeyInput(int key, int scancode, int action, int mods)
-{
+void Engine::onKeyInput(int key, int scancode, int action, int mods) {
 	actionListener[key] = action;
 }
 
-void Engine::onCharInput(unsigned int character)
-{
+void Engine::onCharInput(unsigned int character) {
     // TODO: Some gui code here for in-game GUIs
 }
 
-void Engine::onMouseMovement(double x, double y)
-{
+void Engine::onMouseMovement(double x, double y) {
 	m_mouse.position = vec2(x,y);
 
-	if(camera.getFlightMode())
-	{
+	if(camera.getFlightMode()) {
 		camera.rotate(x, y);
         Context::getInstance().centerCursor();
 	}
@@ -279,43 +264,35 @@ void Engine::onMouseMovement(double x, double y)
     m_mouse.last_position = m_mouse.position;
 }
 
-void Engine::onMouseButton(int button, int action, int mods)
-{
+void Engine::onMouseButton(int button, int action, int mods) {
 	m_mouse.action = action;
 	m_mouse.button = button;
 }
 
-void Engine::onResize(int width, int height)
-{
+void Engine::onResize(int width, int height) {
 	m_dimension = vec2(width, height);
 }
 
-FilmCamera* Engine::getDefaultCamera()
-{
+FilmCamera* Engine::getDefaultCamera() {
 	return &camera;
 }
 
-SceneNode* Engine::getScene()
-{
+SceneNode* Engine::getScene() {
 	return &scene;
 }
 
-PostComposer* Engine::getComposer()
-{
+PostComposer* Engine::getComposer() {
 	return &composer;
 }
 
-ActionListener* Engine::getActionListener()
-{
+ActionListener* Engine::getActionListener() {
 	return &actionListener;
 }
 
-BulletPhysicsEngine* Engine::getPhysicsEngine()
-{
+BulletPhysicsEngine* Engine::getPhysicsEngine() {
 	return &m_physics;
 }
 
-Mouse* Engine::getMouse()
-{
+Mouse* Engine::getMouse() {
 	return &m_mouse;
 }

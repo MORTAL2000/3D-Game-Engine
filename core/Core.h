@@ -28,8 +28,7 @@
 using std::string;
 using std::vector;
 
-class Core
-{
+class Core {
 public:
 	Core();
 

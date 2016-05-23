@@ -48,34 +48,31 @@ public:
 	Shader(const string&, const string&, bool);
 	~Shader();
 
-	/* Use */
 	bool load(string, string);
-	bool loadRaw(string, string);
+	bool loadRaw(const char*, const char*);
 
 	void bind();
 	void unbind();
 	bool isCompiled();
 
-	/* float */
+	// float
 	void valuef(const char*, float);
 	void vec2f(const char*, float, float);
 	void vec3f(const char*, float, float, float);
 	void vec4f(const char*, float, float, float, float);
 
-	/* int */
+	// int
 	void valuei(const char*, int);
 	void vec2i(const char*, int, int);
 	void vec3i(const char*, int, int, int);
 	void vec4i(const char*, int, int, int, int);
 
-	/* glm */
+	// glm
 	void vec2f(const char*, vec2);
 	void vec3f(const char*, vec3);
 	void vec4f(const char*, vec4);
 	void mat3x3(const char*, mat3);
 	void mat4x4(const char*, mat4);
-
-	/* get shader attributes */
 	int getAttribute(const char*);
 };
 

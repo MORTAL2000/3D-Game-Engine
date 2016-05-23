@@ -32,7 +32,6 @@ LIBS := $(GLFW) $(GLEW) -lopengl32 $(LUA) $(BULLET) $(FREETYPE) -lstdc++ $(STDLI
 # Flags
 CXXFLAGS := -Wall -Wextra -Wunreachable-code -Winline -Wcast-align -static -static-libgcc -static-libstdc++ -O2
 LDFLAGS := -std=c++11 -DGLEW_STATIC -DBUILD_$(BUILD_TYPE)
-DEL_FILE = rm -f
 
 # Definitions
 all: $(MODULE)

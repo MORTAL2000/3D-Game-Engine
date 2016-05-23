@@ -49,7 +49,7 @@ namespace Tokenizer
 	string getFileExtension(const string& name)
 	{
 		auto found = name.find_last_of(".");
-		if(found == (unsigned)-1) return string();
+		if(found == (unsigned)-1) return "";
 		return name.substr(found+1);
 	}
 

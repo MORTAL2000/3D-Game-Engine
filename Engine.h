@@ -52,8 +52,7 @@
 using std::string;
 using std::vector;
 
-class Engine : public Core
-{
+class Engine : public Core {
 public:
 	Engine();
 

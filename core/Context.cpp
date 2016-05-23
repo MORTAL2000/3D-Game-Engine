@@ -20,8 +20,7 @@
 Context::Context() : m_height(720), m_width(1280), m_window(0), m_core(0) {}
 
 // Global Context instance
-Context& Context::getInstance()
-{
+Context& Context::getInstance() {
 	static Context instance;
 	return instance;
 }
@@ -33,15 +32,12 @@ Context& Context::getInstance()
  * @param properties The file to parse to get creation properties
  * @param silent Disable warning / error and info messages
  */
-bool Context::load(const string& title, const string& properties, bool silent)
-{
+bool Context::load(const string& title, const string& properties, bool silent) {
 	Console::setActive(!silent);
-	try
-	{
+	try {
 		initialize(title, properties);
 	}
-	catch(Exception& e)
-	{
+	catch(Exception& e) {
 		Console::log("A fatal exception was encountered");
 		Console::log("%s", e.getMessage().c_str());
 		glfwTerminate();
@@ -57,8 +53,7 @@ bool Context::load(const string& title, const string& properties, bool silent)
  * @param title The title for the created window
  * @param properties The file to parse to get creation properties
  */
-void Context::initialize(const string& title, const string& properties)
-{
+void Context::initialize(const string& title, const string& properties) {
 	// load properties file
 	if(!PropertyParser::getInstance().load(properties)) throw Exception("Property file not available");
 
@@ -99,8 +94,7 @@ void Context::initialize(const string& title, const string& properties)
 
 #if defined(__WINDOWS_API__) || defined(__LINUX_API__)
 	glewExperimental = true;
-	if(glewInit() != GLEW_OK)
-	{
+	if(glewInit() != GLEW_OK) {
 		glfwDestroyWindow(m_window);
 		throw Exception("GLEW initialization failed");
 	}
@@ -124,10 +118,8 @@ void Context::initialize(const string& title, const string& properties)
  * Runs the specified core
  * @param core The core to run
  */
-void Context::run(Core* core, const vector<string>& args)
-{
-	if(core == 0)
-	{
+void Context::run(Core* core, const vector<string>& args) {
+	if(core == 0) {
 		if(m_window) glfwDestroyWindow(m_window);
 		throw Exception("Core is a nullpointer");
 	}
@@ -136,14 +128,12 @@ void Context::run(Core* core, const vector<string>& args)
 	m_core->setViewport(0, 0, m_width, m_height);
 	m_core->run(args);
 
-	while(m_core->isRunning())
-	{
+	while(m_core->isRunning()) {
 		m_core->render();
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 
-		if(glfwWindowShouldClose(m_window))
-		{
+		if(glfwWindowShouldClose(m_window)) {
 			m_core->close();
 		}
 
@@ -158,8 +148,7 @@ void Context::run(Core* core, const vector<string>& args)
 /**
  * <<Experimental>>
  */
-void Context::changeCore(Core* core, const vector<string>& args)
-{
+void Context::changeCore(Core* core, const vector<string>& args) {
 	Core* origin = m_core;
 	origin->close();
 
@@ -180,79 +169,65 @@ void Context::changeCore(Core* core, const vector<string>& args)
 	m_core->setRunning(true);
 }
 
-float Context::getWidth()
-{
+float Context::getWidth() {
 	return m_width;
 }
 
-float Context::getHeight()
-{
+float Context::getHeight() {
 	return m_height;
 }
 
-vec2 Context::getDimension()
-{
+vec2 Context::getDimension() {
 	return vec2(m_width, m_height);
 }
 
-vec2 Context::getWindowSize()
-{
+vec2 Context::getWindowSize() {
 	int w, h;
 	glfwGetWindowSize(m_window, &w, &h);
 	return vec2(w, h);
 }
 
-vec2 Context::getFramebufferSize()
-{
+vec2 Context::getFramebufferSize() {
 	int display_w, display_h;
 	glfwGetFramebufferSize(m_window, &display_w, &display_h);
 	return vec2(display_w, display_h);
 }
 
-void Context::setCursorPosition(const vec2& position)
-{
+void Context::setCursorPosition(const vec2& position) {
 	glfwSetCursorPos(m_window, position.x, position.y);
 }
 
-vec2 Context::getCursorPosition()
-{
+vec2 Context::getCursorPosition() {
 	double mouse_x, mouse_y;
 	glfwGetCursorPos(m_window, &mouse_x, &mouse_y);
 	return vec2(mouse_x, mouse_y);
 }
 
-void Context::setCursorVisibility(bool status)
-{
+void Context::setCursorVisibility(bool status) {
 	glfwSetInputMode(m_window, GLFW_CURSOR, status ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
-void Context::centerCursor()
-{
+void Context::centerCursor() {
 	glfwSetCursorPos(m_window, m_width * 0.5, m_height * 0.5);
 }
 
-void Context::updateTitle(const string& title)
-{
+void Context::updateTitle(const string& title) {
 	glfwSetWindowTitle(m_window, title.c_str());
 }
 
-void Context::setClipboardContent(const string& content)
-{
+void Context::setClipboardContent(const string& content) {
 	glfwSetClipboardString(m_window, content.c_str());
 }
 
-string Context::getClipboardContent()
-{
+string Context::getClipboardContent() {
 	return string(glfwGetClipboardString(m_window));
 }
 
-void Context::swapBuffers()
-{
+void Context::swapBuffers() {
 	glfwSwapBuffers(m_window);
 }
 
-void Context::takeScreenshot(const string& filename)
-{
+void Context::takeScreenshot(const string& filename) {
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	int w = getWidth();
 	int h = getHeight();
@@ -271,73 +246,60 @@ void Context::takeScreenshot(const string& filename)
 	Console::log("Saved file as %s", filename.c_str());
 }
 
-
-void Context::addDrawCall()
-{
+void Context::addDrawCall() {
 	m_drawCalls++;
 }
 
-size_t Context::getDrawCalls()
-{
+size_t Context::getDrawCalls() {
 	return m_drawCalls;
 }
 
-Core* Context::getCore()
-{
+Core* Context::getCore() {
 	return m_core;
 }
 
-GLFWwindow* Context::getWindow()
-{
+GLFWwindow* Context::getWindow() {
 	return m_window;
 }
 
 // physical key callback
-void Context::onKeyInput(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
+void Context::onKeyInput(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	getInstance().m_core->onKeyInput(key, scancode, action, mods);
 }
 
 // virtual key callback
-void Context::onCharInput(GLFWwindow* window, unsigned int codepoint)
-{
+void Context::onCharInput(GLFWwindow* window, unsigned int codepoint) {
 	getInstance().m_core->onCharInput(codepoint);
 }
 
 // mouse movement callback
-void Context::onMouseMovement(GLFWwindow* window, double x, double y)
-{
+void Context::onMouseMovement(GLFWwindow* window, double x, double y) {
 	getInstance().m_core->onMouseMovement(x, y);
 }
 
 // mouse button action callback
-void Context::onMouseButton(GLFWwindow* window, int button, int action, int mods)
-{
+void Context::onMouseButton(GLFWwindow* window, int button, int action, int mods) {
 	getInstance().m_core->onMouseButton(button, action, mods);
 }
 
-void Context::onScroll(GLFWwindow* window, double xOffset, double yOffset)
-{
+void Context::onScroll(GLFWwindow* window, double xOffset, double yOffset) {
 	getInstance().m_core->onScroll(xOffset, yOffset);
 }
 
 // window resize callback
-void Context::onResize(GLFWwindow* window, int width, int height)
-{
+void Context::onResize(GLFWwindow* window, int width, int height) {
 	getInstance().m_core->onResize(width, height);
 }
 
 // glfw error callback
-void Context::getErrorGLFW(int error, const char* description)
-{
+void Context::getErrorGLFW(int error, const char* description) {
 	Console::log("%d: %s", error, description);
 }
 
 /**
  * Test the validity of the created OpenGL context
  */
-void Context::testOpenGL()
-{
+void Context::testOpenGL() {
 	int major, minor, profile;
 	glGetIntegerv(GL_MAJOR_VERSION, &major);
 	glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -351,7 +313,6 @@ void Context::testOpenGL()
 	Console::logif(!checkGL(), "An error occurred determining the fwcc support");
 }
 
-bool Context::checkGL()
-{
+bool Context::checkGL() {
 	return glGetError() == GL_NO_ERROR;
 }

@@ -20,96 +20,37 @@
 Shader::Shader() : compiled(false) {}
 
 Shader::Shader(const string& vertex, const string& fragment, bool raw = false) : compiled(false) {
-	if(!raw) load(vertex, fragment);
-	else loadRaw(vertex, fragment);
+	if(!raw) {
+		load(vertex, fragment);
+	}
+	else {
+		loadRaw(vertex.c_str(), fragment.c_str());
+	}
 }
 
-Shader::~Shader()
-{
+Shader::~Shader() {
 	if(compiled) destroy();
 }
 
 // Private methods
-void Shader::printLog(unsigned int shaderId)
-{
-	int len = 0;
-	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &len);
-	if(len > 0)
-	{
-		char* log = new char[len];
-		int out = 0;
-		glGetShaderInfoLog(shaderId, len, &out, log);
-		string msg = string(log) == string() ? "Unknown" : string(log);
-		delete[] log;
-		Console::log("Error : \n%s\n", msg.c_str());
+void Shader::printLog(unsigned int shaderId) {
+	int msg_len = 0;
+	int out = 0;
+	char* log_msg;
+
+	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &msg_len);
+	if(msg_len > 0) {
+		log_msg = new char[msg_len];
+		glGetShaderInfoLog(shaderId, msg_len, &out, log_msg);
+		Console::log("Error: \n'%s'\n", log_msg);
+		delete[] log_msg;
 	}
-	else
-	{
+	else {
 		Console::log("Unknown error");
 	}
 }
 
-void Shader::include(string& reference, string sourceFilename)
-{
-	std::vector<string> lines = Tokenizer::parseLines(reference);
-	if(lines.size() > 0)
-	{
-		string temp, directory = Tokenizer::getDirectory(sourceFilename, true);
-		for(size_t i = 0; i < lines.size(); i++)
-		{
-			if(lines[i].substr(0, strlen("#include")) == "#include")
-			{
-				vector<string> tokens = Tokenizer::tokenize(lines[i], ' ');
-
-				/* Read sub file */
-				if(tokens.size() > 1)
-				{
-					string newPath = directory + tokens[1];
-
-					string content;
-					if(!FileReader::read(newPath, content))
-					{
-						Console::log("Error reading included file");
-						continue;
-					}
-					vector<string> sub_lines = Tokenizer::parseLines(content);
-					if(sub_lines.size() == 0)
-					{
-						Console::log("Error reading referenced file / file is invalid");
-						continue;
-					}
-
-					for(size_t t = 0; t < sub_lines.size(); t++)
-					{
-						temp += sub_lines[t] + "\n";
-						Console::log("%s", sub_lines[t].c_str());
-					}
-					temp += "\n";
-				}
-				else
-				{
-					Console::log("Include directive without a path");
-					continue;
-				}
-
-			}
-			else
-			{
-				temp += lines[i];
-				if(i != lines.size()-1) temp += "\n";
-			}
-		}
-
-		reference = temp;
-	}
-	else
-	{
-		Console::log("Included / referenced file is invalid");
-	}
-}
-
-void Shader::destroy()
-{
+void Shader::destroy() {
 	glDetachShader(shader, fsh);
 	glDetachShader(shader, vsh);
 
@@ -122,33 +63,25 @@ void Shader::destroy()
 // Public methods
 
 // loads a vertex and a fragment shader into the program
-bool Shader::load(string vshFilename, string fshFilename)
-{
+bool Shader::load(string vshFilename, string fshFilename) {
 	this->vshFilename = vshFilename;
 	this->fshFilename = fshFilename;
 	string vshSource, fshSource;
 
-	if(!FileReader::read(vshFilename, vshSource))
-	{
+	if(!FileReader::read(vshFilename, vshSource)) {
 		Console::log("File is invalid [%s]", vshFilename.c_str());
 		return false;
 	}
-	if(!FileReader::read(fshFilename, fshSource))
-	{
+	if(!FileReader::read(fshFilename, fshSource)) {
 		Console::log("File is invalid [%s]", fshFilename.c_str());
 		return false;
 	}
 
-	include(vshSource, vshFilename);
-	include(fshSource, fshFilename);
-
-	return loadRaw(vshSource, fshSource);
+	return loadRaw(vshSource.c_str(), fshSource.c_str());
 }
 
-bool Shader::loadRaw(string vertex, string fragment)
-{
-	if(!glCreateShader)
-	{
+bool Shader::loadRaw(const char* vertex_src, const char* fragment_src) {
+	if(!glCreateShader) {
 		Console::log("Shaders are not supported on your graphics card");
 		return false;
 	}
@@ -157,19 +90,18 @@ bool Shader::loadRaw(string vertex, string fragment)
 	vsh = glCreateShader(GL_VERTEX_SHADER);
 	fsh = glCreateShader(GL_FRAGMENT_SHADER);
 
-	const char* vshs = vertex.c_str();
-	const char* fshs = fragment.c_str();
-	glShaderSource(vsh, 1, &vshs, 0);
-	glShaderSource(fsh, 1, &fshs, 0);
+	glShaderSource(vsh, 1, &vertex_src, 0);
+	glShaderSource(fsh, 1, &fragment_src, 0);
 
-	/* compile shaders */
+	// Compile the shaders
  	auto compile = 0;
 	glCompileShader(vsh);
 	glGetShaderiv(vsh, GL_COMPILE_STATUS, &compile);
-	if(!compile)
-	{
-		if(vshFilename != string())
+	if(!compile) {
+		if(!vshFilename.empty()) {
 			Console::log("Compilation error [%s]", vshFilename.c_str());
+		}
+
 		printLog(vsh);
 		glDeleteShader(vsh);
 		return false;
@@ -177,17 +109,18 @@ bool Shader::loadRaw(string vertex, string fragment)
 
 	glCompileShader(fsh);
 	glGetShaderiv(fsh, GL_COMPILE_STATUS, &compile);
-	if(!compile)
-	{
-		if(fshFilename != string())
+	if(!compile) {
+		if(!fshFilename.empty()) {
 			Console::log("Compilation error [%s]", fshFilename.c_str());
+		}
+
 		printLog(fsh);
 		glDeleteShader(vsh);
 		glDeleteShader(fsh);
 		return false;
 	}
 
-	/* create program and link */
+	// Create program and link
 	shader = glCreateProgram();
 	glAttachShader(shader, fsh);
 	glAttachShader(shader, vsh);
@@ -195,24 +128,20 @@ bool Shader::loadRaw(string vertex, string fragment)
 	return (compiled = true);
 }
 
-void Shader::bind()
-{
+void Shader::bind() {
 	if(compiled) glUseProgram(shader);
 }
 
-void Shader::unbind()
-{
+void Shader::unbind() {
 	glUseProgram(0);
 }
 
-bool Shader::isCompiled()
-{
+bool Shader::isCompiled() {
 	return compiled;
 }
 
 // uniform pass: float
-void Shader::valuef(const char* var, float value)
-{
+void Shader::valuef(const char* var, float value) {
 	glUniform1f(glGetUniformLocation(shader, var), value);
 }
 

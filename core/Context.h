@@ -35,8 +35,7 @@ using std::vector;
 
 // Context class handles OpenGL context
 // and window creation. Also loads a properties file.
-class Context
-{
+class Context {
 public:
 	static Context& getInstance();
 
