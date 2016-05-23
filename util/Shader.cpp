@@ -66,14 +66,16 @@ void Shader::destroy() {
 bool Shader::load(string vshFilename, string fshFilename) {
 	this->vshFilename = vshFilename;
 	this->fshFilename = fshFilename;
-	string vshSource, fshSource;
 
-	if(!FileReader::read(vshFilename, vshSource)) {
-		Console::log("File is invalid [%s]", vshFilename.c_str());
+	string vshSource = FileReader::read(vshFilename);
+	if(vshSource.empty()) {
+		Console::log("File is invalid /empty [%s]", vshFilename.c_str());
 		return false;
 	}
-	if(!FileReader::read(fshFilename, fshSource)) {
-		Console::log("File is invalid [%s]", fshFilename.c_str());
+
+	string fshSource = FileReader::read(fshFilename);
+	if(fshSource.empty()) {
+		Console::log("File is invalid /empty [%s]", fshFilename.c_str());
 		return false;
 	}
 

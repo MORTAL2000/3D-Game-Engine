@@ -26,10 +26,8 @@
 #include <core/FileIO.h>
 #include <core/StringUtils.h>
 #include <core/Tokenizer.h>
-#include <core/Package.h>
 
-class Project
-{
+class Project {
 public:
 	Project();
 	~Project();
@@ -54,32 +52,23 @@ public:
 	bool save(const std::string& path, bool empty);
 
 	/**
-	 * 	Exports the game as packaged runtime
-	 */
-	void exportAsRuntime();
-
-	/**
 	 *	Returns the validity of the project
 	 */
 	bool isValid();
 
-	std::string getTitle()
-	{
+	std::string getTitle() {
 		return m_title;
 	}
 
-	std::string getScript()
-	{
+	std::string getScript() {
 		return m_script;
 	}
 
-	std::string getProjectFile()
-	{
+	std::string getProjectFile() {
 		return m_project_file;
 	}
 
-	std::string getPath()
-	{
+	std::string getPath() {
 		return Tokenizer::getDirectory(m_project_file, false);
 	}
 private:

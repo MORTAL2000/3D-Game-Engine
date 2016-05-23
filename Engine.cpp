@@ -94,54 +94,13 @@ void Engine::load(const vector<string>& args) {
     Project project;
 
     // load project from argument 1
-	if(args.size() == 1)
-	{
+	if(args.size() == 1) {
         project.load(args[0]);
         FileIO::setCurrentDirectory(Tokenizer::getDirectory(args[0]));
 	}
-    else if(args.size() == 2)
-    {
-        // export current project as package file
-        if(args[0] == "-e")
-        {
-            Console::log("Main: Exporting as package...");
-            string temp = Property("project");
-            project_file = temp;
-            project.load(project_file);
-            FileIO::setCurrentDirectory(Tokenizer::getDirectory(project_file));
-            project.exportAsRuntime();
-            Console::log("Done.");
-        }
-        // load a package from argument 1
-        else if(args[0] == "-p")
-        {
-            FileReader::setPackage(args[1]);
-            Console::log("Main: Loading package: %s", args[1].c_str());
-
-            vector<string> contents;
-            auto error = Package::get_files(args[1], contents);
-            if(error)
-            {
-                Console::log("Main: Package: %s", Package::getErrorString(error).c_str());
-            }
-
-            for(auto c : contents)
-            {
-                if(Tokenizer::getFileExtension(c) == "vproj")
-                {
-                    project_file = c;
-                }
-            }
-
-            project.load(project_file);
-        }
-    }
-    // load project from properties file
-	else
-	{
+	else {
 		string temp = Property("project");
 		project_file = temp;
-
         project.load(project_file);
         FileIO::setCurrentDirectory(Tokenizer::getDirectory(project_file));
 	}

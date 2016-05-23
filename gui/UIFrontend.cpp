@@ -420,14 +420,6 @@ void UIFrontend::render()
 			show_tech_demos = true;
 		}
 		ImGui::SameLine();
-		if(ImGui::Button("Export as Package"))
-		{
-			if(proj.isValid())
-			{
-				proj.exportAsRuntime();
-			}
-		}
-		ImGui::SameLine();
 		if(ImGui::Button("Screenshot"))
 		{
 			screenshot = true;

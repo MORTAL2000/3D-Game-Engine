@@ -68,7 +68,7 @@ public:
 	void onResize(int, int);
 
 	FilmCamera* getDefaultCamera();
- 	SceneNode* getScene();
+	SceneNode* getScene();
 
 	PostComposer* getComposer();
 	ActionListener* getActionListener();

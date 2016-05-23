@@ -101,10 +101,8 @@ std::vector<std::string> getFilesInDirectory(const std::string& path)
 	std::vector<std::string> files;
 	struct dirent* ent;
 	DIR* dir = opendir(path.c_str());
-	if(dir)
-	{
-		while((ent = readdir(dir)))
-		{
+	if(dir) {
+		while((ent = readdir(dir))) {
 			std::string curr(ent->d_name);
 			if(curr == "." || curr == "..") continue;
 			files.push_back(curr);

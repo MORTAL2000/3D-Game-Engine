@@ -23,8 +23,7 @@
 #include <string>
 using std::string;
 
-class Exception
-{
+class Exception {
 public:
 	Exception(const string&);
 	const string getMessage();

@@ -19,14 +19,12 @@
 
 ObjLoader::ObjLoader() {}
 
-ObjLoader& ObjLoader::getInstance()
-{
+ObjLoader& ObjLoader::getInstance() {
 	static ObjLoader instance;
 	return instance;
 }
 
-int ObjLoader::loadSingleObject(const string& filename, int index, Obj& object)
-{
+int ObjLoader::loadSingleObject(const string& filename, int index, Obj& object) {
 	vector<Obj> objects;
 	if(!load(filename, objects)) return 0;
 	if(index > objects.size()-1 || index < 0) return 0;
@@ -34,17 +32,14 @@ int ObjLoader::loadSingleObject(const string& filename, int index, Obj& object)
 	return 1;
 }
 
-int ObjLoader::load(const string& filename, vector<Obj>& objects)
-{
-	if(Tokenizer::getFileExtension(filename) != "obj")
-	{
+int ObjLoader::load(const string& filename, vector<Obj>& objects) {
+	if(Tokenizer::getFileExtension(filename) != "obj") {
 		Console::log("Requested file is invalid or not and OBJ file : %s", filename.c_str());
 		return 0;
 	}
 
-	vector<string> lines;
-	if(!FileReader::readLines(filename, lines))
-	{
+	vector<string> lines = FileReader::readLines(filename);
+	if(lines.empty()) {
 		Console::log("Error loading OBJ from : %s", filename.c_str());
 		return 0;
 	}
@@ -322,18 +317,15 @@ int ObjLoader::load(const string& filename, vector<Obj>& objects)
 	return 1;
 }
 
-int ObjLoader::loadMtl(const string& filename, vector<Mtl>& materials)
-{
-	vector<string> lines;
-	if(!FileReader::readLines(filename, lines))
-	{
+int ObjLoader::loadMtl(const string& filename, vector<Mtl>& materials) {
+	vector<string> lines = FileReader::readLines(filename);
+	if(lines.empty()) {
 		Console::log("Error loading MTL from %s", filename.c_str());
 		return 0;
 	}
 
 	Mtl* current_mtl = 0;
-	for(size_t i = 0; i < lines.size(); i++)
-	{
+	for(size_t i = 0; i < lines.size(); i++) {
 		vector<string> tokens = Tokenizer::tokenize(lines[i], ' ');
 		if(tokens.size() == 0 || tokens[0] == "#") continue;
 

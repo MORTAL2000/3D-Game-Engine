@@ -17,30 +17,21 @@
 
 #include "PropertyParser.h"
 
-PropertyParser::PropertyParser()
-{
+PropertyParser::PropertyParser() {
 	m_cache["width"] = "1280";
 	m_cache["height"] = "720";
 	m_cache["hideCursor"] = "1";
 }
 
-PropertyParser& PropertyParser::getInstance()
-{
+PropertyParser& PropertyParser::getInstance() {
 	static PropertyParser instance;
 	return instance;
 }
 
-bool PropertyParser::load(const string& filename)
-{
-	vector<string> lines;
-	if(!FileReader::readLines(filename, lines))
-	{
-		Console::log("Error reading file %s", filename.c_str());
-		return false;
-	}
+bool PropertyParser::load(const string& filename) {
+	vector<string> lines = FileReader::readLines(filename);
 
-	for(size_t i = 0; i < lines.size(); i++)
-	{
+	for(size_t i = 0; i < lines.size(); i++) {
 		size_t comment = lines[i].find('#');
 		if(comment != string::npos) lines[i].erase(comment);
 		if(lines[i].size() == 0) continue;
@@ -54,30 +45,25 @@ bool PropertyParser::load(const string& filename)
 }
 
 // access methods
-void PropertyParser::getProperty(const string& key, bool& value)
-{
+void PropertyParser::getProperty(const string& key, bool& value) {
 	int v;
 	sscanf(m_cache[key].c_str(), "%i", &v);
 	value = (v > 0);
 }
 
-void PropertyParser::getProperty(const string& key, float& value)
-{
+void PropertyParser::getProperty(const string& key, float& value) {
 	sscanf(m_cache[key].c_str(), "%f", &value);
 }
 
-void PropertyParser::getProperty(const string& key, int& value)
-{
+void PropertyParser::getProperty(const string& key, int& value) {
 	sscanf(m_cache[key].c_str(), "%i", &value);
 }
 
-void PropertyParser::getProperty(const string& key, string& value)
-{
+void PropertyParser::getProperty(const string& key, string& value) {
 	value = m_cache[key];
 }
 
-void PropertyParser::printCache()
-{
+void PropertyParser::printCache() {
 	Console::log("------ Properties ------");
 	for(PropertiesCache::iterator it = m_cache.begin(); it != m_cache.end(); it++)
 	Console::log("%s = %s", it->first.c_str(), it->second.c_str());

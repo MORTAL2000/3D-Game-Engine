@@ -19,7 +19,6 @@
 
 Exception::Exception(const string& message) : m_message(message) {}
 
-const string Exception::getMessage()
-{
+const string Exception::getMessage() {
 	return m_message;
 }

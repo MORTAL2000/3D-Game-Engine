@@ -20,20 +20,14 @@
 
 Project::Project() : m_title(""), m_script(""), m_valid(false) {}
 
-Project::~Project()
-{
+Project::~Project() {}
 
-}
-
-void Project::create(const std::string& title)
-{
+void Project::create(const std::string& title) {
 	m_title = title;
 }
 
-bool Project::load(const std::string& filename)
-{
-	if(Tokenizer::getFileExtension(filename) != "vproj")
-	{
+bool Project::load(const std::string& filename) {
+	if(Tokenizer::getFileExtension(filename) != "vproj") {
 		return false;
 	}
 
@@ -42,17 +36,14 @@ bool Project::load(const std::string& filename)
 	m_script = script.get<std::string>("project.script");
 	script.close();
 	m_project_file = filename;
-
 	return (m_valid = true);
 }
 
-bool Project::save(const std::string& path)
-{
+bool Project::save(const std::string& path) {
 	save(path, false);
 }
 
-bool Project::save(const std::string& path, bool empty)
-{
+bool Project::save(const std::string& path, bool empty) {
 	std::string vproj = StringUtils::simplify(m_title);
 	std::string folder = path + "/" + vproj;
 
@@ -75,8 +66,7 @@ bool Project::save(const std::string& path, bool empty)
 	fprintf(file, "}\n");
 	fclose(file);
 
-	if(!empty)
-	{
+	if(!empty) {
 		// create script (*.lua) file
 		std::string script_file = folder + "/scripts/main.lua";
 		file = fopen(script_file.c_str(), "wb");
@@ -112,25 +102,6 @@ bool Project::save(const std::string& path, bool empty)
 	return true;
 }
 
-void Project::exportAsRuntime()
-{
-	if(FileReader::usesPackage())
-	{
-		Console::log("Already exported");
-		return;
-	}
-
-	string cwd = FileIO::getCurrentDirectory();
-	FileIO::setCurrentDirectory("../");
-	Package::compress(cwd);
-	FileIO::setCurrentDirectory(cwd);
-
-//	string folder = Tokenizer::getDirectory(m_project_file);
-//	Console::log("\"../%s\"", folder.c_str());
-	//Package::compress("\"../game\"", StringUtils::simplify(m_title)+".pkg");
-}
-
-bool Project::isValid()
-{
+bool Project::isValid() {
 	return m_valid;
 }

@@ -25,13 +25,11 @@
 
 LuaAPI::LuaAPI() : m_lua(0) {}
 
-LuaAPI::~LuaAPI()
-{
+LuaAPI::~LuaAPI() {
 	finalize();
 }
 
-LuaAPI& LuaAPI::getInstance()
-{
+LuaAPI& LuaAPI::getInstance() {
 	static LuaAPI instance;
 	return instance;
 }
@@ -241,11 +239,8 @@ void lua_class()
 static int lua_include(lua_State* lua)
 {
 	std::string file = std::string(lua_tostring(lua, -1));
-	std::string source;
-	if(!FileReader::read(file, source))
-	{
-		return 0;
-	}
+	std::string source = FileReader::read(file);
+	if(source.empty()) return 0;
 	LuaAPI::getInstance().runCommand(source);
 	return 0;
 }
